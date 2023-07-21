@@ -1,4 +1,4 @@
-export interface Edge {
+export interface MetricEdge {
   source: string;
   target: string;
   style?: {
@@ -9,4 +9,4 @@ export interface Edge {
   };
 }
 
-export type EdgeType = "strongRelated" | "weakRelated";
+export type MetricEdgeType = "strongRelated" | "weakRelated";

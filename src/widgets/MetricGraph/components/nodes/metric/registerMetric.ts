@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
 import Graphin from "@antv/graphin";
-import { METRIC_TYPE, MetricConfig } from "../..";
+import { METRIC_TYPE } from "../..";
 import { drawMetricContainer } from "./draw/drawMetricContainer";
 import { drawDomainFlag } from "./draw/drawDomainFlag";
 import { drawHeading } from "./draw/drawHeading";
@@ -13,6 +13,7 @@ import { drawExpandIcon } from "./draw/drawExpandIcon";
 import { drawValue } from "./draw/drawValue";
 import { drawTrend } from "./draw/drawTrend";
 import { getTextWidth } from "./draw/utils/getTextWidth";
+import { MetricConfig } from "./types";
 
 export const registerMetric = () => {
   Graphin.registerNode(METRIC_TYPE, {

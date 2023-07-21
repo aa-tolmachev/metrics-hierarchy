@@ -1,10 +1,10 @@
-import { EdgeType } from "./types";
+import { MetricEdgeType } from "./types";
 
 /**
  * Returns style part of the Edge object.
- * @param {EdgeType} type - type of the edge
+ * @param {MetricEdgeType} type - type of the edge
  */
-export const getEdgeStyle = (type?: EdgeType) => {
+export const getEdgeStyle = (type?: MetricEdgeType) => {
   switch (type) {
     case "weakRelated":
       return {

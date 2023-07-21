@@ -1,5 +1,6 @@
 import { ModelConfig } from "@antv/g6";
 import { METRIC_TYPE } from "../..";
+import { IUserNode } from "@antv/graphin";
 
 export type MetricDomain =
   | "finance"
@@ -11,16 +12,21 @@ export type MetricDomain =
 
 type MetricState = "toDo" | "inProgress" | "done";
 
-export interface MetricConfig extends ModelConfig {
+interface MetricProperties {
   name: string;
   owner: string;
   metricDomain: MetricDomain;
   state: MetricState;
-  type: typeof METRIC_TYPE;
   size?: number[];
   value: number;
   trend: {
     trend: "up" | "down";
     value: number;
   };
+}
+
+export type MetricConfig = Omit<ModelConfig, "size"> & MetricProperties;
+
+export interface MetricNode extends IUserNode, MetricProperties {
+  type: typeof METRIC_TYPE;
 }
