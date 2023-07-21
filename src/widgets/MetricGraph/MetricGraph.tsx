@@ -22,7 +22,7 @@ interface MetricGraphProps {
 export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
   registerMetric();
 
-  const [data, setData] = useState<{
+  const [data] = useState<{
     nodes: MetricNode[];
     edges: MetricEdge[];
   }>({
