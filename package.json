@@ -2,7 +2,7 @@
   "name": "metrics-frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://aa-tolmachev.github.io/metrics-hierarchy",
+  "homepage": "https://aa-tolmachev.github.io/metrics-hierarchy/",
   "type": "module",
   "scripts": {
     "dev": "vite",
