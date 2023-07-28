@@ -1,4 +1,4 @@
-import { MetricConfig } from "../types";
+import { MetricConfig } from "../../../../../../core/types/metric";
 
 export type DrawFunction = (config: MetricConfig, group: any) => any;
 

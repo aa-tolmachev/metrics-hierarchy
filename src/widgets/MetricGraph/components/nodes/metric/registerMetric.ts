@@ -13,7 +13,7 @@ import { drawExpandIcon } from "./draw/drawExpandIcon";
 import { drawValue } from "./draw/drawValue";
 import { drawTrend } from "./draw/drawTrend";
 import { getTextWidth } from "./draw/utils/getTextWidth";
-import { MetricConfig } from "./types";
+import { MetricConfig } from "../../../../../core/types/metric";
 
 export const registerMetric = () => {
   Graphin.registerNode(METRIC_TYPE, {

@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import { MetricConfig } from "../MetricGraph/components/nodes/metric/types";
+import { MetricConfig } from "../../core/types/metric";
 import { FC } from "react";
 import { Heading } from "../../components/Heading/Heading";
 

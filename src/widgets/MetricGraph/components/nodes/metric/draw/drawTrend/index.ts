@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { MetricConfig } from "../../types";
+import { MetricConfig } from "../../../../../../../core/types/metric";
 import { drawTrendIcon } from "./drawTrendIcon";
 import { drawTrendValue } from "./drawTrendValue";
 

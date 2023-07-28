@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { MetricConfig } from "../../types";
+import { MetricConfig } from "../../../../../../../core/types/metric";
 import {
   CONTENT_X_OFFSET,
   DEFAULT_FONT_SIZE,

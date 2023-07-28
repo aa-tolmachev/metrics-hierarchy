@@ -6,14 +6,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import Graphin, { IG6GraphEvent } from "@antv/graphin";
-import { FC, useEffect, useRef, useState } from "react";
-import {
-  registerMetric,
-  MetricNode,
-  METRIC_TYPE,
-  getEdge,
-  MetricEdge,
-} from "./components";
+import { FC, useEffect, useRef } from "react";
+import { registerMetric } from "./components";
+import { MetricEdge, MetricNode } from "../../core/types/metric";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { serializeMetricGraph } from "../../store/reducers/metricGraphReducer";
+import { mapNode } from "./utils/mapNode";
+import { mapEdge } from "./utils/mapEdge";
+import { useGraphData } from "./utils/hooks/useGraphData/useGraphData";
 
 interface MetricGraphProps {
   onMetricClick: (e: IG6GraphEvent) => void;
@@ -22,76 +23,45 @@ interface MetricGraphProps {
 export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
   registerMetric();
 
-  const [data] = useState<{
-    nodes: MetricNode[];
-    edges: MetricEdge[];
-  }>({
-    nodes: [
-      {
-        id: "node-0",
-        name: "Metric",
-        x: 200,
-        y: 100,
-        metricDomain: "finance",
-        value: 10,
-        type: METRIC_TYPE,
-        trend: {
-          trend: "up",
-          value: 15,
-        },
-        owner: "test",
-        state: "done",
-      },
-      {
-        id: "node-1",
-        name: "Cool Metric",
-        x: 500,
-        y: 100,
-        metricDomain: "finance",
-        value: 1000,
-        type: METRIC_TYPE,
-        trend: {
-          trend: "up",
-          value: 150,
-        },
-        owner: "test",
-        state: "done",
-      },
-      {
-        id: "node-2",
-        name: "GREAT Metric",
-        x: 500,
-        y: 300,
-        metricDomain: "finance",
-        value: 10000,
-        type: METRIC_TYPE,
-        trend: {
-          trend: "up",
-          value: 1500,
-        },
-        owner: "test",
-        state: "done",
-      },
-    ],
-    edges: [
-      getEdge("node-0", "node-1"),
-      getEdge("node-1", "node-2", "weakRelated"),
-    ],
-  });
+  const data = useGraphData();
 
   const graphRef = useRef<Graphin>(null);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (!graphRef.current) return;
 
     const { graph } = graphRef.current;
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+
     graph.on("node:click", onMetricClick);
 
     return () => {
       graph.off("node:click", onMetricClick);
     };
-  }, [onMetricClick]);
+  }, [dispatch, onMetricClick]);
+
+  useEffect(() => {
+    window.addEventListener("click", () => {
+      if (!graphRef.current) return;
+
+      const { graph } = graphRef.current;
+      const nodes = graph
+        .getNodes()
+        .map(mapNode)
+        .filter((node) => !!node) as MetricNode[];
+      const edges = graph
+        .getEdges()
+        .map(mapEdge)
+        .filter((edge) => !!edge) as MetricEdge[];
+
+      debugger;
+
+      dispatch(serializeMetricGraph({ graph: { nodes, edges } }));
+    });
+  }, [dispatch]);
 
   return (
     <Graphin

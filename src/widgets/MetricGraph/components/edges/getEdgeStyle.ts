@@ -1,4 +1,4 @@
-import { MetricEdgeType } from "./types";
+import { MetricEdgeType } from "../../../../core/types/metric";
 
 /**
  * Returns style part of the Edge object.

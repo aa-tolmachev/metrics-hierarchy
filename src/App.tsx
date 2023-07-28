@@ -3,7 +3,9 @@ import { MetricGraph } from "./widgets/MetricGraph/MetricGraph";
 import { useCallback, useState } from "react";
 import { IG6GraphEvent } from "@antv/graphin";
 import { MetricModal } from "./widgets/MetricModal/MetricModal";
-import { MetricConfig } from "./widgets/MetricGraph/components/nodes/metric/types";
+import { MetricConfig } from "./core/types/metric";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 function App() {
   const [chosenMetric, setChosenMetric] = useState<MetricConfig>();
@@ -18,12 +20,12 @@ function App() {
   const onCancel = () => setChosenMetric(undefined);
 
   return (
-    <>
+    <Provider store={store}>
       <MetricGraph onMetricClick={onMetricClick} />
       {chosenMetric && (
         <MetricModal metric={chosenMetric} onCancel={onCancel} />
       )}
-    </>
+    </Provider>
   );
 }
 
