@@ -1,8 +1,8 @@
 import { INode } from "@antv/g6";
 import { MetricNode } from "../components";
 
-export const mapNode = (node: INode): MetricNode | undefined => {
-  const { _cfg } = node;
+export const mapNode = (value: INode): MetricNode | undefined => {
+  const { _cfg } = value;
   if (!_cfg) return undefined;
   const matrix = _cfg.group?.cfg.totalMatrix as number[] | undefined;
   if (!matrix) return undefined;

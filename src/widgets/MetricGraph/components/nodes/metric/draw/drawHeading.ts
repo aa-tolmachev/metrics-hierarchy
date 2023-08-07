@@ -11,11 +11,10 @@ import {
   CONTENT_X_OFFSET,
   HEADING_LINE_HEIGHT,
 } from "./constants";
-import { DrawFunction, GetAttrsFunction } from "./types";
-import { getInitialCoords } from "./utils/getInitialCoords";
+import { DrawFunctionFull, GetAttrsFunctionFull } from "./types";
 
-const getAttrs: GetAttrsFunction = (config) => {
-  const { initialX, initialY } = getInitialCoords(config);
+const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
+  const { x: initialX, y: initialY } = initialCoords;
 
   const x = initialX + CONTENT_X_OFFSET;
   const y = initialY + HEADING_Y_OFFSET;
@@ -31,8 +30,8 @@ const getAttrs: GetAttrsFunction = (config) => {
   };
 };
 
-export const drawHeading: DrawFunction = (config, group) => {
-  const attrs = getAttrs(config);
+export const drawHeading: DrawFunctionFull = (config, initialCoords, group) => {
+  const attrs = getAttrs(config, initialCoords);
   return group.addShape("text", {
     attrs,
     name: "heading",

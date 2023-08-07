@@ -5,14 +5,12 @@
 
 import {
   CONTENT_X_OFFSET,
-  DEFAULT_FONT_SIZE,
-  DEFAULT_FONT_WEIGHT,
-  DEFAULT_LINE_HEIGHT,
-  TREND_ICON_MARGIN_RIGHT,
-  TREND_ICON_SIZE,
-  TREND_VALUE_COLOR,
-  VALUES_TEXT_Y_OFFSET,
-  VALUE_MARGIN_RIGHT,
+  OWNER_MARGIN_RIGHT,
+  OWNER_PADDING,
+  OWNER_STATE_Y_OFFSET,
+  SMALL_LINE_HEIGHT,
+  STATE_BORDER_COLOR,
+  STATE_BORDER_RADIUS,
 } from "../constants";
 import { DrawFunctionFull, GetAttrsFunctionFull } from "../types";
 import { getTextWidth } from "../../../../../../../utils/getTextWidth";
@@ -21,37 +19,41 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
 
   const context = group.cfg.canvas.cfg.context as CanvasRenderingContext2D;
-  const valueWidth = getTextWidth(context, config.value.toString());
+  const ownerWidth = getTextWidth(context, config.owner.toString());
+
   const x =
     initialX +
     CONTENT_X_OFFSET +
-    valueWidth +
-    VALUE_MARGIN_RIGHT +
-    TREND_ICON_SIZE +
-    TREND_ICON_MARGIN_RIGHT;
+    OWNER_PADDING.left +
+    ownerWidth +
+    OWNER_PADDING.right +
+    OWNER_MARGIN_RIGHT;
+  const y = initialY + OWNER_STATE_Y_OFFSET;
 
-  const y = initialY + VALUES_TEXT_Y_OFFSET;
+  const stateWidth = getTextWidth(context, config.state.toString());
+
+  const width = OWNER_PADDING.left + stateWidth + OWNER_PADDING.right;
+  const height = OWNER_PADDING.top + SMALL_LINE_HEIGHT + OWNER_PADDING.bottom;
 
   return {
-    text: `${config.trend.value}%`,
     x,
     y,
-    fill: TREND_VALUE_COLOR,
-    fontSize: DEFAULT_FONT_SIZE,
-    fontWeight: DEFAULT_FONT_WEIGHT,
-    lineHeight: DEFAULT_LINE_HEIGHT,
+    width,
+    height,
+    radius: STATE_BORDER_RADIUS,
+    stroke: STATE_BORDER_COLOR,
   };
 };
 
-export const drawTrendValue: DrawFunctionFull = (
+export const drawStateBadge: DrawFunctionFull = (
   config,
   initialCoords,
   group
 ) => {
   const attrs = getAttrs(config, initialCoords, group);
-  return group.addShape("text", {
+  return group.addShape("rect", {
     attrs,
-    name: "trendValue",
+    name: "stateBadge",
     draggable: true,
   });
 };

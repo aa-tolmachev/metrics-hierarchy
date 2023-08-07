@@ -4,19 +4,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { DrawFunction, GetAttrsFunction } from "./types";
+import { DrawFunctionFull, GetAttrsFunctionFull } from "./types";
 import {
   CONTAINER_HEIGHT,
   DOMAIN_FLAG_COLORS,
   DOMAIN_FLAG_WIDTH,
 } from "./constants";
-import { getInitialCoords } from "./utils/getInitialCoords";
 
-const getAttrs: GetAttrsFunction = (config) => {
+const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
   const configSize = config.size;
   const height = configSize ? configSize[1] : CONTAINER_HEIGHT;
 
-  const { initialX: x, initialY: y } = getInitialCoords(config);
+  const { x, y } = initialCoords;
 
   const fill = DOMAIN_FLAG_COLORS[config.metricDomain];
 
@@ -30,8 +29,12 @@ const getAttrs: GetAttrsFunction = (config) => {
   };
 };
 
-export const drawDomainFlag: DrawFunction = (config, group) => {
-  const attrs = getAttrs(config);
+export const drawDomainFlag: DrawFunctionFull = (
+  config,
+  initialCoords,
+  group
+) => {
+  const attrs = getAttrs(config, initialCoords);
   return group.addShape("rect", {
     attrs,
     name: "domainFlag",

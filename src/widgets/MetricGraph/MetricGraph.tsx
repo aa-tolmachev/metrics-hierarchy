@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -34,17 +33,17 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
 
     const { graph } = graphRef.current;
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-
     graph.on("node:click", onMetricClick);
+    graph.on("node:touchstart", onMetricClick);
 
     return () => {
       graph.off("node:click", onMetricClick);
+      graph.off("node:touchstart", onMetricClick);
     };
   }, [dispatch, onMetricClick]);
 
   useEffect(() => {
-    window.addEventListener("click", () => {
+    const saveGraph = () => {
       if (!graphRef.current) return;
 
       const { graph } = graphRef.current;
@@ -57,10 +56,11 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
         .map(mapEdge)
         .filter((edge) => !!edge) as MetricEdge[];
 
-      debugger;
-
       dispatch(serializeMetricGraph({ graph: { nodes, edges } }));
-    });
+    };
+
+    window.addEventListener("click", saveGraph);
+    window.addEventListener("touchend", saveGraph);
   }, [dispatch]);
 
   return (

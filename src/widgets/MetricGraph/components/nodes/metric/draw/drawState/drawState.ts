@@ -5,10 +5,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import { DrawFunctionFull } from "../types";
-import { drawTrendIcon } from "./drawTrendIcon";
-import { drawTrendValue } from "./drawTrendValue";
+import { drawStateBadge } from "./drawStateBadge";
+import { drawStateName } from "./drawStateName";
 
-export const drawTrend: DrawFunctionFull = (config, initialCoords, group) => ({
-  icon: drawTrendIcon(config, initialCoords, group),
-  value: drawTrendValue(config, initialCoords, group),
-});
+export const drawState: DrawFunctionFull = (config, initialCoords, group) => {
+  const badge = drawStateBadge(config, initialCoords, group);
+  const name = drawStateName(config, initialCoords, group);
+  return { badge, name };
+};

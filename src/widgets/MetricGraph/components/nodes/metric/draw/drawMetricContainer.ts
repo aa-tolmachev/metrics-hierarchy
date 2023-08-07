@@ -6,7 +6,7 @@
 import {
   CONTAINER_WIDTH,
   CONTAINER_HEIGHT,
-  CONTAINER_COLOR,
+  CONTAINER_BACKGROUND,
 } from "./constants";
 import { DrawFunction, GetAttrsFunction } from "./types";
 
@@ -21,7 +21,7 @@ const getAttrs: GetAttrsFunction = (config) => {
     y: height / 2,
     width,
     height,
-    fill: CONTAINER_COLOR,
+    fill: CONTAINER_BACKGROUND,
     radius: 4,
   };
 };

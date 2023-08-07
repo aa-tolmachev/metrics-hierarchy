@@ -2,10 +2,10 @@ import "normalize.css";
 import { MetricGraph } from "./widgets/MetricGraph/MetricGraph";
 import { useCallback, useState } from "react";
 import { IG6GraphEvent } from "@antv/graphin";
-import { MetricModal } from "./widgets/MetricModal/MetricModal";
 import { MetricConfig } from "./core/types/metric";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import { FullMetric } from "./widgets/FullMetric/FullMetric";
 
 function App() {
   const [chosenMetric, setChosenMetric] = useState<MetricConfig>();
@@ -21,10 +21,18 @@ function App() {
 
   return (
     <Provider store={store}>
-      <MetricGraph onMetricClick={onMetricClick} />
-      {chosenMetric && (
-        <MetricModal metric={chosenMetric} onCancel={onCancel} />
-      )}
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+        }}
+      >
+        {chosenMetric && (
+          <FullMetric metric={chosenMetric} onCancel={onCancel} />
+        )}
+        <MetricGraph onMetricClick={onMetricClick} />
+      </div>
     </Provider>
   );
 }

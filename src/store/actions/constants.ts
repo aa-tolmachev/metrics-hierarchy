@@ -15,7 +15,7 @@ export const MOCK_GRAPH: MetricGraph = {
         trend: "up",
         value: 15,
       },
-      owner: "test",
+      owner: "Tester",
       state: "done",
     },
     {
@@ -30,7 +30,7 @@ export const MOCK_GRAPH: MetricGraph = {
         trend: "up",
         value: 150,
       },
-      owner: "test",
+      owner: "Alexey",
       state: "done",
     },
     {
