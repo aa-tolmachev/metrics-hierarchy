@@ -62,6 +62,7 @@ export const OWNER_STATE_Y_OFFSET = VALUES_TEXT_Y_OFFSET + VALUES_MARGIN_BOTTOM;
 export const OWNER_BACKGROUND = "#FF4444";
 export const OWNER_PADDING = { top: 0, right: 6, bottom: 2, left: 10 };
 export const OWNER_NAME_COLOR = "#FFFFFF";
+export const OWNER_NAME_MAX_LENGTH = 11;
 export const OWNER_MARGIN_RIGHT = 8;
 
 export const STATE_PADDING = {

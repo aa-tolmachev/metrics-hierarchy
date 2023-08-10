@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
+import { cutText } from "../../../../../../../utils/cutText";
 import {
   CONTENT_X_OFFSET,
   OWNER_NAME_COLOR,
@@ -12,18 +13,20 @@ import {
   SMALL_LINE_HEIGHT,
   OWNER_PADDING,
   OWNER_STATE_Y_OFFSET,
+  OWNER_NAME_MAX_LENGTH,
 } from "../constants";
 import { DrawFunctionFull, GetAttrsFunctionFull } from "../types";
 
 const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
   const { x: initialX, y: initialY } = initialCoords;
 
+  const text = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
   const x = initialX + CONTENT_X_OFFSET + OWNER_PADDING.left;
   const y =
     initialY + OWNER_STATE_Y_OFFSET + SMALL_LINE_HEIGHT + OWNER_PADDING.top;
 
   return {
-    text: config.owner,
+    text,
     x,
     y,
     fill: OWNER_NAME_COLOR,

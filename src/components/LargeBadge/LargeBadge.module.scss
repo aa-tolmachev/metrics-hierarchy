@@ -1,0 +1,10 @@
+@use "../../styles/colors/textColors";
+
+.badge {
+  padding: 4px 16px;
+  border-radius: 8px;
+
+  .text {
+    color: textColors.$text-secondary;
+  }
+}

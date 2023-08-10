@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
+import { cutText } from "../../../../../../../utils/cutText";
 import { getTextWidth } from "../../../../../../../utils/getTextWidth";
 import {
   CONTENT_X_OFFSET,
@@ -15,6 +16,7 @@ import {
   SMALL_FONT_WEIGHT,
   SMALL_LINE_HEIGHT,
   OWNER_PADDING,
+  OWNER_NAME_MAX_LENGTH,
 } from "../constants";
 import { GetAttrsFunctionFull, DrawFunctionFull } from "../types";
 
@@ -22,13 +24,14 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
 
   const context = group.cfg.canvas.cfg.context as CanvasRenderingContext2D;
-  const nameWidth = getTextWidth(context, config.owner.toString());
+  const ownerName = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
+  const ownerWidth = getTextWidth(context, ownerName);
 
   const x =
     initialX +
     CONTENT_X_OFFSET +
     OWNER_PADDING.left +
-    nameWidth +
+    ownerWidth +
     OWNER_PADDING.right +
     OWNER_MARGIN_RIGHT +
     STATE_PADDING.left;

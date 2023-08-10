@@ -5,7 +5,10 @@ export const MOCK_GRAPH: MetricGraph = {
   nodes: [
     {
       id: "node-0",
-      name: "Metric",
+      name: "Отток клиентов, прошедших через КЦ",
+      description:
+        "Стоимость обработки кейса = (процент времени на обработку кейса линии Х от всего времени линии Х * стоимость всего времени линии Х) + (процент времени на обработку кейса линии У * стоимость времени линии У) / количество кейсов",
+      shortName: "Contact Rate",
       x: 200,
       y: 100,
       metricDomain: "finance",
@@ -15,7 +18,8 @@ export const MOCK_GRAPH: MetricGraph = {
         trend: "up",
         value: 15,
       },
-      owner: "Tester",
+      owner: "XXXXXXXXXXXXXX",
+      analyst: "Peter Nikitin",
       state: "done",
     },
     {
@@ -31,6 +35,7 @@ export const MOCK_GRAPH: MetricGraph = {
         value: 150,
       },
       owner: "Alexey",
+      analyst: "Ivan Ivanov",
       state: "done",
     },
     {
@@ -46,6 +51,7 @@ export const MOCK_GRAPH: MetricGraph = {
         value: 1500,
       },
       owner: "test",
+      analyst: "Dmitry",
       state: "done",
     },
   ],

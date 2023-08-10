@@ -6,12 +6,14 @@
 import {
   CONTENT_X_OFFSET,
   OWNER_BACKGROUND,
+  OWNER_NAME_MAX_LENGTH,
   OWNER_PADDING,
   OWNER_STATE_Y_OFFSET,
   SMALL_LINE_HEIGHT,
 } from "../constants";
 import { DrawFunctionFull, GetAttrsFunctionFull } from "../types";
 import { getTextWidth } from "../../../../../../../utils/getTextWidth";
+import { cutText } from "../../../../../../../utils/cutText";
 
 const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
@@ -20,7 +22,8 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const y = initialY + OWNER_STATE_Y_OFFSET;
 
   const context = group.cfg.canvas.cfg.context as CanvasRenderingContext2D;
-  const nameWidth = getTextWidth(context, config.owner.toString());
+  const text = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
+  const nameWidth = getTextWidth(context, text);
   const width = OWNER_PADDING.left + nameWidth + OWNER_PADDING.right;
   const height = OWNER_PADDING.top + SMALL_LINE_HEIGHT + OWNER_PADDING.bottom;
 

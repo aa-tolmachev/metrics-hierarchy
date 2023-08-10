@@ -6,6 +6,7 @@
 import {
   CONTENT_X_OFFSET,
   OWNER_MARGIN_RIGHT,
+  OWNER_NAME_MAX_LENGTH,
   OWNER_PADDING,
   OWNER_STATE_Y_OFFSET,
   SMALL_LINE_HEIGHT,
@@ -14,12 +15,14 @@ import {
 } from "../constants";
 import { DrawFunctionFull, GetAttrsFunctionFull } from "../types";
 import { getTextWidth } from "../../../../../../../utils/getTextWidth";
+import { cutText } from "../../../../../../../utils/cutText";
 
 const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
 
   const context = group.cfg.canvas.cfg.context as CanvasRenderingContext2D;
-  const ownerWidth = getTextWidth(context, config.owner.toString());
+  const ownerName = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
+  const ownerWidth = getTextWidth(context, ownerName);
 
   const x =
     initialX +

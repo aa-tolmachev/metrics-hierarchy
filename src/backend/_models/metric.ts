@@ -10,7 +10,10 @@ export type MetricState = "toDo" | "inProgress" | "done";
 
 export interface Metric {
   name: string;
+  shortName?: string;
+  description?: string;
   owner: string;
+  analyst: string;
   metricDomain: MetricDomain;
   state: MetricState;
   size?: number[];
