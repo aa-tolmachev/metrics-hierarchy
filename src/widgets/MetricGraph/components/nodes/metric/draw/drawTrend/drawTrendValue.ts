@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import {
   CONTENT_X_OFFSET,
   DEFAULT_FONT_SIZE,
@@ -20,7 +15,7 @@ import { getTextWidth } from "../../../../../../../utils/getTextWidth";
 const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
 
-  const context = group.cfg.canvas.cfg.context as CanvasRenderingContext2D;
+  const context = group!.cfg.canvas.cfg.context;
   const valueWidth = getTextWidth(context, config.value.toString());
   const x =
     initialX +
@@ -49,6 +44,7 @@ export const drawTrendValue: DrawFunctionFull = (
   group
 ) => {
   const attrs = getAttrs(config, initialCoords, group);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
   return group.addShape("text", {
     attrs,
     name: "trendValue",

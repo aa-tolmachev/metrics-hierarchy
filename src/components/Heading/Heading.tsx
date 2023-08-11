@@ -13,6 +13,7 @@ export const Heading: FC<HeadingProps> = ({ modal = false, ...props }) => {
   const headingClassName = cx(
     className,
     { [styles.h1]: level === 1 },
+    { [styles.h2]: level === 2 },
     { [styles.modal]: modal }
   );
 

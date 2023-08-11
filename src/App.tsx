@@ -2,10 +2,10 @@ import "normalize.css";
 import { MetricGraph } from "./widgets/MetricGraph/MetricGraph";
 import { useCallback, useState } from "react";
 import { IG6GraphEvent } from "@antv/graphin";
-import { MetricConfig } from "./core/types/metric";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { FullMetric } from "./widgets/FullMetric/FullMetric";
+import { MetricConfig } from "./core/frontend/types/metric";
 
 function App() {
   const [chosenMetric, setChosenMetric] = useState<MetricConfig>();

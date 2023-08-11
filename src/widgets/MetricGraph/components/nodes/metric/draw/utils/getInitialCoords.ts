@@ -1,4 +1,4 @@
-import { MetricConfig } from "../../../../../../../core/types/metric";
+import { MetricConfig } from "../../../../../../../core/frontend/types/metric";
 import { CONTAINER_WIDTH, CONTAINER_HEIGHT } from "../constants";
 import { Coords } from "../types";
 

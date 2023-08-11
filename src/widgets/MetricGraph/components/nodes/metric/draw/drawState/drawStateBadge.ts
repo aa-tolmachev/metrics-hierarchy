@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import {
   CONTENT_X_OFFSET,
   OWNER_MARGIN_RIGHT,
@@ -20,7 +15,7 @@ import { cutText } from "../../../../../../../utils/cutText";
 const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
 
-  const context = group.cfg.canvas.cfg.context as CanvasRenderingContext2D;
+  const context = group!.cfg.canvas.cfg.context;
   const ownerName = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
   const ownerWidth = getTextWidth(context, ownerName);
 
@@ -54,6 +49,7 @@ export const drawStateBadge: DrawFunctionFull = (
   group
 ) => {
   const attrs = getAttrs(config, initialCoords, group);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
   return group.addShape("rect", {
     attrs,
     name: "stateBadge",

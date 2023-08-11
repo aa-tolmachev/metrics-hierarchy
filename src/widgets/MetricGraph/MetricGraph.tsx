@@ -1,19 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
-import Graphin, { IG6GraphEvent } from "@antv/graphin";
+import Graphin, { IG6GraphEvent, Behaviors } from "@antv/graphin";
 import { FC, useEffect, useRef } from "react";
-import { registerMetric } from "./components";
-import { MetricEdge, MetricNode } from "../../core/types/metric";
+import { MetricNode, registerMetric } from "./components";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { serializeMetricGraph } from "../../store/reducers/metricGraphReducer";
 import { mapNode } from "./utils/mapNode";
 import { mapEdge } from "./utils/mapEdge";
 import { useGraphData } from "./utils/hooks/useGraphData/useGraphData";
+import { MetricEdge } from "../../core/frontend/types/metric";
 
 interface MetricGraphProps {
   onMetricClick: (e: IG6GraphEvent) => void;
@@ -63,6 +57,8 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
     window.addEventListener("touchend", saveGraph);
   }, [dispatch]);
 
+  const { ActivateRelations } = Behaviors;
+
   return (
     <Graphin
       style={{
@@ -73,6 +69,8 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
       data={data}
       layout={{ type: "preset" }}
       ref={graphRef}
-    />
+    >
+      <ActivateRelations trigger="click" />
+    </Graphin>
   );
 };

@@ -1,15 +1,11 @@
 import { FC } from "react";
-import { MetricConfig } from "../../../core/types/metric";
 import styles from "./ShortInfo.module.scss";
 import { Space } from "antd";
 import { LargeBadge } from "../../../components/LargeBadge/LargeBadge";
 import { TextTooltip } from "../../../components/TextTooltip/TextTooltip";
+import { MetricSectionProps } from "../types";
 
-interface ShortInfoProps {
-  metric: MetricConfig;
-}
-
-export const ShortInfo: FC<ShortInfoProps> = ({ metric }) => {
+export const ShortInfo: FC<MetricSectionProps> = ({ metric }) => {
   const { shortName, metricDomain } = metric;
   return (
     <Space size={8} className={styles.shortInfo}>

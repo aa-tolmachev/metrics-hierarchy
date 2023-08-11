@@ -1,4 +1,7 @@
-import { MetricEdgeType, MetricEdge } from "../../../../core/types/metric";
+import {
+  MetricEdgeType,
+  MetricEdge,
+} from "../../../../core/frontend/types/metric";
 import { getEdgeStyle } from "./getEdgeStyle";
 
 type GetEdge = (

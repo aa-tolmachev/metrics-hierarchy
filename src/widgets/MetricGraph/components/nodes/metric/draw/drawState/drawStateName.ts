@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import { cutText } from "../../../../../../../utils/cutText";
 import { getTextWidth } from "../../../../../../../utils/getTextWidth";
 import {
@@ -23,7 +17,7 @@ import { GetAttrsFunctionFull, DrawFunctionFull } from "../types";
 const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
 
-  const context = group.cfg.canvas.cfg.context as CanvasRenderingContext2D;
+  const context = group!.cfg.canvas.cfg.context;
   const ownerName = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
   const ownerWidth = getTextWidth(context, ownerName);
 
@@ -54,6 +48,7 @@ export const drawStateName: DrawFunctionFull = (
   group
 ) => {
   const attrs = getAttrs(config, initialCoords, group);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
   return group.addShape("text", {
     attrs,
     name: "stateName",

@@ -4,7 +4,7 @@ import {
   getMetricGraph,
   removeMetricGraph,
   setMetricGraph,
-} from "../../core/localStorage/metricGraph";
+} from "../../core/frontend/localStorage/metricGraph";
 import { MOCK_GRAPH } from "./constants";
 
 export const serializeMetricGraphAction = (

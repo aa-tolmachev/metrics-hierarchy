@@ -12,10 +12,10 @@ import { drawOwner } from "./drawOwner/drawOwner";
 import { drawState } from "./drawState/drawState";
 import { drawTrend } from "./drawTrend";
 import { drawValue } from "./drawValue";
-import { DrawFunctionFull } from "./types";
+import { DrawFunction } from "./types";
 import { getInitialCoords } from "./utils/getInitialCoords";
 
-export const draw: DrawFunctionFull = (config, group) => {
+export const draw: DrawFunction = (config, group) => {
   const keyshape = drawMetricContainer(config, group);
   const initialCoords = getInitialCoords(config);
   drawDomainFlag(config, initialCoords, group);

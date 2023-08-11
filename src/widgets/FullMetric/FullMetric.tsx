@@ -1,12 +1,13 @@
 import { FC } from "react";
-import { Button, Card, Space, Typography } from "antd";
+import { Button, Space, Typography } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import { MetricConfig } from "../../core/types/metric";
 import { Heading } from "../../components/Heading/Heading";
 import styles from "./FullMetric.module.scss";
 import { ShortInfo } from "./ShortInfo/ShortInfo";
-import { Line } from "@ant-design/charts";
-import { GRAPH_DATA_MOCK } from "./mocks";
+import { OwnerCards } from "./OwnerCards/OwnerCards";
+import { MetricConfig } from "../../core/frontend/types/metric";
+import { Scrollbar } from "react-scrollbars-custom";
+import { AnalyticSection } from "./AnalyticSection/AnalyticSection";
 
 interface FullMetricProps {
   metric: MetricConfig;
@@ -15,7 +16,7 @@ interface FullMetricProps {
 }
 
 export const FullMetric: FC<FullMetricProps> = ({ metric, onCancel }) => {
-  const { name, description, owner, analyst } = metric;
+  const { name, description } = metric;
   return (
     <aside className={styles.metric}>
       <Button
@@ -24,18 +25,17 @@ export const FullMetric: FC<FullMetricProps> = ({ metric, onCancel }) => {
         icon={<CloseOutlined />}
         onClick={onCancel}
       ></Button>
-      <Space className={styles.content} direction="vertical" size={16}>
-        <Heading className={styles.heading} level={1}>
-          {name}
-        </Heading>
-        <ShortInfo metric={metric} />
-        <Typography.Text>{description}</Typography.Text>
-        <Line data={GRAPH_DATA_MOCK} xField="x" yField="y" />
-        <Space className={styles.owners} size={16}>
-          <Card title="Стейкхолдер">{owner}</Card>
-          <Card title="Аналитик">{analyst}</Card>
+      <Scrollbar className={styles.content}>
+        <Space direction="vertical" size={16}>
+          <Heading className={styles.heading} level={1}>
+            {name}
+          </Heading>
+          <ShortInfo metric={metric} />
+          <Typography.Paragraph>{description}</Typography.Paragraph>
+          <OwnerCards metric={metric} />
+          <AnalyticSection metric={metric} />
         </Space>
-      </Space>
+      </Scrollbar>
     </aside>
   );
 };

@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import {
   CONTENT_X_OFFSET,
   DEFAULT_FONT_SIZE,
@@ -32,6 +27,7 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
 
 export const drawValue: DrawFunctionFull = (config, initialCoords, group) => {
   const attrs = getAttrs(config, initialCoords);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
   return group.addShape("text", {
     attrs,
     name: "value",

@@ -5,6 +5,15 @@ body,
   height: 100%;
 }
 
-h1 {
-  margin: 0;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+}
+
+div:where(.css-dev-only-do-not-override-1m62vyb).ant-typography {
+  margin-bottom: 0;
 }

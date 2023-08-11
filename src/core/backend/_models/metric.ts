@@ -22,4 +22,7 @@ export interface Metric {
     trend: "up" | "down";
     value: number;
   };
+  dataSource?: string;
+  link?: string;
+  requestExample?: string;
 }

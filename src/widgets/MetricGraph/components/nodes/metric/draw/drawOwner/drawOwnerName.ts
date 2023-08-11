@@ -1,9 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import { cutText } from "../../../../../../../utils/cutText";
 import {
   CONTENT_X_OFFSET,
@@ -42,6 +36,7 @@ export const drawOwnerName: DrawFunctionFull = (
   group
 ) => {
   const attrs = getAttrs(config, initialCoords);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
   return group.addShape("text", {
     attrs,
     name: "ownerName",

@@ -1,6 +1,6 @@
 import { ModelConfig } from "@antv/g6";
-import { METRIC_TYPE } from "../../widgets/MetricGraph/components";
 import { IUserEdge, IUserNode } from "@antv/graphin";
+import { METRIC_TYPE } from "../../../widgets/MetricGraph/components";
 import { Metric } from "../../backend/_models/metric";
 
 export type MetricConfig = Omit<ModelConfig, "size"> & Metric;

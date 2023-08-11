@@ -1,4 +1,4 @@
-import { MetricGraph } from "../../core/types/metric";
+import { MetricGraph } from "../../core/frontend/types/metric";
 import { METRIC_TYPE, getEdge } from "../../widgets/MetricGraph/components";
 
 export const MOCK_GRAPH: MetricGraph = {
@@ -21,6 +21,9 @@ export const MOCK_GRAPH: MetricGraph = {
       owner: "XXXXXXXXXXXXXX",
       analyst: "Peter Nikitin",
       state: "done",
+      link: "https://github.com/aa-tolmachev/metrics-hierarchy",
+      dataSource: "table users",
+      requestExample: "SELECT COUNT(DISTINCT Country) FROM Customers;",
     },
     {
       id: "node-1",

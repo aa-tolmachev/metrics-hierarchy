@@ -21,7 +21,7 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const x = initialX + CONTENT_X_OFFSET;
   const y = initialY + OWNER_STATE_Y_OFFSET;
 
-  const context = group.cfg.canvas.cfg.context as CanvasRenderingContext2D;
+  const context = group!.cfg.canvas.cfg.context;
   const text = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
   const nameWidth = getTextWidth(context, text);
   const width = OWNER_PADDING.left + nameWidth + OWNER_PADDING.right;
