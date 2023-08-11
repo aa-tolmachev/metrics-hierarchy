@@ -1,13 +1,13 @@
 import Graphin, { IG6GraphEvent, Behaviors } from "@antv/graphin";
 import { FC, useEffect, useRef } from "react";
-import { MetricNode, registerMetric } from "./components";
+import { registerMetric } from "./components";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
 import { serializeMetricGraph } from "../../store/reducers/metricGraphReducer";
 import { mapNode } from "./utils/mapNode";
 import { mapEdge } from "./utils/mapEdge";
 import { useGraphData } from "./utils/hooks/useGraphData/useGraphData";
-import { MetricEdge } from "../../core/frontend/types/metric";
+import { MetricEdge, MetricNode } from "../../core/frontend/types/metric";
 
 interface MetricGraphProps {
   onMetricClick: (e: IG6GraphEvent) => void;

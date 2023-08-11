@@ -1,5 +1,5 @@
 import { INode } from "@antv/g6";
-import { MetricNode } from "../components";
+import { MetricNode } from "../../../core/frontend/types/metric";
 
 export const mapNode = (value: INode): MetricNode | undefined => {
   const { _cfg } = value;
