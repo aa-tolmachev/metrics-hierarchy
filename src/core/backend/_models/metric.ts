@@ -9,6 +9,7 @@ export type MetricDomain =
 export type MetricState = "toDo" | "inProgress" | "done";
 
 export interface Metric {
+  id: string;
   name: string;
   shortName?: string;
   description?: string;
@@ -25,4 +26,7 @@ export interface Metric {
   dataSource?: string;
   link?: string;
   requestExample?: string;
+  vertical: string;
+  measurements: string;
+  granularity: string;
 }

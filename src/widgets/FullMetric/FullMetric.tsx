@@ -1,22 +1,23 @@
-import { FC } from "react";
 import { Button, Space, Typography } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import { Heading } from "../../components/Heading/Heading";
 import styles from "./FullMetric.module.scss";
 import { ShortInfo } from "./ShortInfo/ShortInfo";
 import { OwnerCards } from "./OwnerCards/OwnerCards";
-import { MetricConfig } from "../../core/frontend/types/metric";
 import { Scrollbar } from "react-scrollbars-custom";
 import { AnalyticSection } from "./AnalyticSection/AnalyticSection";
+import { AdditionalInfo } from "./AdditionalInfo/AdditionalInfo";
+import { useGetMetric } from "./utils/hooks/useGetMetric";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../routes/paths";
+import { Header } from "./Header/Header";
 
-interface FullMetricProps {
-  metric: MetricConfig;
+export const FullMetric = () => {
+  const metric = useGetMetric();
+  const { description } = metric;
 
-  onCancel: VoidFunction;
-}
+  const nav = useNavigate();
+  const onCancel = () => nav(PATH.metrics);
 
-export const FullMetric: FC<FullMetricProps> = ({ metric, onCancel }) => {
-  const { name, description } = metric;
   return (
     <aside className={styles.metric}>
       <Button
@@ -27,12 +28,11 @@ export const FullMetric: FC<FullMetricProps> = ({ metric, onCancel }) => {
       ></Button>
       <Scrollbar className={styles.content}>
         <Space direction="vertical" size={16}>
-          <Heading className={styles.heading} level={1}>
-            {name}
-          </Heading>
+          <Header metric={metric} />
           <ShortInfo metric={metric} />
           <Typography.Paragraph>{description}</Typography.Paragraph>
           <OwnerCards metric={metric} />
+          <AdditionalInfo metric={metric} />
           <AnalyticSection metric={metric} />
         </Space>
       </Scrollbar>

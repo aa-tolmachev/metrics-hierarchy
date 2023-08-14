@@ -1,0 +1,19 @@
+@use "../../../styles/colors/otherColors";
+
+.header {
+  .copy {
+    color: otherColors.$icon;
+    font-size: 30px;
+    line-height: 46px;
+    float: left;
+    margin-right: 4px;
+
+    &:hover {
+      color: otherColors.$icon-hover;
+    }
+  }
+
+  .heading {
+    margin-bottom: 0;
+  }
+}

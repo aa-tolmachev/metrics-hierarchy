@@ -24,6 +24,9 @@ export const MOCK_GRAPH: MetricGraph = {
       link: "https://github.com/aa-tolmachev/metrics-hierarchy",
       dataSource: "table users",
       requestExample: "SELECT COUNT(DISTINCT Country) FROM Customers;",
+      vertical: "Вертикаль",
+      measurements: "Измерения",
+      granularity: "Гранулярность",
     },
     {
       id: "node-1",
@@ -40,6 +43,9 @@ export const MOCK_GRAPH: MetricGraph = {
       owner: "Alexey",
       analyst: "Ivan Ivanov",
       state: "done",
+      vertical: "Вертикаль",
+      measurements: "Измерения",
+      granularity: "Гранулярность",
     },
     {
       id: "node-2",
@@ -56,6 +62,9 @@ export const MOCK_GRAPH: MetricGraph = {
       owner: "test",
       analyst: "Dmitry",
       state: "done",
+      vertical: "Вертикаль",
+      measurements: "Измерения",
+      granularity: "Гранулярность",
     },
   ],
   edges: [

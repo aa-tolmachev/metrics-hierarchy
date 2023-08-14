@@ -12,11 +12,11 @@ export const AnalyticSection: FC<MetricSectionProps> = ({ metric }) => {
   const { Item } = Descriptions;
 
   return (
-    <Space className={styles.section} size={16} direction="vertical">
+    <Space className={styles.section} size={20} direction="vertical">
       <Heading level={2}>Аналитика</Heading>
       <Descriptions
-        className={styles.info}
-        title="Информация о метрике"
+        className={styles.item}
+        title={<Heading level={3}>Информация о метрике</Heading>}
         column={1}
         bordered
       >
@@ -36,12 +36,10 @@ export const AnalyticSection: FC<MetricSectionProps> = ({ metric }) => {
           )}
         </Item>
       </Descriptions>
-      <Line
-        className={styles.dynamic}
-        data={GRAPH_DATA_MOCK}
-        xField="x"
-        yField="y"
-      />
+      <Space className={styles.item} size={20} direction="vertical">
+        <Heading level={3}>Значения метрики</Heading>
+        <Line data={GRAPH_DATA_MOCK} xField="x" yField="y" />
+      </Space>
     </Space>
   );
 };
