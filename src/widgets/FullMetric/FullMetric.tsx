@@ -1,4 +1,4 @@
-import { Button, Space, Typography } from "antd";
+import { Button, Space, Spin, Typography } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import styles from "./FullMetric.module.scss";
 import { ShortInfo } from "./ShortInfo/ShortInfo";
@@ -7,15 +7,19 @@ import { Scrollbar } from "react-scrollbars-custom";
 import { AnalyticSection } from "./AnalyticSection/AnalyticSection";
 import { AdditionalInfo } from "./AdditionalInfo/AdditionalInfo";
 import { useGetMetric } from "./utils/hooks/useGetMetric";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PATH } from "../../routes/paths";
 import { Header } from "./Header/Header";
 
 export const FullMetric = () => {
-  const metric = useGetMetric();
+  const { id } = useParams();
+  const nav = useNavigate();
+  const metric = useGetMetric(Number(id));
+
+  if (!metric) return <Spin />;
+
   const { description } = metric;
 
-  const nav = useNavigate();
   const onCancel = () => nav(PATH.metrics);
 
   return (

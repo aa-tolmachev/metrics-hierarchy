@@ -1,4 +1,4 @@
-import { MetricGraph } from "../../core/frontend/types/metric";
+import { MetricGraph } from "../../core/backend/_models/merticGraph/metricGraph";
 
 export interface MetricGraphReducerState {
   graph: MetricGraph | undefined;

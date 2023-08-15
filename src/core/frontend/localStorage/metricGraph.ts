@@ -1,8 +1,8 @@
-import { MetricGraph } from "../types/metric";
+import { MetricGraph } from "../../backend/_models/merticGraph/metricGraph";
 
 const graphKey = "METRIC-GRAPH";
 
-export const getMetricGraph = (): MetricGraph | undefined => {
+export const getCachedMetricGraph = (): MetricGraph | undefined => {
   const data = localStorage.getItem(graphKey);
   if (!data) return;
   return JSON.parse(data) as MetricGraph;

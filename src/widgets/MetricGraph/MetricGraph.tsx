@@ -7,7 +7,8 @@ import { serializeMetricGraph } from "../../store/reducers/metricGraphReducer";
 import { mapNode } from "./utils/mapNode";
 import { mapEdge } from "./utils/mapEdge";
 import { useGraphData } from "./utils/hooks/useGraphData/useGraphData";
-import { MetricEdge, MetricNode } from "../../core/frontend/types/metric";
+import { MetricNode } from "../../core/backend/_models/merticGraph/metric";
+import { MetricEdge } from "../../core/backend/_models/merticGraph/metricEdge";
 
 interface MetricGraphProps {
   onMetricClick: (e: IG6GraphEvent) => void;
@@ -57,7 +58,7 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
     window.addEventListener("touchend", saveGraph);
   }, [dispatch]);
 
-  const { ActivateRelations } = Behaviors;
+  const { ActivateRelations, DragNodeWithForce } = Behaviors;
 
   return (
     <Graphin
@@ -67,9 +68,10 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
         backgroundColor: "#F5F5F5",
       }}
       data={data}
-      layout={{ type: "preset" }}
+      layout={{ type: "graphin-force" }}
       ref={graphRef}
     >
+      <DragNodeWithForce autoPin />
       <ActivateRelations trigger="click" />
     </Graphin>
   );

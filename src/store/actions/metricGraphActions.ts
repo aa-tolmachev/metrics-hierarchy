@@ -1,11 +1,11 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { MetricGraphReducerState } from "../reducers/types";
 import {
-  getMetricGraph,
+  getCachedMetricGraph,
   removeMetricGraph,
   setMetricGraph,
 } from "../../core/frontend/localStorage/metricGraph";
-import { MOCK_GRAPH } from "./constants";
+import { getMetricGraph } from "../../core/backend/getMetricGraph/getMetricGraph";
 
 export const serializeMetricGraphAction = (
   _: MetricGraphReducerState,
@@ -22,6 +22,6 @@ export const removeMetricGraphAction = () => {
 };
 
 export const deserializeMetricGraphAction = (): MetricGraphReducerState => {
-  const graph = getMetricGraph() ?? MOCK_GRAPH;
+  const graph = getCachedMetricGraph() ?? getMetricGraph();
   return { graph };
 };

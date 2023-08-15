@@ -1,13 +1,5 @@
 import { IUserNode } from "@antv/graphin";
 
-export type MetricDomain =
-  | "finance"
-  | "product"
-  | "marketing"
-  | "risks"
-  | "clientService"
-  | "sales";
-
 export type MetricState = "toDo" | "inProgress" | "done";
 
 export interface RawMetric {
@@ -21,22 +13,12 @@ export interface RawMetric {
 
 export interface Metric {
   id: string;
-  methodology: string;
-  metric: string | undefined;
-  name: string;
-  service: string;
-  slices: string | undefined;
-  metricType: string;
-}
-
-export interface FullMetric {
-  id: string;
   name: string;
   shortName?: string;
   description?: string;
   owner: string;
   analyst: string;
-  metricDomain: MetricDomain;
+  metricDomain: string;
   state: MetricState;
   size?: number[];
   value: number;
@@ -47,7 +29,7 @@ export interface FullMetric {
   dataSource?: string;
   link?: string;
   requestExample?: string;
-  vertical: string;
+  vertical?: string;
   measurements: string;
   granularity: string;
 }
