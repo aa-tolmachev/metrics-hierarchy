@@ -1,5 +1,5 @@
+import { METRIC_TYPE } from "../../../../core/backend/_models/merticGraph/metric";
 import { MetricConfig } from "../../../../core/frontend/types/metric";
-import { METRIC_TYPE } from "../../../MetricGraph/components";
 
 export const METRIC_MOCK: MetricConfig = {
   id: "node-0",

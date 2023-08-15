@@ -1,7 +1,7 @@
 import {
-  MetricEdgeType,
   MetricEdge,
-} from "../../../../core/frontend/types/metric";
+  MetricEdgeType,
+} from "../../_models/merticGraph/metricEdge";
 import { getEdgeStyle } from "./getEdgeStyle";
 
 type GetEdge = (

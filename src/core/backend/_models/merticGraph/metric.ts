@@ -1,3 +1,5 @@
+import { IUserNode } from "@antv/graphin";
+
 export type MetricDomain =
   | "finance"
   | "product"
@@ -8,7 +10,26 @@ export type MetricDomain =
 
 export type MetricState = "toDo" | "inProgress" | "done";
 
+export interface RawMetric {
+  methodology: string;
+  metric: string;
+  name: string;
+  service: string;
+  slices: string;
+  type: string;
+}
+
 export interface Metric {
+  id: string;
+  methodology: string;
+  metric: string | undefined;
+  name: string;
+  service: string;
+  slices: string | undefined;
+  metricType: string;
+}
+
+export interface FullMetric {
   id: string;
   name: string;
   shortName?: string;
@@ -29,4 +50,10 @@ export interface Metric {
   vertical: string;
   measurements: string;
   granularity: string;
+}
+
+export const METRIC_TYPE = "metric";
+
+export interface MetricNode extends IUserNode, Metric {
+  type: typeof METRIC_TYPE;
 }

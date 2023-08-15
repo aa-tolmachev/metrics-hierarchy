@@ -5,8 +5,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
 import Graphin from "@antv/graphin";
-import { METRIC_TYPE } from "../..";
 import { draw } from "./draw";
+import { METRIC_TYPE } from "../../../../../core/backend/_models/merticGraph/metric";
 
 export const registerMetric = () => {
   Graphin.registerNode(METRIC_TYPE, {

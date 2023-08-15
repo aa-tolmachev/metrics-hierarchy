@@ -1,4 +1,4 @@
-import { MetricEdgeType } from "../../../../core/frontend/types/metric";
+import { MetricEdgeType } from "../../_models/merticGraph/metricEdge";
 
 /**
  * Returns style part of the Edge object.
@@ -6,7 +6,7 @@ import { MetricEdgeType } from "../../../../core/frontend/types/metric";
  */
 export const getEdgeStyle = (type?: MetricEdgeType) => {
   switch (type) {
-    case "weakRelated":
+    case "Soft":
       return {
         keyshape: {
           lineWidth: 2,
