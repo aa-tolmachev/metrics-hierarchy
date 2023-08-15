@@ -22,6 +22,14 @@ export const removeMetricGraphAction = () => {
 };
 
 export const deserializeMetricGraphAction = (): MetricGraphReducerState => {
-  const graph = getCachedMetricGraph() ?? getMetricGraph();
-  return { graph };
+  const cachedGraph = getCachedMetricGraph();
+  const fetchedGraph = getMetricGraph();
+  if (!cachedGraph || cachedGraph.nodes.length !== fetchedGraph.nodes.length)
+    return { graph: fetchedGraph };
+  for (let i = 0; i < fetchedGraph.nodes.length; i++) {
+    const node = fetchedGraph.nodes[i];
+    if (!cachedGraph.nodes.find((cachedNode) => cachedNode.id === node.id))
+      return { graph: fetchedGraph };
+  }
+  return { graph: cachedGraph };
 };
