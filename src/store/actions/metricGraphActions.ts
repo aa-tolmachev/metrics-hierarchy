@@ -10,10 +10,9 @@ import { getMetricGraph } from "../../core/backend/getMetricGraph/getMetricGraph
 export const serializeMetricGraphAction = (
   _: MetricGraphReducerState,
   { payload }: PayloadAction<MetricGraphReducerState>
-): MetricGraphReducerState => {
+) => {
   const { graph } = payload;
   if (graph) setMetricGraph(graph);
-  return payload;
 };
 
 export const removeMetricGraphAction = () => {

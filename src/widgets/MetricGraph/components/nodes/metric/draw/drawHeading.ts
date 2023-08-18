@@ -12,7 +12,9 @@ import { DrawFunctionFull, GetAttrsFunctionFull } from "./types";
 const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
   const { x: initialX, y: initialY } = initialCoords;
 
-  const text = cutText(config.name, 13);
+  console.log(config.shortName ?? config.name);
+
+  const text = cutText(config.shortName ?? config.name, 13);
   const x = initialX + CONTENT_X_OFFSET;
   const y = initialY + HEADING_Y_OFFSET;
 

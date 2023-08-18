@@ -9,6 +9,7 @@ import { mapEdge } from "./utils/mapEdge";
 import { useGraphData } from "./utils/hooks/useGraphData/useGraphData";
 import { MetricNode } from "../../core/backend/_models/merticGraph/metric";
 import { MetricEdge } from "../../core/backend/_models/merticGraph/metricEdge";
+import { SaveGraphButton } from "./components/SaveGraphButton/SaveGraphButton";
 
 interface MetricGraphProps {
   onMetricClick: (e: IG6GraphEvent) => void;
@@ -37,42 +38,40 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
     };
   }, [dispatch, onMetricClick]);
 
-  useEffect(() => {
-    const saveGraph = () => {
-      if (!graphRef.current) return;
+  const onSaveGraph = () => {
+    if (!graphRef.current) return;
 
-      const { graph } = graphRef.current;
-      const nodes = graph
-        .getNodes()
-        .map(mapNode)
-        .filter((node) => !!node) as MetricNode[];
-      const edges = graph
-        .getEdges()
-        .map(mapEdge)
-        .filter((edge) => !!edge) as MetricEdge[];
+    const { graph } = graphRef.current;
+    const nodes = graph
+      .getNodes()
+      .map(mapNode)
+      .filter((node) => !!node) as MetricNode[];
+    const edges = graph
+      .getEdges()
+      .map(mapEdge)
+      .filter((edge) => !!edge) as MetricEdge[];
 
-      dispatch(serializeMetricGraph({ graph: { nodes, edges } }));
-    };
-
-    window.addEventListener("click", saveGraph);
-    window.addEventListener("touchend", saveGraph);
-  }, [dispatch]);
+    dispatch(serializeMetricGraph({ graph: { nodes, edges } }));
+  };
 
   const { ActivateRelations, DragNodeWithForce } = Behaviors;
 
   return (
-    <Graphin
-      style={{
-        height: "100%",
-        overflow: "hidden",
-        backgroundColor: "#F5F5F5",
-      }}
-      data={data}
-      layout={{ type: "graphin-force" }}
-      ref={graphRef}
-    >
-      <DragNodeWithForce autoPin />
-      <ActivateRelations trigger="click" />
-    </Graphin>
+    <>
+      <SaveGraphButton onClick={onSaveGraph} />
+      <Graphin
+        style={{
+          height: "100%",
+          overflow: "hidden",
+          backgroundColor: "#F5F5F5",
+        }}
+        data={data}
+        layout={{ type: "graphin-force" }}
+        ref={graphRef}
+      >
+        <DragNodeWithForce autoPin />
+        <ActivateRelations trigger="click" />
+      </Graphin>
+    </>
   );
 };
