@@ -6,11 +6,11 @@ import {
   STATE_PADDING,
   OWNER_STATE_Y_OFFSET,
   STATE_NAME_COLOR,
-  SMALL_FONT_SIZE,
-  SMALL_FONT_WEIGHT,
-  SMALL_LINE_HEIGHT,
   OWNER_PADDING,
   OWNER_NAME_MAX_LENGTH,
+  DEFAULT_FONT_SIZE,
+  DEFAULT_FONT_WEIGHT,
+  DEFAULT_LINE_HEIGHT,
 } from "../constants";
 import { GetAttrsFunctionFull, DrawFunctionFull } from "../types";
 
@@ -19,7 +19,7 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
 
   const context = group!.cfg.canvas.cfg.context;
   const ownerName = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
-  const ownerWidth = getTextWidth(context, ownerName);
+  const ownerWidth = getTextWidth(context, ownerName, DEFAULT_FONT_SIZE);
 
   const x =
     initialX +
@@ -29,16 +29,16 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
     OWNER_PADDING.right +
     OWNER_MARGIN_RIGHT +
     STATE_PADDING.left;
-  const y = initialY + OWNER_STATE_Y_OFFSET + SMALL_LINE_HEIGHT;
+  const y = initialY + OWNER_STATE_Y_OFFSET + DEFAULT_LINE_HEIGHT;
 
   return {
     text: `${config.state}`,
     x,
     y,
     fill: STATE_NAME_COLOR,
-    fontSize: SMALL_FONT_SIZE,
-    fontWeight: SMALL_FONT_WEIGHT,
-    lineHeight: SMALL_LINE_HEIGHT,
+    fontSize: DEFAULT_FONT_SIZE,
+    fontWeight: DEFAULT_FONT_WEIGHT,
+    lineHeight: DEFAULT_LINE_HEIGHT,
   };
 };
 

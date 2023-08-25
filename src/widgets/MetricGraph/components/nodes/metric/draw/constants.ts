@@ -1,5 +1,5 @@
-export const CONTAINER_WIDTH = 200;
-export const CONTAINER_HEIGHT = 98;
+export const CONTAINER_WIDTH = 250;
+export const CONTAINER_HEIGHT = 128;
 export const CONTAINER_BACKGROUND = "#FFFBFB";
 
 export const METRIC_CONTENT_PADDING = {
@@ -23,6 +23,7 @@ export const DOMAIN_FLAG_COLORS = {
 // offset from the left
 export const CONTENT_X_OFFSET = DOMAIN_FLAG_WIDTH + METRIC_CONTENT_PADDING.left;
 
+export const MAX_HEADING_WIDTH = 23;
 export const HEADING_COLOR = "#000000";
 export const HEADING_LINE_HEIGHT = 24;
 export const HEADING_FONT_SIZE = 16;
@@ -30,9 +31,9 @@ export const HEADING_FONT_SIZE = 16;
 export const HEADING_Y_OFFSET =
   METRIC_CONTENT_PADDING.top + HEADING_LINE_HEIGHT;
 export const HEADING_FONT_WEIGHT = 400;
-const HEADING_MARGIN_BOTTOM = 16;
+const HEADING_MARGIN_BOTTOM = 36;
 
-export const EXPAND_ICON_SIZE = 10;
+export const EXPAND_ICON_SIZE = 16;
 
 export const DEFAULT_FONT_SIZE = 12;
 export const DEFAULT_LINE_HEIGHT = 18;
@@ -52,7 +53,7 @@ const VALUES_MARGIN_BOTTOM = 8;
 export const VALUE_COLOR = "#000000";
 export const VALUE_MARGIN_RIGHT = 10;
 
-export const TREND_ICON_SIZE = 12;
+export const TREND_ICON_SIZE = 16;
 export const TREND_ICON_MARGIN_RIGHT = 2;
 
 export const TREND_VALUE_COLOR = "#33A000";
@@ -60,7 +61,7 @@ export const TREND_VALUE_COLOR = "#33A000";
 export const OWNER_STATE_Y_OFFSET = VALUES_TEXT_Y_OFFSET + VALUES_MARGIN_BOTTOM;
 
 export const OWNER_BACKGROUND = "#FF4444";
-export const OWNER_PADDING = { top: 0, right: 6, bottom: 2, left: 10 };
+export const OWNER_PADDING = { top: 0, right: 10, bottom: 2, left: 10 };
 export const OWNER_NAME_COLOR = "#FFFFFF";
 export const OWNER_NAME_MAX_LENGTH = 11;
 export const OWNER_MARGIN_RIGHT = 8;

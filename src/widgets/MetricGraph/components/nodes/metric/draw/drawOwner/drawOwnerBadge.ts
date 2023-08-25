@@ -9,7 +9,8 @@ import {
   OWNER_NAME_MAX_LENGTH,
   OWNER_PADDING,
   OWNER_STATE_Y_OFFSET,
-  SMALL_LINE_HEIGHT,
+  DEFAULT_LINE_HEIGHT,
+  DEFAULT_FONT_SIZE,
 } from "../constants";
 import { DrawFunctionFull, GetAttrsFunctionFull } from "../types";
 import { getTextWidth } from "../../../../../../../utils/getTextWidth";
@@ -23,9 +24,9 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
 
   const context = group!.cfg.canvas.cfg.context;
   const text = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
-  const nameWidth = getTextWidth(context, text);
+  const nameWidth = getTextWidth(context, text, DEFAULT_FONT_SIZE);
   const width = OWNER_PADDING.left + nameWidth + OWNER_PADDING.right;
-  const height = OWNER_PADDING.top + SMALL_LINE_HEIGHT + OWNER_PADDING.bottom;
+  const height = OWNER_PADDING.top + DEFAULT_LINE_HEIGHT + OWNER_PADDING.bottom;
 
   return {
     x,

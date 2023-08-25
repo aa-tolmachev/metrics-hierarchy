@@ -1,8 +1,8 @@
 import {
   CONTENT_X_OFFSET,
-  DEFAULT_FONT_SIZE,
   DEFAULT_FONT_WEIGHT,
-  DEFAULT_LINE_HEIGHT,
+  HEADING_FONT_SIZE,
+  HEADING_LINE_HEIGHT,
   TREND_ICON_MARGIN_RIGHT,
   TREND_ICON_SIZE,
   TREND_VALUE_COLOR,
@@ -16,7 +16,11 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
 
   const context = group!.cfg.canvas.cfg.context;
-  const valueWidth = getTextWidth(context, config.value.toString());
+  const valueWidth = getTextWidth(
+    context,
+    config.value.toString(),
+    HEADING_FONT_SIZE
+  );
   const x =
     initialX +
     CONTENT_X_OFFSET +
@@ -32,9 +36,9 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
     x,
     y,
     fill: TREND_VALUE_COLOR,
-    fontSize: DEFAULT_FONT_SIZE,
+    fontSize: HEADING_FONT_SIZE,
     fontWeight: DEFAULT_FONT_WEIGHT,
-    lineHeight: DEFAULT_LINE_HEIGHT,
+    lineHeight: HEADING_LINE_HEIGHT,
   };
 };
 

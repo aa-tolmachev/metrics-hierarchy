@@ -14,7 +14,7 @@ export interface RawMetric {
 export interface Metric {
   id: string;
   name: string;
-  shortName?: string;
+  shortName: string;
   description?: string;
   owner: string;
   analyst: string;

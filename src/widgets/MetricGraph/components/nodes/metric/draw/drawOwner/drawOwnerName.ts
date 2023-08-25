@@ -2,12 +2,12 @@ import { cutText } from "../../../../../../../utils/cutText";
 import {
   CONTENT_X_OFFSET,
   OWNER_NAME_COLOR,
-  SMALL_FONT_SIZE,
-  SMALL_FONT_WEIGHT,
-  SMALL_LINE_HEIGHT,
   OWNER_PADDING,
   OWNER_STATE_Y_OFFSET,
   OWNER_NAME_MAX_LENGTH,
+  DEFAULT_FONT_SIZE,
+  DEFAULT_FONT_WEIGHT,
+  DEFAULT_LINE_HEIGHT,
 } from "../constants";
 import { DrawFunctionFull, GetAttrsFunctionFull } from "../types";
 
@@ -17,16 +17,16 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
   const text = cutText(config.owner, OWNER_NAME_MAX_LENGTH);
   const x = initialX + CONTENT_X_OFFSET + OWNER_PADDING.left;
   const y =
-    initialY + OWNER_STATE_Y_OFFSET + SMALL_LINE_HEIGHT + OWNER_PADDING.top;
+    initialY + OWNER_STATE_Y_OFFSET + DEFAULT_LINE_HEIGHT + OWNER_PADDING.top;
 
   return {
     text,
     x,
     y,
     fill: OWNER_NAME_COLOR,
-    fontSize: SMALL_FONT_SIZE,
-    fontWeight: SMALL_FONT_WEIGHT,
-    lineHeight: SMALL_LINE_HEIGHT,
+    fontSize: DEFAULT_FONT_SIZE,
+    fontWeight: DEFAULT_FONT_WEIGHT,
+    lineHeight: DEFAULT_LINE_HEIGHT,
   };
 };
 

@@ -6,7 +6,7 @@ const mapValueWithNan = (value: string) =>
 export const mapMetric = (raw: RawMetric, index: number): MetricNode => ({
   ...raw,
   id: index.toString(),
-  shortName: mapValueWithNan(raw.metric),
+  shortName: raw.metric,
   description: raw.methodology,
   type: "metric",
   owner: "Alexey",

@@ -6,15 +6,14 @@ import {
   HEADING_Y_OFFSET,
   CONTENT_X_OFFSET,
   HEADING_LINE_HEIGHT,
+  MAX_HEADING_WIDTH,
 } from "./constants";
 import { DrawFunctionFull, GetAttrsFunctionFull } from "./types";
 
 const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
   const { x: initialX, y: initialY } = initialCoords;
 
-  console.log(config.shortName ?? config.name);
-
-  const text = cutText(config.shortName ?? config.name, 13);
+  const text = cutText(config.shortName, MAX_HEADING_WIDTH);
   const x = initialX + CONTENT_X_OFFSET;
   const y = initialY + HEADING_Y_OFFSET;
 
