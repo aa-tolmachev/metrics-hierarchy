@@ -8,6 +8,7 @@ import {
 
 const initialState: MetricGraphReducerState = {
   graph: undefined,
+  source: undefined,
 };
 
 export const metricGraphSlice = createSlice({

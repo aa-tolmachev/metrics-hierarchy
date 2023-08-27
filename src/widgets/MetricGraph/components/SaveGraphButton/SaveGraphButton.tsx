@@ -4,10 +4,15 @@ import { FC } from "react";
 import styles from "./SaveGraphButton.module.scss";
 
 interface SaveGraphButtonProps {
-  onClick: VoidFunction;
+  disabled?: boolean;
+
+  onClick?: VoidFunction;
 }
 
-export const SaveGraphButton: FC<SaveGraphButtonProps> = ({ onClick }) => {
+export const SaveGraphButton: FC<SaveGraphButtonProps> = ({
+  disabled = false,
+  onClick,
+}) => {
   return (
     <Tooltip title="Сохранить состояние графа" trigger="hover" placement="left">
       <Button
@@ -15,6 +20,7 @@ export const SaveGraphButton: FC<SaveGraphButtonProps> = ({ onClick }) => {
         shape="circle"
         icon={<SaveOutlined />}
         onClick={onClick}
+        disabled={disabled}
       />
     </Tooltip>
   );

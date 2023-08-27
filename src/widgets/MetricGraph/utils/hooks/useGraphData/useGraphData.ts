@@ -10,7 +10,11 @@ export const useGraphData = () => {
     dispatch(deserializeMetricGraph());
   });
 
-  const graph = useSelector((state: RootState) => state.metricGraph.graph);
+  const { graph, source } = useSelector(
+    (state: RootState) => state.metricGraph
+  );
 
-  return graph ?? { nodes: [], edges: [] };
+  if (!graph) return undefined;
+
+  return { graph, source };
 };

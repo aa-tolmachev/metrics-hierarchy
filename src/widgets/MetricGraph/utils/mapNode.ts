@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { INode } from "@antv/g6";
-import { MetricNode } from "../../../core/frontend/types/metric";
+import { MetricNode } from "../../../core/backend/_models/merticGraph/metric";
 
 export const mapNode = (value: INode): MetricNode | undefined => {
   const { _cfg } = value;

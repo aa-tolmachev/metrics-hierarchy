@@ -1,15 +1,11 @@
 import Graphin, { IG6GraphEvent, Behaviors } from "@antv/graphin";
-import { FC, useEffect, useRef } from "react";
+import { FC } from "react";
 import { registerMetric } from "./components";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store";
-import { serializeMetricGraph } from "../../store/reducers/metricGraphReducer";
-import { mapNode } from "./utils/mapNode";
-import { mapEdge } from "./utils/mapEdge";
 import { useGraphData } from "./utils/hooks/useGraphData/useGraphData";
-import { MetricNode } from "../../core/backend/_models/merticGraph/metric";
-import { MetricEdge } from "../../core/backend/_models/merticGraph/metricEdge";
 import { SaveGraphButton } from "./components/SaveGraphButton/SaveGraphButton";
+import { useMetricGraph } from "./utils/hooks/useMetricGraph/useMetricGraph";
+import { getLayoutType } from "./utils/getLayoutType";
+import styles from "./MetricGraph.module.scss";
 
 interface MetricGraphProps {
   onMetricClick: (e: IG6GraphEvent) => void;
@@ -18,41 +14,17 @@ interface MetricGraphProps {
 export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
   registerMetric();
 
+  const { graphRef, onSaveGraph } = useMetricGraph(onMetricClick);
+
   const data = useGraphData();
+  if (!data)
+    return (
+      <div className={styles.emptyField}>
+        <SaveGraphButton disabled />
+      </div>
+    );
 
-  const graphRef = useRef<Graphin>(null);
-
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    if (!graphRef.current) return;
-
-    const { graph } = graphRef.current;
-
-    graph.on("node:click", onMetricClick);
-    graph.on("node:touchstart", onMetricClick);
-
-    return () => {
-      graph.off("node:click", onMetricClick);
-      graph.off("node:touchstart", onMetricClick);
-    };
-  }, [dispatch, onMetricClick]);
-
-  const onSaveGraph = () => {
-    if (!graphRef.current) return;
-
-    const { graph } = graphRef.current;
-    const nodes = graph
-      .getNodes()
-      .map(mapNode)
-      .filter((node) => !!node) as MetricNode[];
-    const edges = graph
-      .getEdges()
-      .map(mapEdge)
-      .filter((edge) => !!edge) as MetricEdge[];
-
-    dispatch(serializeMetricGraph({ graph: { nodes, edges } }));
-  };
+  const { graph, source } = data;
 
   const { ActivateRelations, DragNodeWithForce } = Behaviors;
 
@@ -65,8 +37,13 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
           overflow: "hidden",
           backgroundColor: "#F5F5F5",
         }}
-        data={data}
-        layout={{ type: "graphin-force" }}
+        data={graph}
+        layout={{
+          type: getLayoutType(source),
+          center: [0, 0],
+          nodeSize: 140,
+          rankdir: "LR",
+        }}
         ref={graphRef}
       >
         <DragNodeWithForce autoPin />
