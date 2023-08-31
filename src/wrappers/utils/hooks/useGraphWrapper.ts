@@ -15,13 +15,15 @@ export const useGraphWrapper = () => {
       const item = e.item;
       if (!item) return;
 
-      if (isMetricPath(location.pathname)) {
+      // gets metric from event's item
+      const { id } = item.get<MetricConfig>("model");
+
+      if (isMetricPath(location.pathname, id)) {
         nav(PATH.metrics);
         return;
       }
 
-      const metric = item.get<MetricConfig>("model");
-      nav(buildMetricPath(metric.id));
+      nav(buildMetricPath(id));
     },
     [location.pathname, nav]
   );

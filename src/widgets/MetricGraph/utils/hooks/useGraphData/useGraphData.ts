@@ -14,7 +14,10 @@ export const useGraphData = () => {
     (state: RootState) => state.metricGraph
   );
 
-  if (!graph) return undefined;
+  if (!graph) {
+    const emptyGraph = { nodes: [], edges: [] };
+    return { graph: emptyGraph, source: undefined };
+  }
 
   return { graph, source };
 };
