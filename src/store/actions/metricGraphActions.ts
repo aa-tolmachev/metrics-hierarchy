@@ -15,9 +15,9 @@ export const serializeMetricGraphAction = (
   if (payload) setMetricGraph(payload);
 };
 
-export const removeMetricGraphAction = () => {
+export const removeMetricGraphAction = (): MetricGraphReducerState => {
   removeMetricGraph();
-  return undefined;
+  return { graph: getMetricGraph(), source: "config" };
 };
 
 export const deserializeMetricGraphAction = (): MetricGraphReducerState => {

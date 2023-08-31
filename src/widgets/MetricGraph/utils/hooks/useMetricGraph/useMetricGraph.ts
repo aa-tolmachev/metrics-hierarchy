@@ -1,10 +1,13 @@
 import Graphin, { IG6GraphEvent } from "@antv/graphin";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { MetricNode } from "../../../../../core/backend/_models/merticGraph/metric";
 import { MetricEdge } from "../../../../../core/backend/_models/merticGraph/metricEdge";
 import { AppDispatch } from "../../../../../store";
-import { serializeMetricGraph } from "../../../../../store/reducers/metricGraphReducer";
+import {
+  removeMetricGraph,
+  serializeMetricGraph,
+} from "../../../../../store/reducers/metricGraphReducer";
 import { mapEdge } from "../../mapEdge";
 import { mapNode } from "../../mapNode";
 
@@ -27,7 +30,7 @@ export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
     };
   }, [dispatch, onMetricClick]);
 
-  const onSaveGraph = () => {
+  const onSaveGraph = useCallback(() => {
     if (!graphRef.current) return;
 
     const { graph } = graphRef.current;
@@ -41,7 +44,12 @@ export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
       .filter((edge) => !!edge) as MetricEdge[];
 
     dispatch(serializeMetricGraph({ nodes, edges }));
-  };
+  }, [dispatch]);
 
-  return { graphRef, onSaveGraph };
+  const onResetGraph = useCallback(
+    () => dispatch(removeMetricGraph()),
+    [dispatch]
+  );
+
+  return { graphRef, onSaveGraph, onResetGraph };
 };

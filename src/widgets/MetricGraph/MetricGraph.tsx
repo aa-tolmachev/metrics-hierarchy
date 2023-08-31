@@ -2,10 +2,10 @@ import Graphin, { IG6GraphEvent, Behaviors } from "@antv/graphin";
 import { FC } from "react";
 import { registerMetric } from "./components";
 import { useGraphData } from "./utils/hooks/useGraphData/useGraphData";
-import { SaveGraphButton } from "./components/SaveGraphButton/SaveGraphButton";
 import { useMetricGraph } from "./utils/hooks/useMetricGraph/useMetricGraph";
 import { getLayoutType } from "./utils/getLayoutType";
 import styles from "./MetricGraph.module.scss";
+import { MetricGraphControls } from "./MetricGraphControls/MetricGraphControls";
 
 interface MetricGraphProps {
   onMetricClick: (e: IG6GraphEvent) => void;
@@ -14,13 +14,13 @@ interface MetricGraphProps {
 export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
   registerMetric();
 
-  const { graphRef, onSaveGraph } = useMetricGraph(onMetricClick);
+  const { graphRef, onSaveGraph, onResetGraph } = useMetricGraph(onMetricClick);
 
   const data = useGraphData();
   if (!data)
     return (
       <div className={styles.emptyField}>
-        <SaveGraphButton disabled />
+        <MetricGraphControls />
       </div>
     );
 
@@ -30,7 +30,10 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
 
   return (
     <>
-      <SaveGraphButton onClick={onSaveGraph} />
+      <MetricGraphControls
+        onSaveGraph={onSaveGraph}
+        onResetGraph={onResetGraph}
+      />
       <Graphin
         style={{
           height: "100%",
