@@ -14,20 +14,6 @@ export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    if (!graphRef.current) return;
-
-    const { graph } = graphRef.current;
-
-    graph.on("node:click", onMetricClick);
-    graph.on("node:touchstart", onMetricClick);
-
-    return () => {
-      graph.off("node:click", onMetricClick);
-      graph.off("node:touchstart", onMetricClick);
-    };
-  }, [dispatch, onMetricClick]);
-
   const onSaveGraph = useCallback(() => {
     if (!graphRef.current) return;
 
@@ -48,5 +34,24 @@ export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
     [dispatch]
   );
 
-  return { graphRef, onSaveGraph, onResetGraph };
+  useEffect(() => {
+    window.addEventListener("beforeunload", () => {
+      onSaveGraph();
+    });
+
+    if (!graphRef.current) return;
+
+    const { graph } = graphRef.current;
+
+    graph.on("node:click", onMetricClick);
+    graph.on("node:touchstart", onMetricClick);
+
+    return () => {
+      onSaveGraph();
+      graph.off("node:click", onMetricClick);
+      graph.off("node:touchstart", onMetricClick);
+    };
+  }, [dispatch, onMetricClick, onSaveGraph]);
+
+  return { graphRef, onResetGraph };
 };

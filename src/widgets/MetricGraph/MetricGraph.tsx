@@ -14,7 +14,7 @@ interface MetricGraphProps {
 export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
   registerMetric();
 
-  const { graphRef, onSaveGraph, onResetGraph } = useMetricGraph(onMetricClick);
+  const { graphRef, onResetGraph } = useMetricGraph(onMetricClick);
 
   const data = useGraphData();
   if (!data)
@@ -30,10 +30,7 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
 
   return (
     <>
-      <MetricGraphControls
-        onSaveGraph={onSaveGraph}
-        onResetGraph={onResetGraph}
-      />
+      <MetricGraphControls onResetGraph={onResetGraph} />
       <Graphin
         style={{
           height: "100%",
