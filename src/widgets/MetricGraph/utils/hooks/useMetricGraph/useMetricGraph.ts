@@ -8,8 +8,6 @@ import {
   removeMetricGraph,
   serializeMetricGraph,
 } from "../../../../../store/reducers/metricGraphReducer";
-import { mapEdge } from "../../mapEdge";
-import { mapNode } from "../../mapNode";
 
 export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
   const graphRef = useRef<Graphin>(null);
@@ -34,16 +32,15 @@ export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
     if (!graphRef.current) return;
 
     const { graph } = graphRef.current;
-    const nodes = graph
-      .getNodes()
-      .map(mapNode)
-      .filter((node) => !!node) as MetricNode[];
-    const edges = graph
-      .getEdges()
-      .map(mapEdge)
-      .filter((edge) => !!edge) as MetricEdge[];
 
-    dispatch(serializeMetricGraph({ nodes, edges }));
+    const { nodes, edges } = graph.save();
+
+    dispatch(
+      serializeMetricGraph({
+        nodes: nodes as MetricNode[],
+        edges: edges as MetricEdge[],
+      })
+    );
   }, [dispatch]);
 
   const onResetGraph = useCallback(
