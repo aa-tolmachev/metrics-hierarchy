@@ -1,13 +1,13 @@
 import Graphin, { IG6GraphEvent } from "@antv/graphin";
 import { useRef, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { MetricNode } from "../../../../../core/backend/_models/merticGraph/metric";
-import { MetricEdge } from "../../../../../core/backend/_models/merticGraph/metricEdge";
-import { AppDispatch } from "../../../../../store";
+import { MetricNode } from "../../../../core/backend/_models/merticGraph/metric";
+import { MetricEdge } from "../../../../core/backend/_models/merticGraph/metricEdge";
+import { AppDispatch } from "../../../../store";
 import {
   removeMetricGraph,
   serializeMetricGraph,
-} from "../../../../../store/reducers/metricGraphReducer";
+} from "../../../../store/reducers/metricGraphReducer";
 
 export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
   const graphRef = useRef<Graphin>(null);

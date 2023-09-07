@@ -11,7 +11,7 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
 
   const { x, y } = initialCoords;
 
-  const fill = DOMAIN_FLAG_COLORS[config.metricDomain];
+  const fill = DOMAIN_FLAG_COLORS["finance"];
 
   return {
     x,
