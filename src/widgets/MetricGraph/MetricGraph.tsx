@@ -1,4 +1,4 @@
-import Graphin, { IG6GraphEvent, Behaviors } from "@antv/graphin";
+import Graphin, { IG6GraphEvent, Behaviors, GraphinData } from "@antv/graphin";
 import { FC } from "react";
 import { registerMetric } from "./components";
 import { useGraphData } from "./utils/hooks/useGraphData";
@@ -29,7 +29,13 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
 
   const { graph, source } = data;
 
-  const { ActivateRelations, DragNodeWithForce } = Behaviors;
+  const {
+    ActivateRelations,
+    DragNodeWithForce,
+    DragCanvas,
+    BrushSelect,
+    LassoSelect,
+  } = Behaviors;
 
   return (
     <>
@@ -44,7 +50,15 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
           overflow: "hidden",
           backgroundColor: "#f3f3f3",
         }}
-        data={graph}
+        data={{
+          ...graph,
+          combos: [
+            {
+              id: "comboA",
+              label: "AAAAAAAAAAAAAAAAAa",
+            },
+          ],
+        }}
         layout={{
           type: getLayoutType(source),
           center: [0, 0],

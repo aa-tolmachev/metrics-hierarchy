@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import Graphin, { IG6GraphEvent } from "@antv/graphin";
 import { useRef, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -45,6 +47,16 @@ export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
 
     graph.on("node:click", onMetricClick);
     graph.on("node:touchstart", onMetricClick);
+    graph.on("combo:click", () => graph.collapseExpandCombo("comboA"));
+    graph.on("nodeselectchange", (e) => {
+      // console.log(e.selectedItems.nodes);
+      if (
+        (e as any).selectedItems.nodes.length === 1 &&
+        (e as any).selectedItems.nodes[0]._cfg.states.includes("active")
+      )
+        console.log("active");
+      // console.log(graph.getNodes());
+    });
 
     return () => {
       onSaveGraph();

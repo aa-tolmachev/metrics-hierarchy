@@ -24,4 +24,5 @@ export const mapMetric = (raw: RawMetric, index: number): MetricNode => ({
   vertical: mapValueWithNan(raw.slices),
   measurements: "Lorem ipsum",
   granularity: "Lorem ipsum",
+  comboId: "comboA",
 });
