@@ -4,6 +4,7 @@ import {
   deserializeMetricGraphAction,
   removeMetricGraphAction,
   serializeMetricGraphAction,
+  updateMetricGraphAction,
 } from "../actions/metricGraphActions";
 
 const initialState: MetricGraphReducerState = {
@@ -18,6 +19,7 @@ export const metricGraphSlice = createSlice({
     serializeMetricGraph: serializeMetricGraphAction,
     deserializeMetricGraph: deserializeMetricGraphAction,
     removeMetricGraph: removeMetricGraphAction,
+    updateMetricGraph: updateMetricGraphAction,
   },
 });
 
@@ -25,6 +27,7 @@ export const {
   serializeMetricGraph,
   deserializeMetricGraph,
   removeMetricGraph,
+  updateMetricGraph,
 } = metricGraphSlice.actions;
 
 export const metricGraphReducer = metricGraphSlice.reducer;

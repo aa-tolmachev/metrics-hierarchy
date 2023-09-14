@@ -15,11 +15,12 @@ interface MetricGraphProps {
 export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
   registerMetric();
 
-  const { graphRef, onResetGraph } = useMetricGraph(onMetricClick);
+  const data = useGraphData();
+
+  const { graphRef, onResetGraph } = useMetricGraph(onMetricClick, data.graph);
 
   const [graphDirection, setGraphDirection] = useGraphDirection();
 
-  const data = useGraphData();
   if (!data)
     return (
       <div className={styles.emptyField}>

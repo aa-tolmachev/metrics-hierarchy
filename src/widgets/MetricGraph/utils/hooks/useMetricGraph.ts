@@ -8,11 +8,18 @@ import {
   removeMetricGraph,
   serializeMetricGraph,
 } from "../../../../store/reducers/metricGraphReducer";
+import { useCollapseSubGraph } from "./useCollapseSubGraph/useCollapseSubGraph";
+import { MetricGraph } from "../../../../core/backend/_models/merticGraph/metricGraph";
 
-export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
+export const useMetricGraph = (
+  onMetricClick: (e: IG6GraphEvent) => void,
+  graph?: MetricGraph
+) => {
   const graphRef = useRef<Graphin>(null);
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const collapse = useCollapseSubGraph(graph);
 
   const onSaveGraph = useCallback(() => {
     if (!graphRef.current) return;
@@ -44,6 +51,10 @@ export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
     const { graph } = graphRef.current;
 
     graph.on("node:click", onMetricClick);
+    graph.on("node:click", (e) => {
+      const nodeId = e.item?._cfg?.id;
+      if (nodeId) collapse(nodeId);
+    });
     graph.on("node:touchstart", onMetricClick);
 
     return () => {
@@ -51,7 +62,7 @@ export const useMetricGraph = (onMetricClick: (e: IG6GraphEvent) => void) => {
       graph.off("node:click", onMetricClick);
       graph.off("node:touchstart", onMetricClick);
     };
-  }, [dispatch, onMetricClick, onSaveGraph]);
+  }, [collapse, dispatch, onMetricClick, onSaveGraph]);
 
   return { graphRef, onResetGraph };
 };

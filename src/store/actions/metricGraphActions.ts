@@ -32,3 +32,11 @@ export const deserializeMetricGraphAction = (): MetricGraphReducerState => {
   }
   return { graph: cachedGraph, source: "localStorage" };
 };
+
+export const updateMetricGraphAction = (
+  state: MetricGraphReducerState,
+  { payload }: PayloadAction<MetricGraph>
+) => {
+  const { source } = state;
+  if (payload) return { graph: payload, source };
+};
