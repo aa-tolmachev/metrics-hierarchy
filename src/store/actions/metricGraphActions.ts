@@ -40,3 +40,20 @@ export const updateMetricGraphAction = (
   const { source } = state;
   if (payload) return { graph: payload, source };
 };
+
+export const addSubGraphToMetricGraphAction = (
+  state: MetricGraphReducerState,
+  { payload }: PayloadAction<MetricGraph>
+) => {
+  const { graph, source } = state;
+
+  if (!graph) throw new Error("Graph doesn't exist");
+
+  const { nodes, edges } = graph;
+  const { nodes: newNodes, edges: newEdges } = payload;
+
+  return {
+    source,
+    graph: { nodes: nodes.concat(newNodes), edges: edges.concat(newEdges) },
+  };
+};

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { MetricGraphReducerState } from "./types";
 import {
+  addSubGraphToMetricGraphAction,
   deserializeMetricGraphAction,
   removeMetricGraphAction,
   serializeMetricGraphAction,
@@ -20,6 +21,7 @@ export const metricGraphSlice = createSlice({
     deserializeMetricGraph: deserializeMetricGraphAction,
     removeMetricGraph: removeMetricGraphAction,
     updateMetricGraph: updateMetricGraphAction,
+    addSubGraphToMetricGraph: addSubGraphToMetricGraphAction,
   },
 });
 
@@ -28,6 +30,7 @@ export const {
   deserializeMetricGraph,
   removeMetricGraph,
   updateMetricGraph,
+  addSubGraphToMetricGraph,
 } = metricGraphSlice.actions;
 
 export const metricGraphReducer = metricGraphSlice.reducer;

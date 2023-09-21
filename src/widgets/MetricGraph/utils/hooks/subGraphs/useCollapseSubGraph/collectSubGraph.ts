@@ -1,5 +1,5 @@
-import { MetricEdge } from "../../../../../core/backend/_models/merticGraph/metricEdge";
-import { MetricGraph } from "../../../../../core/backend/_models/merticGraph/metricGraph";
+import { MetricEdge } from "../../../../../../core/backend/_models/merticGraph/metricEdge";
+import { MetricGraph } from "../../../../../../core/backend/_models/merticGraph/metricGraph";
 
 const isBelongOneSubGraph = (nodeId: string, edges: MetricEdge[]) => {
   const targetEdges = edges.filter((edge) => edge.target === nodeId);

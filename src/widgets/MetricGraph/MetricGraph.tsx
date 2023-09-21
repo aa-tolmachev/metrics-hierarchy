@@ -1,8 +1,8 @@
 import Graphin, { IG6GraphEvent, Behaviors } from "@antv/graphin";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { registerMetric } from "./components";
 import { useGraphData } from "./utils/hooks/useGraphData";
-import { useMetricGraph } from "./utils/hooks/useMetricGraph";
+import { useMetricGraph } from "./utils/hooks/useMetricGraph/useMetricGraph";
 import { getLayoutType } from "./utils/getLayoutType";
 import styles from "./MetricGraph.module.scss";
 import { MetricGraphControls } from "./MetricGraphControls/MetricGraphControls";
@@ -12,7 +12,7 @@ interface MetricGraphProps {
   onMetricClick: (e: IG6GraphEvent) => void;
 }
 
-export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
+export const MetricGraph: FC<MetricGraphProps> = memo(({ onMetricClick }) => {
   registerMetric();
 
   const data = useGraphData();
@@ -59,4 +59,4 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
       </Graphin>
     </>
   );
-};
+});
