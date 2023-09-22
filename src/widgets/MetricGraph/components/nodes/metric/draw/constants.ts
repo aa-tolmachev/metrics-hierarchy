@@ -75,3 +75,13 @@ export const STATE_PADDING = {
 export const STATE_BORDER_COLOR = "#A99D9D";
 export const STATE_BORDER_RADIUS = 4;
 export const STATE_NAME_COLOR = "#000000";
+
+export const COLLAPSE_BADGE_RADIUS = 10;
+export const COLLAPSE_BADGE_COLOR = "#222222";
+export const COLLAPSE_BADGE_OFFSET = {
+  x: -COLLAPSE_BADGE_RADIUS / 2,
+  y: -COLLAPSE_BADGE_RADIUS / 2,
+};
+
+export const COLLAPSE_PLUS_TEXT = "+";
+export const COLLAPSE_PLUS_COLOR = "#FFFFFF";

@@ -1,4 +1,4 @@
-import Graphin, { IG6GraphEvent } from "@antv/graphin";
+import Graphin from "@antv/graphin";
 import { useRef, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { MetricNode } from "../../../../../core/backend/_models/merticGraph/metric";
@@ -9,27 +9,19 @@ import {
   removeMetricGraph,
   serializeMetricGraph,
 } from "../../../../../store/reducers/metricGraphReducer";
-import { useCollapseSubGraph } from "../subGraphs/useCollapseSubGraph/useCollapseSubGraph";
-import { useExpandSubGraph } from "../subGraphs/useExpandSubGraph";
-import { useGetSubGraphs } from "../subGraphs/useGetSubGraphs";
-import { getSavedSubGraph } from "./getSavedSubGraph";
+import { useMetricClick } from "./useMetricClick/useMetricClick";
 
-export const useMetricGraph = (
-  onMetricClick: (e: IG6GraphEvent) => void,
-  graph?: MetricGraph
-) => {
+export const useMetricGraph = (metricGraph?: MetricGraph) => {
   const graphRef = useRef<Graphin>(null);
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const collapse = useCollapseSubGraph(graph);
-  const expand = useExpandSubGraph();
-  const subGraphs = useGetSubGraphs();
 
   const onResetGraph = useCallback(
     () => dispatch(removeMetricGraph()),
     [dispatch]
   );
+
+  const onMetricClick = useMetricClick(metricGraph);
 
   useEffect(() => {
     const onSaveGraph = () => {
@@ -56,21 +48,24 @@ export const useMetricGraph = (
     const { graph } = graphRef.current;
 
     graph.on("node:click", onMetricClick);
-    graph.on("node:click", (e) => {
-      const nodeId = e.item?._cfg?.id;
-      if (!nodeId) return;
-
-      const savedSubGraph = getSavedSubGraph(nodeId, subGraphs);
-      if (savedSubGraph) expand(nodeId, savedSubGraph);
-      else collapse(nodeId);
-    });
     graph.on("node:touchstart", onMetricClick);
+    // graph.on("edge:click", (e) => {
+    //   const source = e.item?._cfg?.source;
+    //   if (!source || typeof source === "string") return;
+
+    //   const nodeId = source._cfg?.id;
+    //   if (!nodeId) return;
+
+    //   const savedSubGraph = getSavedSubGraph(nodeId, subGraphs);
+    //   if (savedSubGraph) expand(nodeId, savedSubGraph);
+    //   else collapse(nodeId);
+    // });
 
     return () => {
       graph.off("node:click", onMetricClick);
       graph.off("node:touchstart", onMetricClick);
     };
-  }, [collapse, dispatch, expand, onMetricClick, subGraphs]);
+  }, [dispatch, onMetricClick]);
 
   return { graphRef, onResetGraph };
 };

@@ -6,6 +6,12 @@ export const saveMetricSubGraphAction = (
   state: MetricSubGraphsReducerState,
   { payload }: PayloadAction<MetricSubGraph>
 ) => {
+  const { id, nodes, edges } = payload;
+  if (nodes.length === 0 && edges.length === 0) return state;
+
+  const savedSubGraph = state.subGraphs.find((subGraph) => subGraph.id === id);
+  if (savedSubGraph) return state;
+
   state.subGraphs.push(payload);
 };
 

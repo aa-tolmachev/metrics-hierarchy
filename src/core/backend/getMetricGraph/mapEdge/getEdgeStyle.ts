@@ -1,6 +1,5 @@
 import { MetricEdgeType } from "../../_models/merticGraph/metricEdge";
-
-const EDGE_COLOR = "#3b3b3b";
+import { EDGE_COLOR } from "./constants";
 
 /**
  * Returns style part of the Edge object.
