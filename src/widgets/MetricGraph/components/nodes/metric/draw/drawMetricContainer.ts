@@ -18,7 +18,7 @@ const getAttrs: GetAttrsFunction = (config) => {
     height,
     fill: CONTAINER_BACKGROUND,
     radius: 4,
-    shadowBlur: 10,
+    shadowBlur: 20,
   };
 };
 

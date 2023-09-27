@@ -2,8 +2,8 @@ import { MetricEdge } from "../../../../../../core/backend/_models/merticGraph/m
 import { MetricGraph } from "../../../../../../core/backend/_models/merticGraph/metricGraph";
 
 const isbelongManySubGraph = (nodeId: string, edges: MetricEdge[]) => {
-  const targetEdges = edges.filter((edge) => edge.target === nodeId);
-  if (targetEdges.length > 1) return true;
+  const sourceEdges = edges.filter((edge) => edge.source === nodeId);
+  if (sourceEdges.length > 1) return true;
   return false;
 };
 
@@ -17,14 +17,16 @@ export const collectSubGraph = (
   const { edges } = graph;
 
   const belongManySubGraph = isbelongManySubGraph(nodeId, edges);
-  if (belongManySubGraph) return;
 
-  if (!isRoot) nodeIds.push(nodeId);
+  if (!isRoot) {
+    if (belongManySubGraph) return;
+    nodeIds.push(nodeId);
+  }
 
   edges.forEach((edge) => {
     const { id: edgeId, source, target } = edge;
-    if (nodeId !== source) return;
+    if (nodeId !== target) return;
     edgeIds.push(edgeId);
-    collectSubGraph(target, nodeIds, edgeIds, graph);
+    collectSubGraph(source, nodeIds, edgeIds, graph);
   });
 };

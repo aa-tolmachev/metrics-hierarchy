@@ -8,9 +8,9 @@ import {
   COLLAPSE_PLUS_TEXT,
   CONTAINER_HEIGHT,
   CONTAINER_WIDTH,
-  DEFAULT_FONT_SIZE,
-  DEFAULT_FONT_WEIGHT,
-  DEFAULT_LINE_HEIGHT,
+  LARGE_FONT_SIZE,
+  LARGE_FONT_WEIGHT,
+  LARGE_LINE_HEIGHT,
 } from "../constants";
 import { DrawFunctionFull, GetAttrsFunctionFull } from "../types";
 
@@ -18,24 +18,20 @@ const getAttrs: GetAttrsFunctionFull = (_, initialCoords, group) => {
   const { x: initialX, y: initialY } = initialCoords;
 
   const context = group!.cfg.canvas.cfg.context;
-  const textWidth = getTextWidth(
-    context,
-    COLLAPSE_PLUS_TEXT,
-    DEFAULT_FONT_SIZE
-  );
+  const textWidth = getTextWidth(context, COLLAPSE_PLUS_TEXT, LARGE_FONT_SIZE);
 
   const x =
     initialX + CONTAINER_WIDTH + COLLAPSE_BADGE_OFFSET.x - textWidth / 2;
-  const y = initialY + CONTAINER_HEIGHT + DEFAULT_FONT_SIZE / 4;
+  const y = initialY + CONTAINER_HEIGHT + LARGE_FONT_SIZE / 4;
 
   return {
     text: COLLAPSE_PLUS_TEXT,
     x,
     y,
     fill: COLLAPSE_PLUS_COLOR,
-    fontSize: DEFAULT_FONT_SIZE,
-    fontWeight: DEFAULT_FONT_WEIGHT,
-    lineHeight: DEFAULT_LINE_HEIGHT,
+    fontSize: LARGE_FONT_SIZE,
+    fontWeight: LARGE_FONT_WEIGHT,
+    lineHeight: LARGE_LINE_HEIGHT,
   };
 };
 

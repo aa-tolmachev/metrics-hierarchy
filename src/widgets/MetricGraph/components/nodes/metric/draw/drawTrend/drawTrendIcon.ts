@@ -1,6 +1,6 @@
 import {
   CONTENT_X_OFFSET,
-  HEADING_FONT_SIZE,
+  LARGE_FONT_SIZE,
   TREND_ICON_SIZE,
   VALUES_Y_OFFSET,
   VALUE_MARGIN_RIGHT,
@@ -16,10 +16,10 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const valueWidth = getTextWidth(
     context,
     config.value.toString(),
-    HEADING_FONT_SIZE
+    LARGE_FONT_SIZE
   );
   const x = initialX + CONTENT_X_OFFSET + valueWidth + VALUE_MARGIN_RIGHT;
-  const y = initialY + VALUES_Y_OFFSET + 2;
+  const y = initialY + VALUES_Y_OFFSET + TREND_ICON_SIZE / 2;
 
   return {
     x,

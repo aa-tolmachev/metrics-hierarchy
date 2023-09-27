@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
+import { getShapes } from "./getShapes";
+
 export const setState = (name: string, _: any, node: any) => {
-  const group = node.getContainer();
-  const container = group.get("children")[0];
+  const { container, collapseBadge, collapsePlus } = getShapes(node);
   switch (name) {
     case "active":
       container.attr("shadowColor", "#474747");
