@@ -5,21 +5,25 @@ import { MetricNode } from "../../../../../core/backend/_models/merticGraph/metr
 import { MetricEdge } from "../../../../../core/backend/_models/merticGraph/metricEdge";
 import { MetricGraph } from "../../../../../core/backend/_models/merticGraph/metricGraph";
 import { AppDispatch } from "../../../../../store";
+import { useMetricClick } from "./useMetricClick/useMetricClick";
+import {
+  removeMetricSubGraphs,
+  serializeMetricSubGraphs,
+} from "../../../../../store/reducers/metricSubGraphsReducer";
 import {
   removeMetricGraph,
   serializeMetricGraph,
 } from "../../../../../store/reducers/metricGraphReducer";
-import { useMetricClick } from "./useMetricClick/useMetricClick";
 
 export const useMetricGraph = (metricGraph?: MetricGraph) => {
   const graphRef = useRef<Graphin>(null);
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const onResetGraph = useCallback(
-    () => dispatch(removeMetricGraph()),
-    [dispatch]
-  );
+  const onResetGraph = useCallback(() => {
+    dispatch(removeMetricGraph());
+    dispatch(removeMetricSubGraphs());
+  }, [dispatch]);
 
   const onMetricClick = useMetricClick(metricGraph);
 
@@ -37,6 +41,7 @@ export const useMetricGraph = (metricGraph?: MetricGraph) => {
           edges: edges as MetricEdge[],
         })
       );
+      dispatch(serializeMetricSubGraphs());
     };
 
     window.addEventListener("beforeunload", () => {
@@ -49,17 +54,6 @@ export const useMetricGraph = (metricGraph?: MetricGraph) => {
 
     graph.on("node:click", onMetricClick);
     graph.on("node:touchstart", onMetricClick);
-    // graph.on("edge:click", (e) => {
-    //   const source = e.item?._cfg?.source;
-    //   if (!source || typeof source === "string") return;
-
-    //   const nodeId = source._cfg?.id;
-    //   if (!nodeId) return;
-
-    //   const savedSubGraph = getSavedSubGraph(nodeId, subGraphs);
-    //   if (savedSubGraph) expand(nodeId, savedSubGraph);
-    //   else collapse(nodeId);
-    // });
 
     return () => {
       graph.off("node:click", onMetricClick);

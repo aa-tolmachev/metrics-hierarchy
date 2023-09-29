@@ -5,6 +5,7 @@ import {
   deserializeMetricGraphAction,
   removeMetricGraphAction,
   serializeMetricGraphAction,
+  updateGraphSourceAction,
   updateMetricGraphAction,
 } from "../actions/metricGraphActions";
 
@@ -22,6 +23,7 @@ export const metricGraphSlice = createSlice({
     removeMetricGraph: removeMetricGraphAction,
     updateMetricGraph: updateMetricGraphAction,
     addSubGraphToMetricGraph: addSubGraphToMetricGraphAction,
+    updateGraphSource: updateGraphSourceAction,
   },
 });
 
@@ -31,6 +33,7 @@ export const {
   removeMetricGraph,
   updateMetricGraph,
   addSubGraphToMetricGraph,
+  updateGraphSource,
 } = metricGraphSlice.actions;
 
 export const metricGraphReducer = metricGraphSlice.reducer;

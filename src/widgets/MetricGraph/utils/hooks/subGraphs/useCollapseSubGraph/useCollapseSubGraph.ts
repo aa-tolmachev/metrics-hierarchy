@@ -1,7 +1,10 @@
 import { useDispatch } from "react-redux";
 import { MetricGraph } from "../../../../../../core/backend/_models/merticGraph/metricGraph";
 import { AppDispatch } from "../../../../../../store";
-import { updateMetricGraph } from "../../../../../../store/reducers/metricGraphReducer";
+import {
+  updateGraphSource,
+  updateMetricGraph,
+} from "../../../../../../store/reducers/metricGraphReducer";
 import { saveMetricSubGraph } from "../../../../../../store/reducers/metricSubGraphsReducer";
 import { collectSubGraph } from "./collectSubGraph";
 import { MetricNode } from "../../../../../../core/backend/_models/merticGraph/metric";
@@ -49,6 +52,8 @@ export const useCollapseSubGraph = (graph?: MetricGraph) => {
     );
 
     dispatch(updateMetricGraph(newGraph));
+
+    dispatch(updateGraphSource("configWithChanges"));
   };
 
   return collapse;

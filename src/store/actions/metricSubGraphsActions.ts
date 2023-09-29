@@ -1,6 +1,11 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { MetricSubGraph } from "../../core/backend/_models/merticGraph/metricGraph";
 import { MetricSubGraphsReducerState } from "../reducers/types";
+import {
+  getCachedMetricSubGraphs,
+  removeMetricSubGraphs,
+  setMetricSubGraphs,
+} from "../../core/frontend/localStorage/metricSubGraphs";
 
 export const saveMetricSubGraphAction = (
   state: MetricSubGraphsReducerState,
@@ -21,4 +26,21 @@ export const removeMetricSubGraphAction = (
 ): MetricSubGraphsReducerState => {
   const subGraphs = state.subGraphs.filter((subGraph) => subGraph.id !== id);
   return { subGraphs };
+};
+
+export const serializeMetricSubGraphsAction = (
+  state: MetricSubGraphsReducerState
+) => {
+  const { subGraphs } = state;
+  setMetricSubGraphs(subGraphs);
+};
+
+export const deserializeMetricSubGraphsAction = () => {
+  const subGraphs = getCachedMetricSubGraphs();
+  return { subGraphs: subGraphs ?? [] };
+};
+
+export const removeMetricSubGraphsAction = () => {
+  removeMetricSubGraphs();
+  return { subGraphs: [] };
 };

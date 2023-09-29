@@ -1,12 +1,17 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { MetricGraphReducerState } from "../reducers/types";
+import {
+  MetricGraphReducerState,
+  MetricGraphSource,
+} from "../../reducers/types";
 import {
   getCachedMetricGraph,
   removeMetricGraph,
   setMetricGraph,
-} from "../../core/frontend/localStorage/metricGraph";
-import { getMetricGraph } from "../../core/backend/getMetricGraph/getMetricGraph";
-import { MetricGraph } from "../../core/backend/_models/merticGraph/metricGraph";
+} from "../../../core/frontend/localStorage/metricGraph";
+import { getMetricGraph } from "../../../core/backend/getMetricGraph/getMetricGraph";
+import { MetricGraph } from "../../../core/backend/_models/merticGraph/metricGraph";
+import { getCachedMetricSubGraphs } from "../../../core/frontend/localStorage/metricSubGraphs";
+import { checkConfigChanged } from "./checkConfigChanged";
 
 export const serializeMetricGraphAction = (
   _: MetricGraphReducerState,
@@ -22,14 +27,19 @@ export const removeMetricGraphAction = (): MetricGraphReducerState => {
 
 export const deserializeMetricGraphAction = (): MetricGraphReducerState => {
   const cachedGraph = getCachedMetricGraph();
+  const cachedSubGraphs = getCachedMetricSubGraphs();
   const fetchedGraph = getMetricGraph();
-  if (!cachedGraph || cachedGraph.nodes.length !== fetchedGraph.nodes.length)
-    return { graph: fetchedGraph, source: "config" };
-  for (let i = 0; i < fetchedGraph.nodes.length; i++) {
-    const node = fetchedGraph.nodes[i];
-    if (!cachedGraph.nodes.find((cachedNode) => cachedNode.id === node.id))
-      return { graph: fetchedGraph, source: "config" };
-  }
+
+  if (!cachedGraph) return { graph: fetchedGraph, source: "config" };
+
+  const wasConfigChanged = checkConfigChanged(
+    cachedGraph,
+    fetchedGraph,
+    cachedSubGraphs
+  );
+
+  if (wasConfigChanged) return { graph: fetchedGraph, source: "config" };
+
   return { graph: cachedGraph, source: "localStorage" };
 };
 
@@ -56,4 +66,11 @@ export const addSubGraphToMetricGraphAction = (
     source,
     graph: { nodes: nodes.concat(newNodes), edges: edges.concat(newEdges) },
   };
+};
+
+export const updateGraphSourceAction = (
+  state: MetricGraphReducerState,
+  { payload }: PayloadAction<MetricGraphSource>
+) => {
+  state.source = payload;
 };
