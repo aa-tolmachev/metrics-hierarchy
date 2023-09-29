@@ -1,25 +1,21 @@
-import Graphin, { IG6GraphEvent, Behaviors } from "@antv/graphin";
-import { FC } from "react";
+import Graphin, { Behaviors } from "@antv/graphin";
 import { registerMetric } from "./components";
 import { useGraphData } from "./utils/hooks/useGraphData";
-import { useMetricGraph } from "./utils/hooks/useMetricGraph";
+import { useMetricGraph } from "./utils/hooks/useMetricGraph/useMetricGraph";
 import { getLayoutType } from "./utils/getLayoutType";
 import styles from "./MetricGraph.module.scss";
 import { MetricGraphControls } from "./MetricGraphControls/MetricGraphControls";
 import { useGraphDirection } from "./utils/hooks/useGraphDirection";
 
-interface MetricGraphProps {
-  onMetricClick: (e: IG6GraphEvent) => void;
-}
-
-export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
+export const MetricGraph = () => {
   registerMetric();
 
-  const { graphRef, onResetGraph } = useMetricGraph(onMetricClick);
+  const data = useGraphData();
+
+  const { graphRef, onResetGraph } = useMetricGraph(data.graph);
 
   const [graphDirection, setGraphDirection] = useGraphDirection();
 
-  const data = useGraphData();
   if (!data)
     return (
       <div className={styles.emptyField}>

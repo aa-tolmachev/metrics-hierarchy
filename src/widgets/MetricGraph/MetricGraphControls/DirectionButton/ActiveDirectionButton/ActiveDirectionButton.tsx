@@ -31,7 +31,6 @@ export const ActiveDirectionButton: FC<ActiveDirectionButtonProps> = ({
         <IconButton
           icon={getDirectionIcon(direction)}
           onClick={onPopoverItemClick(direction)}
-          tooltipText={DIRECTION_TOOLTIP_TEXT}
         />
       ))}
     </Space>

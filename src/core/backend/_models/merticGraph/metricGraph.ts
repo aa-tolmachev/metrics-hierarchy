@@ -5,3 +5,7 @@ export interface MetricGraph {
   nodes: MetricNode[];
   edges: MetricEdge[];
 }
+
+export interface MetricSubGraph extends MetricGraph {
+  id: string;
+}

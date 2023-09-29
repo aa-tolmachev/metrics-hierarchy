@@ -3,6 +3,7 @@ import {
   MetricEdgeType,
 } from "../../_models/merticGraph/metricEdge";
 import { getEdgeStyle } from "./getEdgeStyle";
+import { v4 as uuidv4 } from "uuid";
 
 type GetEdge = (
   source: string,
@@ -17,6 +18,7 @@ type GetEdge = (
  * @param {MetricEdgeType=} type - type of the edge
  */
 export const getEdge: GetEdge = (source, target, type) => ({
+  id: uuidv4(),
   source,
   target,
   style: getEdgeStyle(type),

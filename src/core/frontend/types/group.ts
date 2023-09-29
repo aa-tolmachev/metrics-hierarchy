@@ -6,6 +6,12 @@ export interface Group {
       };
     };
     totalMatrix: number[];
+    item: {
+      _cfg: {
+        id: string;
+        states: string[];
+      };
+    };
   };
   addShape: any;
 }

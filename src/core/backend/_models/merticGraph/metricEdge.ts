@@ -9,6 +9,7 @@ export interface RawMetricEdge {
 }
 
 export interface MetricEdge extends IUserEdge {
+  id: string;
   source: string;
   target: string;
   style?: {
