@@ -21,8 +21,13 @@ const getAttrs: GetAttrsFunctionFull = (_, initialCoords, group) => {
   const textWidth = getTextWidth(context, COLLAPSE_PLUS_TEXT, LARGE_FONT_SIZE);
 
   const x =
-    initialX + CONTAINER_WIDTH + COLLAPSE_BADGE_OFFSET.x - textWidth / 2;
-  const y = initialY + CONTAINER_HEIGHT + LARGE_FONT_SIZE / 4;
+    initialX + CONTAINER_WIDTH / 2 + COLLAPSE_BADGE_OFFSET.x - textWidth / 2;
+  const y =
+    initialY +
+    CONTAINER_HEIGHT +
+    COLLAPSE_BADGE_OFFSET.y +
+    LARGE_FONT_SIZE / 2 +
+    2;
 
   return {
     text: COLLAPSE_PLUS_TEXT,

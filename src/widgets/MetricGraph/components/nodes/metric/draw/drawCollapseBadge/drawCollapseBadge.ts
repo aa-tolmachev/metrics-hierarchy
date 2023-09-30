@@ -9,7 +9,7 @@ import { DrawFunctionFull, GetAttrsFunctionFull } from "../types";
 
 const getAttrs: GetAttrsFunctionFull = (_, initialCoords) => {
   const { x: initialX, y: initialY } = initialCoords;
-  const x = initialX + CONTAINER_WIDTH + COLLAPSE_BADGE_OFFSET.x;
+  const x = initialX + CONTAINER_WIDTH / 2 + COLLAPSE_BADGE_OFFSET.x;
   const y = initialY + CONTAINER_HEIGHT + COLLAPSE_BADGE_OFFSET.y;
   return {
     x,
