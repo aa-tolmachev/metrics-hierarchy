@@ -1,8 +1,8 @@
 import {
   CONTENT_X_OFFSET,
-  DEFAULT_FONT_WEIGHT,
-  HEADING_FONT_SIZE,
-  HEADING_LINE_HEIGHT,
+  LARGE_FONT_SIZE,
+  LARGE_FONT_WEIGHT,
+  LARGE_LINE_HEIGHT,
   VALUES_TEXT_Y_OFFSET,
   VALUE_COLOR,
 } from "./constants";
@@ -19,9 +19,9 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords) => {
     x,
     y,
     fill: VALUE_COLOR,
-    fontSize: HEADING_FONT_SIZE,
-    fontWeight: DEFAULT_FONT_WEIGHT,
-    lineHeight: HEADING_LINE_HEIGHT,
+    fontSize: LARGE_FONT_SIZE,
+    fontWeight: LARGE_FONT_WEIGHT,
+    lineHeight: LARGE_LINE_HEIGHT,
   };
 };
 

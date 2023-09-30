@@ -1,5 +1,5 @@
-export const CONTAINER_WIDTH = 250;
-export const CONTAINER_HEIGHT = 128;
+export const CONTAINER_WIDTH = 256;
+export const CONTAINER_HEIGHT = 140;
 export const CONTAINER_BACKGROUND = "#FFFBFB";
 
 export const METRIC_CONTENT_PADDING = {
@@ -35,6 +35,10 @@ const HEADING_MARGIN_BOTTOM = 36;
 
 export const EXPAND_ICON_SIZE = 16;
 
+export const LARGE_LINE_HEIGHT = 36;
+export const LARGE_FONT_SIZE = 24;
+export const LARGE_FONT_WEIGHT = 400;
+
 export const DEFAULT_FONT_SIZE = 12;
 export const DEFAULT_LINE_HEIGHT = 18;
 export const DEFAULT_FONT_WEIGHT = 400;
@@ -47,13 +51,13 @@ export const SMALL_FONT_WEIGHT = 400;
 export const VALUES_Y_OFFSET =
   METRIC_CONTENT_PADDING.top + HEADING_LINE_HEIGHT + HEADING_MARGIN_BOTTOM;
 // offset of value and trend text from the top
-export const VALUES_TEXT_Y_OFFSET = DEFAULT_LINE_HEIGHT + VALUES_Y_OFFSET;
+export const VALUES_TEXT_Y_OFFSET = LARGE_LINE_HEIGHT + VALUES_Y_OFFSET;
 const VALUES_MARGIN_BOTTOM = 8;
 
 export const VALUE_COLOR = "#000000";
 export const VALUE_MARGIN_RIGHT = 10;
 
-export const TREND_ICON_SIZE = 16;
+export const TREND_ICON_SIZE = LARGE_FONT_SIZE;
 export const TREND_ICON_MARGIN_RIGHT = 2;
 
 export const TREND_VALUE_COLOR = "#33A000";
@@ -75,3 +79,13 @@ export const STATE_PADDING = {
 export const STATE_BORDER_COLOR = "#A99D9D";
 export const STATE_BORDER_RADIUS = 4;
 export const STATE_NAME_COLOR = "#000000";
+
+export const COLLAPSE_BADGE_RADIUS = 15;
+export const COLLAPSE_BADGE_COLOR = "#8f8f8f";
+export const COLLAPSE_BADGE_OFFSET = {
+  x: -COLLAPSE_BADGE_RADIUS / 2,
+  y: -COLLAPSE_BADGE_RADIUS / 2,
+};
+
+export const COLLAPSE_PLUS_TEXT = "+";
+export const COLLAPSE_PLUS_COLOR = "#FFFFFF";

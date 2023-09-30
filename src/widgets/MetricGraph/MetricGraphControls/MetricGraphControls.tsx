@@ -6,8 +6,9 @@ import { Space } from "antd";
 import { GraphDirection } from "../utils/hooks/useGraphDirection";
 import { DirectionButton } from "./DirectionButton/DirectionButton";
 import { GraphDirectionSetter } from "./types";
-import { useIsFromStorage } from "./utils/hooks/useIsFromStorage";
 import { LAST_BUTTON_TOOLTIP_PLACEMENT } from "./constants";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 
 interface MetricGraphControlsProps {
   graphDirection: GraphDirection;
@@ -21,11 +22,12 @@ export const MetricGraphControls: FC<MetricGraphControlsProps> = ({
   setGraphDirection,
   onResetGraph,
 }) => {
-  const isFromStorage = useIsFromStorage();
+  const { source } = useSelector((state: RootState) => state.metricGraph);
 
   return (
     <Space className={styles.controls}>
       <DirectionButton
+        graphSource={source}
         graphDirection={graphDirection}
         setGraphDirection={setGraphDirection}
       />
@@ -33,8 +35,8 @@ export const MetricGraphControls: FC<MetricGraphControlsProps> = ({
         <IconButton
           icon={<ReloadOutlined />}
           tooltipText="Сбросить состояние графа"
-          onClick={isFromStorage ? onResetGraph : () => undefined}
-          disabled={!isFromStorage}
+          onClick={source !== "config" ? onResetGraph : () => undefined}
+          disabled={source === "config"}
           tooltipPlacement={LAST_BUTTON_TOOLTIP_PLACEMENT}
         />
       ) : (

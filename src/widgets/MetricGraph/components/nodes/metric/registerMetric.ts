@@ -7,9 +7,11 @@
 import Graphin from "@antv/graphin";
 import { draw } from "./draw";
 import { METRIC_TYPE } from "../../../../../core/backend/_models/merticGraph/metric";
+import { setState } from "./setState";
 
 export const registerMetric = () => {
   Graphin.registerNode(METRIC_TYPE, {
     draw,
+    setState,
   });
 };

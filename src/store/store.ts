@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { metricGraphReducer } from "./reducers/metricGraphReducer";
+import { metricSubGraphsReducer } from "./reducers/metricSubGraphsReducer";
 
 export const store = configureStore({
   reducer: {
     metricGraph: metricGraphReducer,
+    metricSubGraphs: metricSubGraphsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
