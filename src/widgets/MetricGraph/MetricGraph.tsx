@@ -25,7 +25,7 @@ export const MetricGraph = () => {
 
   const { graph, source } = data;
 
-  const { ActivateRelations, DragNodeWithForce } = Behaviors;
+  const { DragNodeWithForce } = Behaviors;
 
   return (
     <>
@@ -50,7 +50,6 @@ export const MetricGraph = () => {
         ref={graphRef}
       >
         <DragNodeWithForce autoPin />
-        <ActivateRelations trigger="click" />
       </Graphin>
     </>
   );

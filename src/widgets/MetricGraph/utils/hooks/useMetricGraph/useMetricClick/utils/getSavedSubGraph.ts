@@ -1,4 +1,4 @@
-import { MetricSubGraph } from "../../../../../../core/backend/_models/merticGraph/metricGraph";
+import { MetricSubGraph } from "../../../../../../../core/backend/_models/merticGraph/metricGraph";
 
 export const getSavedSubGraph = (
   nodeId: string,

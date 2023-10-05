@@ -1,10 +1,10 @@
-import { getSavedSubGraph } from "./getSavedSubGraph";
-import {
-  MetricGraph,
-  MetricSubGraph,
-} from "../../../../../../core/backend/_models/merticGraph/metricGraph";
 import { Item } from "@antv/g6";
-import { MetricConfig } from "../../../../../../core/frontend/types/metric";
+import {
+  MetricSubGraph,
+  MetricGraph,
+} from "../../../../../../../core/backend/_models/merticGraph/metricGraph";
+import { MetricConfig } from "../../../../../../../core/frontend/types/metric";
+import { getSavedSubGraph } from "./getSavedSubGraph";
 
 export const collapseExpandSubGraph = (
   item: Item,

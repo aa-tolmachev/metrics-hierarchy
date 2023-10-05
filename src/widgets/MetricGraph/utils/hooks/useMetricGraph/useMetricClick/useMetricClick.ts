@@ -5,12 +5,13 @@ import { MetricConfig } from "../../../../../../core/frontend/types/metric";
 import { buildMetricPath } from "../../../../../../routes/buildPath";
 import { PATH } from "../../../../../../routes/paths";
 import { isMetricPath } from "../../../../../../wrappers/utils/isMetricPath";
-import { collapseExpandSubGraph } from "./collapseExpandSubGraph";
+import { collapseExpandSubGraph } from "./utils/collapseExpandSubGraph";
 import { useCollapseSubGraph } from "../../subGraphs/useCollapseSubGraph/useCollapseSubGraph";
 import { MetricGraph } from "../../../../../../core/backend/_models/merticGraph/metricGraph";
 import { useExpandSubGraph } from "../../subGraphs/useExpandSubGraph";
 import { useGetSubGraphs } from "../../subGraphs/useGetSubGraphs";
-import { makeNodesActive } from "./makeNodesActive";
+import { makeSubGraphActive } from "./utils/makeSubGraphActive";
+import { makeGraphInactive } from "./utils/makeGraphInactive";
 
 export const useMetricClick = (graph?: MetricGraph) => {
   const nav = useNavigate();
@@ -25,8 +26,8 @@ export const useMetricClick = (graph?: MetricGraph) => {
       const { item, shape } = e;
       if (!item) return;
 
-      debugger;
-      makeNodesActive(item, graph);
+      makeGraphInactive(graph);
+      makeSubGraphActive(item, graph, true);
 
       // gets metric from event's item
       const { id } = item.get<MetricConfig>("model");

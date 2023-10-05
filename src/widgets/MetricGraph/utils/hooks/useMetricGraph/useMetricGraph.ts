@@ -14,6 +14,7 @@ import {
   removeMetricGraph,
   serializeMetricGraph,
 } from "../../../../../store/reducers/metricGraphReducer";
+import { makeGraphInactive } from "./useMetricClick/utils/makeGraphInactive";
 
 export const useMetricGraph = (metricGraph?: MetricGraph) => {
   const graphRef = useRef<Graphin>(null);
@@ -53,13 +54,16 @@ export const useMetricGraph = (metricGraph?: MetricGraph) => {
     const { graph } = graphRef.current;
 
     const handleMetricClick = onMetricClick(graph);
+    const handleCanvasClick = () => makeGraphInactive(graph);
 
     graph.on("node:click", handleMetricClick);
     graph.on("node:touchstart", handleMetricClick);
+    graph.on("canvas:click", handleCanvasClick);
 
     return () => {
       graph.off("node:click", handleMetricClick);
       graph.off("node:touchstart", handleMetricClick);
+      graph.off("canvas:click", handleCanvasClick);
     };
   }, [dispatch, onMetricClick]);
 
