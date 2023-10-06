@@ -1,17 +1,17 @@
 import { Graph, IG6GraphEvent } from "@antv/graphin";
 import { useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { MetricConfig } from "../../../../../../core/frontend/types/metric";
-import { buildMetricPath } from "../../../../../../routes/buildPath";
-import { PATH } from "../../../../../../routes/paths";
-import { isMetricPath } from "../../../../../../wrappers/utils/isMetricPath";
+import { makeSubGraphActive } from "../../makeSubGraphActive";
+import { makeGraphInactive } from "../../makeGraphInactive";
+import { MetricGraph } from "../../../../../../../../core/backend/_models/merticGraph/metricGraph";
+import { MetricConfig } from "../../../../../../../../core/frontend/types/metric";
+import { buildMetricPath } from "../../../../../../../../routes/buildPath";
+import { PATH } from "../../../../../../../../routes/paths";
+import { isMetricPath } from "../../../../../../../../wrappers/utils/isMetricPath";
+import { useCollapseSubGraph } from "../../../../subGraphs/useCollapseSubGraph/useCollapseSubGraph";
+import { useExpandSubGraph } from "../../../../subGraphs/useExpandSubGraph";
+import { useGetSubGraphs } from "../../../../subGraphs/useGetSubGraphs";
 import { collapseExpandSubGraph } from "./utils/collapseExpandSubGraph";
-import { useCollapseSubGraph } from "../../subGraphs/useCollapseSubGraph/useCollapseSubGraph";
-import { MetricGraph } from "../../../../../../core/backend/_models/merticGraph/metricGraph";
-import { useExpandSubGraph } from "../../subGraphs/useExpandSubGraph";
-import { useGetSubGraphs } from "../../subGraphs/useGetSubGraphs";
-import { makeSubGraphActive } from "./utils/makeSubGraphActive";
-import { makeGraphInactive } from "./utils/makeGraphInactive";
 
 export const useMetricClick = (graph?: MetricGraph) => {
   const nav = useNavigate();

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../../../store";
+import { RootState } from "../../../../../../../store";
 import { IG6GraphEvent } from "@antv/graphin";
 import { useCallback } from "react";
 

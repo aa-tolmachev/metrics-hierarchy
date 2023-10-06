@@ -5,7 +5,6 @@ import { MetricNode } from "../../../../../core/backend/_models/merticGraph/metr
 import { MetricEdge } from "../../../../../core/backend/_models/merticGraph/metricEdge";
 import { MetricGraph } from "../../../../../core/backend/_models/merticGraph/metricGraph";
 import { AppDispatch } from "../../../../../store";
-import { useMetricClick } from "./useMetricClick/useMetricClick";
 import {
   removeMetricSubGraphs,
   serializeMetricSubGraphs,
@@ -14,8 +13,10 @@ import {
   removeMetricGraph,
   serializeMetricGraph,
 } from "../../../../../store/reducers/metricGraphReducer";
-import { makeGraphInactive } from "./useMetricClick/utils/makeGraphInactive";
-import { useSetCollapseState } from "./useMetricClick/utils/hooks/useSetCollapseState";
+import { useSetCollapseState } from "./utils/hooks/useSetCollapseState";
+import { onEdgeClick } from "./utils/onEdgeClick";
+import { useMetricClick } from "./utils/hooks/useMetricClick/useMetricClick";
+import { makeGraphInactive } from "./utils/makeGraphInactive";
 
 export const useMetricGraph = (metricGraph?: MetricGraph) => {
   const graphRef = useRef<Graphin>(null);
@@ -57,14 +58,17 @@ export const useMetricGraph = (metricGraph?: MetricGraph) => {
 
     const handleMetricClick = onMetricClick(graph);
     const handleCanvasClick = () => makeGraphInactive(graph);
+    const handleEdgeClick = onEdgeClick(graph);
 
     graph.on("node:click", handleMetricClick);
+    graph.on("edge:click", handleEdgeClick);
     graph.on("node:touchstart", handleMetricClick);
     graph.on("canvas:click", handleCanvasClick);
     graph.on("afteradditem", setCollapseState);
 
     return () => {
       graph.off("node:click", handleMetricClick);
+      graph.off("edge:click", handleEdgeClick);
       graph.off("node:touchstart", handleMetricClick);
       graph.off("canvas:click", handleCanvasClick);
       graph.off("afteradditem", setCollapseState);
