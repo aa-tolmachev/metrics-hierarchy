@@ -17,7 +17,5 @@ export const collapseExpandSubGraph = (
 
   const savedSubGraph = getSavedSubGraph(id, subGraphs);
   if (savedSubGraph) expand(id, savedSubGraph);
-  else {
-    collapse(item);
-  }
+  else collapse(item);
 };

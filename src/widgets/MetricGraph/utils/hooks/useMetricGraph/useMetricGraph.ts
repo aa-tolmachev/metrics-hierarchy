@@ -15,6 +15,7 @@ import {
   serializeMetricGraph,
 } from "../../../../../store/reducers/metricGraphReducer";
 import { makeGraphInactive } from "./useMetricClick/utils/makeGraphInactive";
+import { useSetCollapseState } from "./useMetricClick/utils/hooks/useSetCollapseState";
 
 export const useMetricGraph = (metricGraph?: MetricGraph) => {
   const graphRef = useRef<Graphin>(null);
@@ -27,6 +28,7 @@ export const useMetricGraph = (metricGraph?: MetricGraph) => {
   }, [dispatch]);
 
   const onMetricClick = useMetricClick(metricGraph);
+  const setCollapseState = useSetCollapseState();
 
   useEffect(() => {
     const onSaveGraph = () => {
@@ -59,13 +61,15 @@ export const useMetricGraph = (metricGraph?: MetricGraph) => {
     graph.on("node:click", handleMetricClick);
     graph.on("node:touchstart", handleMetricClick);
     graph.on("canvas:click", handleCanvasClick);
+    graph.on("afteradditem", setCollapseState);
 
     return () => {
       graph.off("node:click", handleMetricClick);
       graph.off("node:touchstart", handleMetricClick);
       graph.off("canvas:click", handleCanvasClick);
+      graph.off("afteradditem", setCollapseState);
     };
-  }, [dispatch, onMetricClick]);
+  }, [dispatch, onMetricClick, setCollapseState]);
 
   return { graphRef, onResetGraph };
 };
