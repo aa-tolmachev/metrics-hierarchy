@@ -1,8 +1,8 @@
 import {
   CONTENT_X_OFFSET,
-  DEFAULT_FONT_WEIGHT,
-  HEADING_FONT_SIZE,
-  HEADING_LINE_HEIGHT,
+  LARGE_FONT_SIZE,
+  LARGE_FONT_WEIGHT,
+  LARGE_LINE_HEIGHT,
   TREND_ICON_MARGIN_RIGHT,
   TREND_ICON_SIZE,
   TREND_VALUE_COLOR,
@@ -19,7 +19,7 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
   const valueWidth = getTextWidth(
     context,
     config.value.toString(),
-    HEADING_FONT_SIZE
+    LARGE_FONT_SIZE
   );
   const x =
     initialX +
@@ -36,9 +36,9 @@ const getAttrs: GetAttrsFunctionFull = (config, initialCoords, group) => {
     x,
     y,
     fill: TREND_VALUE_COLOR,
-    fontSize: HEADING_FONT_SIZE,
-    fontWeight: DEFAULT_FONT_WEIGHT,
-    lineHeight: HEADING_LINE_HEIGHT,
+    fontSize: LARGE_FONT_SIZE,
+    fontWeight: LARGE_FONT_WEIGHT,
+    lineHeight: LARGE_LINE_HEIGHT,
   };
 };
 

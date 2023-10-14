@@ -4,24 +4,24 @@ import { IconButton } from "../../../../components/IconButton";
 import { getDirectionIcon } from "./utils/getDirectionIcon";
 import { GraphDirectionSetter } from "../types";
 import { ActiveDirectionButton } from "./ActiveDirectionButton/ActiveDirectionButton";
-import { useIsFromStorage } from "../utils/hooks/useIsFromStorage";
 import { DIRECTION_TOOLTIP_TEXT } from "./constants";
+import { MetricGraphSource } from "../../../../store/reducers/types";
 
 interface DirectionButtonProps {
+  graphSource: MetricGraphSource;
   graphDirection: GraphDirection;
 
   setGraphDirection?: GraphDirectionSetter;
 }
 
 export const DirectionButton: FC<DirectionButtonProps> = ({
+  graphSource,
   graphDirection,
   setGraphDirection,
 }) => {
-  const isFromStorage = useIsFromStorage();
-
   const directionIcon = getDirectionIcon(graphDirection);
 
-  if (!setGraphDirection || isFromStorage)
+  if (!setGraphDirection || graphSource !== "config")
     return (
       <IconButton
         icon={directionIcon}

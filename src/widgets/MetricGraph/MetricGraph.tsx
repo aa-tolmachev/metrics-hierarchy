@@ -1,25 +1,24 @@
-import Graphin, { IG6GraphEvent, Behaviors, GraphinData } from "@antv/graphin";
-import { FC } from "react";
+import Graphin, { Behaviors } from "@antv/graphin";
 import { registerMetric } from "./components";
 import { useGraphData } from "./utils/hooks/useGraphData";
-import { useMetricGraph } from "./utils/hooks/useMetricGraph";
+import { useMetricGraph } from "./utils/hooks/useMetricGraph/useMetricGraph";
 import { getLayoutType } from "./utils/getLayoutType";
 import styles from "./MetricGraph.module.scss";
 import { MetricGraphControls } from "./MetricGraphControls/MetricGraphControls";
 import { useGraphDirection } from "./utils/hooks/useGraphDirection";
+import { useRef } from "react";
 
-interface MetricGraphProps {
-  onMetricClick: (e: IG6GraphEvent) => void;
-}
-
-export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
+export const MetricGraph = () => {
   registerMetric();
 
-  const { graphRef, onResetGraph } = useMetricGraph(onMetricClick);
+  const graphRef = useRef<Graphin>(null);
+
+  const data = useGraphData();
+
+  const { onResetGraph } = useMetricGraph(graphRef, data.graph);
 
   const [graphDirection, setGraphDirection] = useGraphDirection();
 
-  const data = useGraphData();
   if (!data)
     return (
       <div className={styles.emptyField}>
@@ -29,13 +28,7 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
 
   const { graph, source } = data;
 
-  const {
-    ActivateRelations,
-    DragNodeWithForce,
-    DragCanvas,
-    BrushSelect,
-    LassoSelect,
-  } = Behaviors;
+  const { DragNodeWithForce } = Behaviors;
 
   return (
     <>
@@ -68,7 +61,6 @@ export const MetricGraph: FC<MetricGraphProps> = ({ onMetricClick }) => {
         ref={graphRef}
       >
         <DragNodeWithForce autoPin />
-        <ActivateRelations trigger="click" />
       </Graphin>
     </>
   );
