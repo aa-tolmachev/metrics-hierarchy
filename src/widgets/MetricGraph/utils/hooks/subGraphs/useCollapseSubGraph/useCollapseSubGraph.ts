@@ -5,21 +5,26 @@ import {
   updateGraphSource,
   updateMetricGraph,
 } from "../../../../../../store/reducers/metricGraphReducer";
-import { saveMetricSubGraph } from "../../../../../../store/reducers/metricSubGraphsReducer";
 import { collectSubGraph } from "./collectSubGraph";
 import { MetricNode } from "../../../../../../core/backend/_models/merticGraph/metric";
 import { MetricEdge } from "../../../../../../core/backend/_models/merticGraph/metricEdge";
+import { Item } from "@antv/g6";
+import { MetricConfig } from "../../../../../../core/frontend/types/metric";
+import { saveMetricSubGraph } from "../../../../../../store/reducers/metricSubGraphsReducer";
 
 export const useCollapseSubGraph = (graph?: MetricGraph) => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const collapse = (nodeId: string) => {
+  const collapse = (item: Item) => {
     if (!graph) return;
+
+    // gets metric from event's item
+    const { id } = item.get<MetricConfig>("model");
 
     const nodeIds: string[] = [];
     const edgeIds: string[] = [];
 
-    collectSubGraph(nodeId, nodeIds, edgeIds, graph, true);
+    collectSubGraph(id, nodeIds, edgeIds, graph, true);
 
     const { nodes, edges } = graph;
 
@@ -38,6 +43,11 @@ export const useCollapseSubGraph = (graph?: MetricGraph) => {
       else edgesAfterCollapse.push(edge);
     });
 
+    if (subGraphNodes.length === 0 && subGraphEdges.length === 0) return;
+
+    // TO-DO: make this work as intended
+    setTimeout(() => item.setState("collapsed", true), 100);
+
     const newGraph = {
       nodes: nodesAfterCollapse,
       edges: edgesAfterCollapse,
@@ -45,7 +55,7 @@ export const useCollapseSubGraph = (graph?: MetricGraph) => {
 
     dispatch(
       saveMetricSubGraph({
-        id: nodeId,
+        id,
         nodes: subGraphNodes,
         edges: subGraphEdges,
       })

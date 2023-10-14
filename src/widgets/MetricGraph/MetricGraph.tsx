@@ -6,13 +6,16 @@ import { getLayoutType } from "./utils/getLayoutType";
 import styles from "./MetricGraph.module.scss";
 import { MetricGraphControls } from "./MetricGraphControls/MetricGraphControls";
 import { useGraphDirection } from "./utils/hooks/useGraphDirection";
+import { useRef } from "react";
 
 export const MetricGraph = () => {
   registerMetric();
 
+  const graphRef = useRef<Graphin>(null);
+
   const data = useGraphData();
 
-  const { graphRef, onResetGraph } = useMetricGraph(data.graph);
+  const { onResetGraph } = useMetricGraph(graphRef, data.graph);
 
   const [graphDirection, setGraphDirection] = useGraphDirection();
 
@@ -25,7 +28,7 @@ export const MetricGraph = () => {
 
   const { graph, source } = data;
 
-  const { ActivateRelations, DragNodeWithForce } = Behaviors;
+  const { DragNodeWithForce } = Behaviors;
 
   return (
     <>
@@ -50,7 +53,6 @@ export const MetricGraph = () => {
         ref={graphRef}
       >
         <DragNodeWithForce autoPin />
-        <ActivateRelations trigger="click" />
       </Graphin>
     </>
   );

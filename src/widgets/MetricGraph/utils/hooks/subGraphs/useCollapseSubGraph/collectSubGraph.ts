@@ -1,11 +1,4 @@
-import { MetricEdge } from "../../../../../../core/backend/_models/merticGraph/metricEdge";
 import { MetricGraph } from "../../../../../../core/backend/_models/merticGraph/metricGraph";
-
-const isbelongManySubGraph = (nodeId: string, edges: MetricEdge[]) => {
-  const sourceEdges = edges.filter((edge) => edge.source === nodeId);
-  if (sourceEdges.length > 1) return true;
-  return false;
-};
 
 export const collectSubGraph = (
   nodeId: string,
@@ -16,10 +9,7 @@ export const collectSubGraph = (
 ) => {
   const { edges } = graph;
 
-  const belongManySubGraph = isbelongManySubGraph(nodeId, edges);
-
   if (!isRoot) {
-    if (belongManySubGraph) return;
     nodeIds.push(nodeId);
   }
 

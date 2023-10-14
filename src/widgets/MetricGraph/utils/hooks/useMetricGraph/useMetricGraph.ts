@@ -1,11 +1,10 @@
 import Graphin from "@antv/graphin";
-import { useRef, useEffect, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MetricNode } from "../../../../../core/backend/_models/merticGraph/metric";
 import { MetricEdge } from "../../../../../core/backend/_models/merticGraph/metricEdge";
 import { MetricGraph } from "../../../../../core/backend/_models/merticGraph/metricGraph";
-import { AppDispatch } from "../../../../../store";
-import { useMetricClick } from "./useMetricClick/useMetricClick";
+import { AppDispatch, RootState } from "../../../../../store";
 import {
   removeMetricSubGraphs,
   serializeMetricSubGraphs,
@@ -14,10 +13,16 @@ import {
   removeMetricGraph,
   serializeMetricGraph,
 } from "../../../../../store/reducers/metricGraphReducer";
+import { useSetCollapseState } from "./utils/hooks/useSetCollapseState";
+import { onEdgeClick } from "./utils/onEdgeClick";
+import { useMetricClick } from "./utils/hooks/useMetricClick/useMetricClick";
+import { makeGraphInactive } from "./utils/makeGraphInactive";
+import { makeNodesCollapsed } from "./utils/makeNodesCollapsed";
 
-export const useMetricGraph = (metricGraph?: MetricGraph) => {
-  const graphRef = useRef<Graphin>(null);
-
+export const useMetricGraph = (
+  graphRef: React.RefObject<Graphin>,
+  metricGraph?: MetricGraph
+) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const onResetGraph = useCallback(() => {
@@ -26,6 +31,11 @@ export const useMetricGraph = (metricGraph?: MetricGraph) => {
   }, [dispatch]);
 
   const onMetricClick = useMetricClick(metricGraph);
+  const setCollapseState = useSetCollapseState();
+
+  const subGraphs = useSelector(
+    (state: RootState) => state.metricSubGraphs.subGraphs
+  );
 
   useEffect(() => {
     const onSaveGraph = () => {
@@ -52,14 +62,27 @@ export const useMetricGraph = (metricGraph?: MetricGraph) => {
 
     const { graph } = graphRef.current;
 
-    graph.on("node:click", onMetricClick);
-    graph.on("node:touchstart", onMetricClick);
+    const handleMetricClick = onMetricClick(graph);
+    const handleCanvasClick = () => makeGraphInactive(graph);
+    const handleEdgeClick = onEdgeClick(graph);
+    const handleAfterRender = () => makeNodesCollapsed(graph, subGraphs);
+
+    graph.on("afterrender", handleAfterRender);
+    graph.on("node:click", handleMetricClick);
+    graph.on("edge:click", handleEdgeClick);
+    graph.on("node:touchstart", handleMetricClick);
+    graph.on("canvas:click", handleCanvasClick);
+    graph.on("afteradditem", setCollapseState);
 
     return () => {
-      graph.off("node:click", onMetricClick);
-      graph.off("node:touchstart", onMetricClick);
+      graph.off("afterrender", handleAfterRender);
+      graph.off("node:click", handleMetricClick);
+      graph.off("edge:click", handleEdgeClick);
+      graph.off("node:touchstart", handleMetricClick);
+      graph.off("canvas:click", handleCanvasClick);
+      graph.off("afteradditem", setCollapseState);
     };
-  }, [dispatch, onMetricClick]);
+  }, [dispatch, graphRef, onMetricClick, setCollapseState, subGraphs]);
 
   return { graphRef, onResetGraph };
 };
