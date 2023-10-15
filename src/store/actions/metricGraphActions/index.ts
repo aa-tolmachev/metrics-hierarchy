@@ -74,3 +74,14 @@ export const updateGraphSourceAction = (
 ) => {
   state.source = payload;
 };
+
+export const addComboToGraphAction = (
+  state: MetricGraphReducerState,
+  { payload }: PayloadAction<{ nodeIds: string[]; comboId: string }>
+) => {
+  const { nodeIds, comboId } = payload;
+  nodeIds.forEach((id) => {
+    const node = state.graph?.nodes.find((graphNode) => graphNode.id === id);
+    if (node) node.comboId = comboId;
+  });
+};
