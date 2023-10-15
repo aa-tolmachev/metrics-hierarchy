@@ -17,3 +17,20 @@ export interface MetricGraphReducerState {
 export interface MetricSubGraphsReducerState {
   subGraphs: MetricSubGraph[];
 }
+
+export interface SelectedMetricSubGraphState {
+  subGraph: {
+    comboIds: string[];
+    edgeIds: string[];
+    nodeIds: string[];
+  };
+}
+
+export interface ComboItem {
+  id: string;
+  label: string;
+}
+
+export interface CombosState {
+  combos: ComboItem[];
+}

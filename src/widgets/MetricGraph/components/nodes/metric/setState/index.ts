@@ -12,6 +12,9 @@ export const setState = (name: string, _: any, node: any) => {
     case "active":
       container.attr("shadowColor", "#474747");
       break;
+    case "selected":
+      container.attr("shadowColor", "#474747");
+      break;
     case "inactive":
       container.attr("shadowColor", undefined);
       break;

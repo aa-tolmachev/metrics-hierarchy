@@ -1,1 +1,1 @@
-export const LAST_BUTTON_TOOLTIP_PLACEMENT = "bottomRight";
+export const RIGHT_BUTTON_TOOLTIP_PLACEMENT = "bottomRight";
