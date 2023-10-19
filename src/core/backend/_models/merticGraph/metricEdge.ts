@@ -1,17 +1,18 @@
 import { IUserEdge } from "@antv/graphin";
 
-export type MetricEdgeType = "Hard" | "Soft";
+export type ConnectionType = "Hard" | "Soft";
 
 export interface RawMetricEdge {
   from: number;
   to: number;
-  type: MetricEdgeType;
+  type: ConnectionType;
 }
 
 export interface MetricEdge extends IUserEdge {
   id: string;
   source: string;
   target: string;
+  connectionType: ConnectionType;
   style?: {
     keyshape?: {
       stroke?: string;

@@ -1,11 +1,11 @@
-import { MetricEdgeType } from "../../_models/merticGraph/metricEdge";
+import { ConnectionType } from "../../_models/merticGraph/metricEdge";
 import { EDGE_COLOR } from "./constants";
 
 /**
  * Returns style part of the Edge object.
- * @param {MetricEdgeType} type - type of the edge
+ * @param {ConnectionType} type - type of the edge
  */
-export const getEdgeStyle = (type?: MetricEdgeType) => {
+export const getEdgeStyle = (type?: ConnectionType) => {
   switch (type) {
     case "Soft":
       return {
