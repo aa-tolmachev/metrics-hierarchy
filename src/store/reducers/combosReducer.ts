@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CombosState } from "./types";
-import { addComboAction } from "../actions/combosActions";
+import { CombosReducerState } from "./types";
+import {
+  addComboAction,
+  deserializeCombosAction,
+  removeCombosAction,
+  serializeCombosAction,
+} from "../actions/combosActions";
 
-const initialState: CombosState = {
+const initialState: CombosReducerState = {
   combos: [],
 };
 
@@ -11,9 +16,13 @@ export const combosSlice = createSlice({
   initialState,
   reducers: {
     addCombo: addComboAction,
+    serializeCombos: serializeCombosAction,
+    deserializeCombos: deserializeCombosAction,
+    removeCombos: removeCombosAction,
   },
 });
 
-export const { addCombo } = combosSlice.actions;
+export const { addCombo, serializeCombos, deserializeCombos, removeCombos } =
+  combosSlice.actions;
 
 export const combosReducer = combosSlice.reducer;

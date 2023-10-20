@@ -10,8 +10,10 @@ import { useRef } from "react";
 import { useCombos } from "./utils/hooks/combos/useCombos";
 import { useAddCombo } from "./utils/hooks/combos/useAddCombo";
 import { createCombo } from "./utils/createCombo";
+import { useDeserializeData } from "./utils/hooks/useDeserializeData";
 
 export const MetricGraph = () => {
+  useDeserializeData();
   registerMetric();
 
   const graphRef = useRef<Graphin>(null);

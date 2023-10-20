@@ -20,6 +20,7 @@ import { makeGraphInactive } from "./utils/makeGraphInactive";
 import { makeNodesCollapsed } from "./utils/makeNodesCollapsed";
 import { useSelectSubGraph } from "./utils/hooks/useSelectSubGraph/useSelectSubGraph";
 import { SelectedEvent } from "../../../../../core/frontend/types/events";
+import { serializeCombos } from "../../../../../store/reducers/combosReducer";
 
 export const useMetricGraph = (
   graphRef: React.RefObject<Graphin>,
@@ -55,6 +56,7 @@ export const useMetricGraph = (
         })
       );
       dispatch(serializeMetricSubGraphs());
+      dispatch(serializeCombos());
     };
 
     window.addEventListener("beforeunload", () => {

@@ -31,6 +31,6 @@ export interface ComboItem {
   label: string;
 }
 
-export interface CombosState {
+export interface CombosReducerState {
   combos: ComboItem[];
 }

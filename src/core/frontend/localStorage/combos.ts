@@ -5,9 +5,10 @@ import { setToStorage } from "./utils/setToStorage";
 
 const combosKey = "METRIC-GRAPH-COMBOS";
 
-const getCachedCombos = (): ComboItem[] | undefined =>
+export const getCachedCombos = (): ComboItem[] | undefined =>
   getFromStorage<ComboItem[]>(combosKey);
 
-const setCombos = (combos: ComboItem[]) => setToStorage(combos, combosKey);
+export const setCombos = (combos: ComboItem[]) =>
+  setToStorage(combos, combosKey);
 
-const removeCombos = () => removeFromStorage(combosKey);
+export const removeCombos = () => removeFromStorage(combosKey);
