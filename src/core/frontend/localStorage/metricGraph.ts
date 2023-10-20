@@ -1,14 +1,14 @@
 import { MetricGraph } from "../../backend/_models/merticGraph/metricGraph";
+import { getFromStorage } from "./utils/getFromStorage";
+import { removeFromStorage } from "./utils/removeFromStorage";
+import { setToStorage } from "./utils/setToStorage";
 
 const graphKey = "METRIC-GRAPH";
 
-export const getCachedMetricGraph = (): MetricGraph | undefined => {
-  const data = localStorage.getItem(graphKey);
-  if (!data) return;
-  return JSON.parse(data) as MetricGraph;
-};
+export const getCachedMetricGraph = (): MetricGraph | undefined =>
+  getFromStorage<MetricGraph>(graphKey);
 
 export const setMetricGraph = (graph: MetricGraph) =>
-  localStorage.setItem(graphKey, JSON.stringify(graph));
+  setToStorage(graph, graphKey);
 
-export const removeMetricGraph = () => localStorage.removeItem(graphKey);
+export const removeMetricGraph = () => removeFromStorage(graphKey);
