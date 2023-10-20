@@ -14,19 +14,17 @@ interface MetricGraphControlsProps {
 
   setGraphDirection?: GraphDirectionSetter;
   onResetGraph?: VoidFunction;
-  onCombine?: VoidFunction;
 }
 
 export const MetricGraphControls: FC<MetricGraphControlsProps> = ({
   graphDirection,
   setGraphDirection,
   onResetGraph,
-  onCombine,
 }) => {
   const { source } = useSelector((state: RootState) => state.metricGraph);
   return (
     <Space className={styles.controls}>
-      <ComboNodesButton onCombine={onCombine} />
+      <ComboNodesButton />
       <DirectionButton
         graphSource={source}
         graphDirection={graphDirection}

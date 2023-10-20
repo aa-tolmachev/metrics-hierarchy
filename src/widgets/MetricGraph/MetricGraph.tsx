@@ -8,8 +8,8 @@ import { MetricGraphControls } from "./MetricGraphControls/MetricGraphControls";
 import { useGraphDirection } from "./utils/hooks/useGraphDirection";
 import { useRef } from "react";
 import { useCombos } from "./utils/hooks/combos/useCombos";
-import { useAddCombo } from "./utils/hooks/combos/useAddCombo";
-import { createCombo } from "./utils/createCombo";
+import { useAddCombo } from "./MetricGraphControls/ComboNodesButton/utils/hooks/useAddCombo";
+import { createCombo } from "./MetricGraphControls/ComboNodesButton/utils/createCombo";
 import { useDeserializeData } from "./utils/hooks/useDeserializeData";
 
 export const MetricGraph = () => {
@@ -21,7 +21,6 @@ export const MetricGraph = () => {
   const data = useGraphData();
 
   const combos = useCombos();
-  const addCombo = useAddCombo();
 
   const { onResetGraph } = useMetricGraph(graphRef, data.graph);
 
@@ -44,7 +43,6 @@ export const MetricGraph = () => {
         graphDirection={graphDirection}
         onResetGraph={onResetGraph}
         setGraphDirection={setGraphDirection}
-        onCombine={() => addCombo(createCombo())}
       />
       <Graphin
         style={{
