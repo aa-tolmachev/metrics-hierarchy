@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../../store";
 import { useCallback } from "react";
 import { addCombo } from "../../../../../store/reducers/combosReducer";
-import { ComboItem } from "../../../../../store/reducers/types";
 import { addComboToGraph } from "../../../../../store/reducers/metricGraphReducer";
+import { ComboItem } from "../../../../../core/backend/_models/merticGraph/combo";
 
 export const useAddCombo = () => {
   const dispatch = useDispatch<AppDispatch>();

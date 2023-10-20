@@ -1,10 +1,11 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { ComboItem, CombosReducerState } from "../reducers/types";
+import { CombosReducerState } from "../reducers/types";
 import {
   getCachedCombos,
   removeCombos,
   setCombos,
 } from "../../core/frontend/localStorage/combos";
+import { ComboItem } from "../../core/backend/_models/merticGraph/combo";
 
 export const addComboAction = (
   state: CombosReducerState,

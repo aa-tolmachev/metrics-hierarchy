@@ -1,3 +1,4 @@
+import { ComboItem } from "../../core/backend/_models/merticGraph/combo";
 import {
   MetricGraph,
   MetricSubGraph,
@@ -24,11 +25,6 @@ export interface SelectedMetricSubGraphState {
     edgeIds: string[];
     nodeIds: string[];
   };
-}
-
-export interface ComboItem {
-  id: string;
-  label: string;
 }
 
 export interface CombosReducerState {

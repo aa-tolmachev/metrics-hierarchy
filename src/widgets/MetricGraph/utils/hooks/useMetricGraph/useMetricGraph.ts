@@ -10,7 +10,6 @@ import {
   serializeMetricSubGraphs,
 } from "../../../../../store/reducers/metricSubGraphsReducer";
 import {
-  removeCombosFromGraph,
   removeMetricGraph,
   serializeMetricGraph,
 } from "../../../../../store/reducers/metricGraphReducer";
@@ -23,9 +22,9 @@ import { useSelectSubGraph } from "./utils/hooks/useSelectSubGraph/useSelectSubG
 import { SelectedEvent } from "../../../../../core/frontend/types/events";
 import {
   removeAllCombos,
-  removeCombos,
   serializeCombos,
 } from "../../../../../store/reducers/combosReducer";
+import { createDeletingCombosBehavior } from "./utils/createDeletingCombosBehavior";
 
 export const useMetricGraph = (
   graphRef: React.RefObject<Graphin>,
@@ -73,22 +72,14 @@ export const useMetricGraph = (
 
     const { graph } = graphRef.current;
 
+    createDeletingCombosBehavior(graph, dispatch);
+
     const handleMetricClick = onMetricClick(graph);
     const handleCanvasClick = () => makeGraphInactive(graph);
     const handleEdgeClick = onEdgeClick(graph);
     const handleAfterRender = () => makeNodesCollapsed(graph, subGraphs);
     const handleNodeSelectChange = (e: IG6GraphEvent) =>
       selectSubGraph(e as unknown as SelectedEvent);
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key !== "Delete") return;
-      const selectedCombos = graph.findAllByState("combo", "selected");
-      const selectedIds = selectedCombos.map((combo) =>
-        combo.get<string>("id")
-      );
-      dispatch(removeCombos(selectedIds));
-      dispatch(removeCombosFromGraph(selectedIds));
-    });
 
     graph.on("afterrender", handleAfterRender);
     graph.on("nodeselectchange", handleNodeSelectChange);

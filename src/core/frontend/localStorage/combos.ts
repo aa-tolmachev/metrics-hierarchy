@@ -1,4 +1,4 @@
-import { ComboItem } from "../../../store/reducers/types";
+import { ComboItem } from "../../backend/_models/merticGraph/combo";
 import { getFromStorage } from "./utils/getFromStorage";
 import { removeFromStorage } from "./utils/removeFromStorage";
 import { setToStorage } from "./utils/setToStorage";
