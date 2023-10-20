@@ -23,7 +23,16 @@ export const deserializeCombosAction = () => {
   return { combos: combos ?? [] };
 };
 
-export const removeCombosAction = (): CombosReducerState => {
+export const removeAllCombosAction = (): CombosReducerState => {
   removeCombos();
   return { combos: [] };
+};
+
+export const removeCombosAction = (
+  state: CombosReducerState,
+  { payload: ids }: PayloadAction<string[]>
+) => {
+  const { combos } = state;
+  const newCombos = combos.filter((combo) => !ids.includes(combo.id));
+  return { combos: newCombos };
 };

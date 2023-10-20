@@ -3,6 +3,7 @@ import { CombosReducerState } from "./types";
 import {
   addComboAction,
   deserializeCombosAction,
+  removeAllCombosAction,
   removeCombosAction,
   serializeCombosAction,
 } from "../actions/combosActions";
@@ -18,11 +19,17 @@ export const combosSlice = createSlice({
     addCombo: addComboAction,
     serializeCombos: serializeCombosAction,
     deserializeCombos: deserializeCombosAction,
+    removeAllCombos: removeAllCombosAction,
     removeCombos: removeCombosAction,
   },
 });
 
-export const { addCombo, serializeCombos, deserializeCombos, removeCombos } =
-  combosSlice.actions;
+export const {
+  addCombo,
+  serializeCombos,
+  deserializeCombos,
+  removeAllCombos,
+  removeCombos,
+} = combosSlice.actions;
 
 export const combosReducer = combosSlice.reducer;

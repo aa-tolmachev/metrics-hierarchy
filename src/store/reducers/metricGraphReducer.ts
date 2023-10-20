@@ -4,6 +4,7 @@ import {
   addComboToGraphAction,
   addSubGraphToMetricGraphAction,
   deserializeMetricGraphAction,
+  removeCombosFromGraphAction,
   removeMetricGraphAction,
   serializeMetricGraphAction,
   updateGraphSourceAction,
@@ -26,6 +27,7 @@ export const metricGraphSlice = createSlice({
     addSubGraphToMetricGraph: addSubGraphToMetricGraphAction,
     updateGraphSource: updateGraphSourceAction,
     addComboToGraph: addComboToGraphAction,
+    removeCombosFromGraph: removeCombosFromGraphAction,
   },
 });
 
@@ -37,6 +39,7 @@ export const {
   addSubGraphToMetricGraph,
   updateGraphSource,
   addComboToGraph,
+  removeCombosFromGraph,
 } = metricGraphSlice.actions;
 
 export const metricGraphReducer = metricGraphSlice.reducer;
