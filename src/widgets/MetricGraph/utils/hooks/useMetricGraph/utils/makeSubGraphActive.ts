@@ -1,5 +1,6 @@
 import { Graph } from "@antv/graphin";
 import { Item } from "@antv/g6";
+import { MetricEdge } from "../../../../../../core/backend/_models/merticGraph/metricEdge";
 
 export const makeSubGraphActive = (
   node: Item,
@@ -10,6 +11,9 @@ export const makeSubGraphActive = (
   const edges = node.get<Item[]>("edges");
 
   edges.forEach((edge) => {
+    const { connectionType } = edge.get<MetricEdge>("model");
+    if (connectionType === "Soft") return;
+
     edge.setState("active", true);
 
     const source = edge.get<Item>("source");

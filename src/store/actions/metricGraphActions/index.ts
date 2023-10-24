@@ -74,3 +74,41 @@ export const updateGraphSourceAction = (
 ) => {
   state.source = payload;
 };
+
+export const addComboToGraphAction = (
+  state: MetricGraphReducerState,
+  { payload }: PayloadAction<{ nodeIds: string[]; comboId: string }>
+) => {
+  const { nodeIds, comboId } = payload;
+  nodeIds.forEach((id) => {
+    const node = state.graph?.nodes.find((graphNode) => graphNode.id === id);
+    if (node) node.comboId = comboId;
+  });
+};
+
+export const removeCombosFromGraphAction = (
+  state: MetricGraphReducerState,
+  { payload: comboIds }: PayloadAction<string[]>
+): MetricGraphReducerState => {
+  const { graph, source } = state;
+  if (!graph) throw new Error("no graph");
+
+  const { nodes } = graph;
+  const newNodes = nodes.map((node) => {
+    const { comboId } = node;
+    if (comboId && comboIds.includes(comboId))
+      return {
+        ...node,
+        comboId: undefined,
+      };
+    return node;
+  });
+
+  return {
+    source,
+    graph: {
+      ...graph,
+      nodes: newNodes,
+    },
+  };
+};

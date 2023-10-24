@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { MetricGraphReducerState } from "./types";
 import {
+  addComboToGraphAction,
   addSubGraphToMetricGraphAction,
   deserializeMetricGraphAction,
+  removeCombosFromGraphAction,
   removeMetricGraphAction,
   serializeMetricGraphAction,
   updateGraphSourceAction,
@@ -24,6 +26,8 @@ export const metricGraphSlice = createSlice({
     updateMetricGraph: updateMetricGraphAction,
     addSubGraphToMetricGraph: addSubGraphToMetricGraphAction,
     updateGraphSource: updateGraphSourceAction,
+    addComboToGraph: addComboToGraphAction,
+    removeCombosFromGraph: removeCombosFromGraphAction,
   },
 });
 
@@ -34,6 +38,8 @@ export const {
   updateMetricGraph,
   addSubGraphToMetricGraph,
   updateGraphSource,
+  addComboToGraph,
+  removeCombosFromGraph,
 } = metricGraphSlice.actions;
 
 export const metricGraphReducer = metricGraphSlice.reducer;

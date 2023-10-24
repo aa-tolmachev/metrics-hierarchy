@@ -37,5 +37,6 @@ export interface Metric {
 export const METRIC_TYPE = "metric";
 
 export interface MetricNode extends IUserNode, Metric {
+  comboId?: string;
   type: typeof METRIC_TYPE;
 }

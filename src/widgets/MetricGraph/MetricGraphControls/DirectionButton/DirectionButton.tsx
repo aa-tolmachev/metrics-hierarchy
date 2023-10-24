@@ -6,6 +6,7 @@ import { GraphDirectionSetter } from "../types";
 import { ActiveDirectionButton } from "./ActiveDirectionButton/ActiveDirectionButton";
 import { DIRECTION_TOOLTIP_TEXT } from "./constants";
 import { MetricGraphSource } from "../../../../store/reducers/types";
+import { RIGHT_BUTTON_TOOLTIP_PLACEMENT } from "../constants";
 
 interface DirectionButtonProps {
   graphSource: MetricGraphSource;
@@ -27,6 +28,7 @@ export const DirectionButton: FC<DirectionButtonProps> = ({
         icon={directionIcon}
         disabled
         tooltipText={DIRECTION_TOOLTIP_TEXT}
+        tooltipPlacement={RIGHT_BUTTON_TOOLTIP_PLACEMENT}
       />
     );
 

@@ -1,14 +1,14 @@
 import { MetricSubGraph } from "../../backend/_models/merticGraph/metricGraph";
+import { getFromStorage } from "./utils/getFromStorage";
+import { removeFromStorage } from "./utils/removeFromStorage";
+import { setToStorage } from "./utils/setToStorage";
 
-const graphKey = "METRIC-SUBGRAPHS";
+const subGraphsKey = "METRIC-SUBGRAPHS";
 
-export const getCachedMetricSubGraphs = (): MetricSubGraph[] | undefined => {
-  const data = localStorage.getItem(graphKey);
-  if (!data) return;
-  return JSON.parse(data) as MetricSubGraph[];
-};
+export const getCachedMetricSubGraphs = (): MetricSubGraph[] | undefined =>
+  getFromStorage<MetricSubGraph[]>(subGraphsKey);
 
 export const setMetricSubGraphs = (subGraphs: MetricSubGraph[]) =>
-  localStorage.setItem(graphKey, JSON.stringify(subGraphs));
+  setToStorage(subGraphs, subGraphsKey);
 
-export const removeMetricSubGraphs = () => localStorage.removeItem(graphKey);
+export const removeMetricSubGraphs = () => removeFromStorage(subGraphsKey);

@@ -40,7 +40,7 @@ export const deserializeMetricSubGraphsAction = () => {
   return { subGraphs: subGraphs ?? [] };
 };
 
-export const removeMetricSubGraphsAction = () => {
+export const removeMetricSubGraphsAction = (): MetricSubGraphsReducerState => {
   removeMetricSubGraphs();
   return { subGraphs: [] };
 };
