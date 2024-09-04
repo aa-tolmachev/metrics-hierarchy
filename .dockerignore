@@ -1,0 +1,17 @@
+# git
+.git
+.gitignore
+
+# next
+.next
+
+# dependencies
+node_modules
+
+# production
+dist
+
+# misc
+.dockerignore
+npm-debug.log
+tmp

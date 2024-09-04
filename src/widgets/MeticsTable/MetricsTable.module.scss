@@ -1,0 +1,15 @@
+@mixin hideFilterButton() {
+	:global(.p-column-filter-menu-button) {
+		display: none;
+	}
+}
+
+.filterHeader {
+	min-width: 200px;
+	@include hideFilterButton();
+}
+
+.descriptionHeader {
+	min-width: 300px;
+	@include hideFilterButton();
+}

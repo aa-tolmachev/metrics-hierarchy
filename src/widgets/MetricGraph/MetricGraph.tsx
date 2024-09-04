@@ -1,69 +1,75 @@
-import Graphin, { Behaviors } from "@antv/graphin";
-import { registerMetric } from "./components";
-import { useGraphData } from "./utils/hooks/useGraphData";
-import { useMetricGraph } from "./utils/hooks/useMetricGraph/useMetricGraph";
-import { getLayoutType } from "./utils/getLayoutType";
-import styles from "./MetricGraph.module.scss";
-import { MetricGraphControls } from "./MetricGraphControls/MetricGraphControls";
-import { useGraphDirection } from "./utils/hooks/useGraphDirection";
-import { useRef } from "react";
-import { useCombos } from "./utils/hooks/combos/useCombos";
-import { useAddCombo } from "./MetricGraphControls/ComboNodesButton/utils/hooks/useAddCombo";
-import { createCombo } from "./MetricGraphControls/ComboNodesButton/utils/createCombo";
-import { useDeserializeData } from "./utils/hooks/useDeserializeData";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useRef } from "react";
+import Graph from "react-graph-vis";
 
-export const MetricGraph = () => {
-  useDeserializeData();
-  registerMetric();
+import { useAppDispatch } from "../../store/hooks/useAppDispatch";
+import { useAppSelector } from "../../store/hooks/useAppSelector";
+import {
+	addMetricGraphAuthorId,
+	addMetricGraphData,
+	addMetricGraphName,
+	removeMetricGraph,
+} from "../../store/reducer/metricGraphReducer";
+import { useMetricGraph } from "./hooks/useMetricGraph/useMetricGraph";
 
-  const graphRef = useRef<Graphin>(null);
+const MetricGraph = () => {
+	const router = useRouter();
 
-  const data = useGraphData();
+	const dispatch = useAppDispatch();
+	const graphRef = useRef<any>();
 
-  const combos = useCombos();
+	useEffect(() => {
+		if (graphRef.current)
+			dispatch(addMetricGraphData(graphRef.current.Network));
+		return () => {
+			dispatch(removeMetricGraph());
+		};
+	}, [dispatch]);
 
-  const { onResetGraph } = useMetricGraph(graphRef, data.graph);
+	const graph = useAppSelector((state) => state.metricGraph.data);
 
-  const [graphDirection, setGraphDirection] = useGraphDirection();
+	const openNodeOnClick = useCallback(
+		(e: any) => {
+			if (!graph || e.nodes.length === 0) return;
+			const existingNodes = graph.body.data.nodes._data;
+			const clickedNode = existingNodes.get(e.nodes[0]);
+			if (!clickedNode || !clickedNode.metricId) return;
+			if (typeof router.query.graph === "string")
+				router.push(
+					`/graphs/${router.query.graph}/${clickedNode.metricId}`,
+				);
+		},
+		[graph, router],
+	);
 
-  if (!data)
-    return (
-      <div className={styles.emptyField}>
-        <MetricGraphControls graphDirection={graphDirection} />
-      </div>
-    );
+	const { data, rawData, events, options } = useMetricGraph(openNodeOnClick);
 
-  const { graph, source } = data;
+	useEffect(() => {
+		if (rawData) {
+			if (rawData.name) dispatch(addMetricGraphName(rawData.name));
+			if (rawData.author?.id)
+				dispatch(addMetricGraphAuthorId(rawData.author?.id));
+		}
+	}, [dispatch, rawData]);
 
-  const { DragNodeWithForce } = Behaviors;
+	useEffect(() => {
+		if (!rawData || !rawData.nodes) return;
+		data.nodes?.forEach((node) => {
+			const prefetchedNode = rawData.nodes!.find(
+				(rawNode) => rawNode.id === node.id,
+			);
+			if (prefetchedNode?.metric?.id && router.query.graph)
+				router.prefetch(
+					`/graphs/${router.query.graph}/${prefetchedNode?.metric.id}`,
+				);
+		});
+	}, [data.nodes, rawData, router]);
 
-  return (
-    <>
-      <MetricGraphControls
-        graphDirection={graphDirection}
-        onResetGraph={onResetGraph}
-        setGraphDirection={setGraphDirection}
-      />
-      <Graphin
-        style={{
-          height: "100%",
-          overflow: "hidden",
-          backgroundColor: "#f3f3f3",
-        }}
-        data={{
-          ...graph,
-          combos,
-        }}
-        layout={{
-          type: getLayoutType(source),
-          center: [0, 0],
-          nodeSize: 140,
-          rankdir: graphDirection,
-        }}
-        ref={graphRef}
-      >
-        <DragNodeWithForce autoPin />
-      </Graphin>
-    </>
-  );
+	if (!data) return null;
+
+	return (
+		<Graph ref={graphRef} graph={data} events={events} options={options} />
+	);
 };
+
+export default MetricGraph;

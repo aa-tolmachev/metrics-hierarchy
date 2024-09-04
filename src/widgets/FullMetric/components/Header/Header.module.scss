@@ -1,0 +1,19 @@
+.header {
+	display: flex;
+	align-items: center;
+}
+
+.name {
+	max-width: 80%;
+}
+
+.copy {
+	font-size: 1.75rem;
+	line-height: 1.75rem;
+	cursor: pointer;
+}
+
+.editing {
+	font-size: 1.2rem;
+	line-height: 1.2rem;
+}

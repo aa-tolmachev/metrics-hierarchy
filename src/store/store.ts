@@ -1,20 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { metricGraphReducer } from "./reducers/metricGraphReducer";
-import { metricSubGraphsReducer } from "./reducers/metricSubGraphsReducer";
-import { selectedMetricSubGraphReducer } from "./reducers/selectedMetricSubGraphReducer";
-import { combosReducer } from "./reducers/combosReducer";
+
+import { addMetricNodesReducer } from "./reducer/addMetricNodeReducer";
+import { createRelationReducer } from "./reducer/createRelationReducer";
+import { fullMetricReducer } from "./reducer/fullMetricReducer";
+import { globalMenuReducer } from "./reducer/globalMenuReducer";
+import { metricGraphReducer } from "./reducer/metricGraphReducer";
 
 export const store = configureStore({
-  reducer: {
-    metricGraph: metricGraphReducer,
-    metricSubGraphs: metricSubGraphsReducer,
-    selectedMetricSubGraph: selectedMetricSubGraphReducer,
-    combos: combosReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+	reducer: {
+		globalMenu: globalMenuReducer,
+		metricGraph: metricGraphReducer,
+		addMetricNodes: addMetricNodesReducer,
+		createRelation: createRelationReducer,
+		fullMetric: fullMetricReducer,
+	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false,
+		}),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

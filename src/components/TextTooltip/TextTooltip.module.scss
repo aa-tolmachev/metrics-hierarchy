@@ -1,4 +1,12 @@
 .text {
-  position: relative;
-  bottom: 2px;
+	position: relative;
+	bottom: 2px;
+}
+
+.question {
+	width: 30px;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

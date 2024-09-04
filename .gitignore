@@ -1,24 +1,40 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# next
+.next
+.env.local
+.env.production
+public/env.js
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+# IDE
 .idea
+.vscode
+
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# production
+build
+dist
+
+# misc
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+npm-debug.log
+tmp
+
+# Yalc (npm link alternative for local development https://github.com/wclr/yalc)
+.yalc
+yalc.lock
+
+# build cache
+.awcache
+.cache
+.env
+
+src/graphin
+
+*.log
+
+*.tsbuildinfo
+*.eslintcache
