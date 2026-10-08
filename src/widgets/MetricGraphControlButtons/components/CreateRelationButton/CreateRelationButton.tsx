@@ -11,11 +11,14 @@ export const CreateRelationButton = () => {
 	return (
 		<>
 			<Button
+				text
+				icon="pi pi-arrow-right-arrow-left"
+				label="Связь"
+				tooltip="Добавить связь между метриками"
+				tooltipOptions={{ position: "bottom" }}
 				disabled={addedNodes.length > 0}
 				onClick={() => setOpenModal(true)}
-			>
-				Добавить связь на граф
-			</Button>
+			/>
 			<Dialog visible={openModal} onHide={() => setOpenModal(false)}>
 				<CreateRelationContent setOpenModal={setOpenModal} />
 			</Dialog>

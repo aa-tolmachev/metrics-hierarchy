@@ -31,7 +31,11 @@ export const CloneMetricGraphButton = () => {
 	return (
 		<>
 			<Button
-				label="Создать копию графа"
+				text
+				icon="pi pi-copy"
+				label="Копия"
+				tooltip="Создать копию графа"
+				tooltipOptions={{ position: "bottom" }}
 				onClick={() => {
 					setOpenCloningDialog(true);
 				}}

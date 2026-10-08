@@ -22,7 +22,7 @@ export const CreateMetricGraphDialog: FC<CreateMetricGraphDialogProps> = ({
 
 	useEffect(() => {
 		if (data?.id) {
-			router.push(`graphs/${data.id}`);
+			router.push(`/graphs/${data.id}`);
 		}
 	}, [data, router]);
 

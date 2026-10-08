@@ -1,33 +1,15 @@
-import cx from "classnames";
-import { DataView } from "primereact/dataview";
 import { FC, HTMLAttributes, ReactNode } from "react";
 
-import { Typography } from "../Typography/Typography";
+import { Section } from "../Section/Section";
 import styles from "./Descriptions.module.scss";
 
 export interface Description {
 	label: string;
 	value: ReactNode;
 }
-const itemTemplate = ({ label, value }: Description) => {
-	const valueClassName = cx("font-normal text-right", styles.value);
-	return (
-		<div className="col-12 flex justify-content-between gap-3 p-4">
-			<Typography
-				component="span"
-				className="font-semibold inline-flex align-items-center"
-			>
-				{label}
-			</Typography>
-			<Typography component="span" className={valueClassName}>
-				{value}
-			</Typography>
-		</div>
-	);
-};
 
 interface DescriptionsProps
-	extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+	extends Omit<HTMLAttributes<HTMLElement>, "children" | "title"> {
 	value: Description[];
 	title?: string;
 }
@@ -35,16 +17,16 @@ interface DescriptionsProps
 export const Descriptions: FC<DescriptionsProps> = ({
 	value,
 	title,
-	className,
 	...props
-}) => {
-	const descriptionsClassName = cx("flex flex-column gap-3", className);
-	return (
-		<div className={descriptionsClassName} {...props}>
-			<Typography className="text-left" component="h3">
-				{title}
-			</Typography>
-			<DataView value={value} itemTemplate={itemTemplate} />
-		</div>
-	);
-};
+}) => (
+	<Section title={title} {...props}>
+		<dl className={styles.list}>
+			{value.map(({ label, value: itemValue }) => (
+				<div key={label} className={styles.row}>
+					<dt className={styles.label}>{label}</dt>
+					<dd className={styles.value}>{itemValue}</dd>
+				</div>
+			))}
+		</dl>
+	</Section>
+);

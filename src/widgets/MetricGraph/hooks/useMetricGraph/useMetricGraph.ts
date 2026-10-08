@@ -8,14 +8,19 @@ import { useAppDispatch } from "../../../../store/hooks/useAppDispatch";
 import { useAppSelector } from "../../../../store/hooks/useAppSelector";
 import { removeFirstMetricNode } from "../../../../store/reducer/addMetricNodeReducer";
 import { removeCreateRelation } from "../../../../store/reducer/createRelationReducer";
+import {
+	getEdgeSmoothDirection,
+	loadLayoutDirection,
+	saveNetworkPositions,
+} from "../../../../utils/graphPositionsStorage";
 import { useGetMetricGraphData } from "./useGetMetricGraphData/useGetMetricGraphData";
 import { getNodeImage } from "./useGetMetricGraphData/utils/mapNode/getNodeImage/getNodeImage";
+import { SOFT_RELATION_DASHES } from "./useGetMetricGraphData/utils/mapNodeToEdges";
 
 export const useMetricGraph = (onClick: (e: any) => void) => {
 	const router = useRouter();
-	const { data, rawData, error } = useGetMetricGraphData(
-		router.query.graph?.toString(),
-	);
+	const graphId = router.query.graph?.toString();
+	const { data, rawData, error } = useGetMetricGraphData(graphId);
 
 	useEffect(() => {
 		if (error && (error.code === 404 || error.code === 500)) {
@@ -55,6 +60,25 @@ export const useMetricGraph = (onClick: (e: any) => void) => {
 		layout: {
 			improvedLayout: false,
 		},
+		interaction: {
+			hover: true,
+			zoomSpeed: 0.35,
+		} as Options["interaction"],
+		edges: {
+			color: { color: "#c3c9d2", hover: "#8b95a3", highlight: "#4f8ef7" },
+			width: 1,
+			selectionWidth: 1,
+			hoverWidth: 0.5,
+			arrows: { to: { enabled: true, scaleFactor: 0.4 } },
+			smooth: {
+				enabled: true,
+				type: "cubicBezier",
+				forceDirection: getEdgeSmoothDirection(
+					graphId ? loadLayoutDirection(graphId) : "TB",
+				),
+				roundness: 0.4,
+			},
+		},
 		manipulation: {
 			addNode: (nodeData: any, callback: any) => {
 				if (typeConnection) return;
@@ -75,7 +99,9 @@ export const useMetricGraph = (onClick: (e: any) => void) => {
 						);
 					}
 					edgeData.dashes =
-						typeConnection === RelationsTypeConnectionEnum.Soft;
+						typeConnection === RelationsTypeConnectionEnum.Soft
+							? SOFT_RELATION_DASHES
+							: false;
 					edgeData.typeConnection = typeConnection;
 					callback(edgeData);
 				} catch (error: any) {
@@ -94,6 +120,10 @@ export const useMetricGraph = (onClick: (e: any) => void) => {
 
 	const events = {
 		click: onClick,
+		dragEnd: (e: { nodes: string[] }) => {
+			if (graph && graphId && e.nodes.length > 0)
+				saveNetworkPositions(graphId, graph);
+		},
 	};
 
 	return { data, rawData, options, events };

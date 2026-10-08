@@ -8,6 +8,7 @@ import { MetricLegend } from "../../components/MetricLegend/MetricLegend";
 import { usePutMetricGraph } from "../../core/backend/hooks/metricGraphs/usePutMetricGraph";
 import { store } from "../../store";
 import { MetricGraphControlButtons } from "../../widgets/MetricGraphControlButtons/MetricGraphControlButtons";
+import { MetricGraphLayoutControls } from "../../widgets/MetricGraphLayoutControls/MetricGraphLayoutControls";
 import styles from "./MetricGraphLayout.module.scss";
 
 const MetricGraph = dynamic(
@@ -76,6 +77,7 @@ export const MetricGraphLayout: FC<MetricGraphLayoutProps> = ({ children }) => {
 				<MetricGraph />
 				<MetricLegend className={styles.legend} />
 				<MetricGraphControlButtons onSaveMetricGraph={updateGraph} />
+				<MetricGraphLayoutControls />
 			</FullSizeWrapper>
 		</ReduxProvider>
 	);

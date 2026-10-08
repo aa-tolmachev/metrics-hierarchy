@@ -3,6 +3,7 @@ import {
 	GranularityInner,
 	Metric,
 } from "../../../hierarchy-metric-client";
+import { htmlToText } from "../../../utils/htmlToText";
 import { EMPTY_METRIC } from "../constants";
 import { EditedMetric } from "../types";
 
@@ -29,9 +30,13 @@ export const mapMetricToEditedMetric = (metric: Metric): EditedMetric => {
 		dimensionsIds: metric.dimensions.map(mapDimension) ?? [],
 		dataSource: metric.dataSource,
 		refToBoard: metric.refToBoard,
-		queryExample: metric.queryExample,
+		queryExample: htmlToText(metric.queryExample ?? ""),
 		ownerId: metric.owner?.id ?? EMPTY_METRIC.ownerId,
 		analystId: metric.analyst?.id ?? EMPTY_METRIC.analystId,
 		domainId: metric.domain?.id ?? EMPTY_METRIC.domainId,
+		productId: metric.product?.id ?? null,
+		platformId: metric.platform?.id ?? null,
+		attractionChannelId: metric.attractionChannel?.id ?? null,
+		levelId: metric.level?.id ?? null,
 	};
 };

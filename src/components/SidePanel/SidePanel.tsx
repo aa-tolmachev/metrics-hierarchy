@@ -1,4 +1,3 @@
-import cx from "classnames";
 import { Button } from "primereact/button";
 import { FC, ReactNode } from "react";
 
@@ -11,16 +10,16 @@ interface SidePanelProps {
 }
 
 export const SidePanel: FC<SidePanelProps> = ({ children, onCancel }) => {
-	const closeButtonClassName = cx("pi", "pi-times", styles.closeButton);
 	return (
 		<aside className={styles.panel}>
 			<Button
-				className={closeButtonClassName}
+				className={styles.closeButton}
+				icon="pi pi-times"
 				severity="secondary"
 				rounded
-				outlined
+				text
 				onClick={onCancel}
-				aria-label="Cancel"
+				aria-label="Закрыть"
 			/>
 			{children}
 		</aside>

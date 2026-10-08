@@ -1,9 +1,14 @@
 :root {
-	// Set template vars
+	--font-family: var(--font-inter), -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--text-color: #1f2937;
+	--text-color-secondary: #6b7280;
+	--surface-ground: #f5f6f8;
+	--surface-border: #e5e7eb;
 }
 
 html {
-	font-size: 16px;
+	font-size: 15px;
 	font-family: var(--font-family);
 	color: var(--text-color);
 	background-color: var(--surface-ground);
@@ -15,6 +20,7 @@ body {
 	padding: 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings: "cv11", "ss01";
 }
 
 html,
@@ -28,4 +34,10 @@ h1,
 h2,
 h3 {
 	margin: 0;
+	letter-spacing: -0.01em;
+}
+
+p {
+	margin: 0;
+	line-height: 1.6;
 }

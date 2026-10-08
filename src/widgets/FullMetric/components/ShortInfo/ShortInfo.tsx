@@ -1,87 +1,53 @@
 import { Dropdown } from "primereact/dropdown";
-import { InputText } from "primereact/inputtext";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
-import { LargeBadge } from "../../../../components/LargeBadge/LargeBadge";
-import { TextTooltip } from "../../../../components/TextTooltip/TextTooltip";
-import { Typography } from "../../../../components/Typography/Typography";
+import { Descriptions } from "../../../../components/Descriptions/Descriptions";
+import { Pill } from "../../../../components/Pill/Pill";
 import { useGetStatuses } from "../../../../core/backend/hooks/metrics/dictionaries/useGetStatuses";
-import { useGetTypes } from "../../../../core/backend/hooks/metrics/dictionaries/useGetTypes";
 import { useAppSelector } from "../../../../store/hooks/useAppSelector";
+import { getStatusTone } from "../../../../utils/getStatusTone";
 import { MetricSectionEditableProps } from "../../types";
-
-const ShortInfoWrapper: FC<{ children: ReactNode }> = ({ children }) => {
-	return <div className="flex gap-2">{children}</div>;
-};
 
 export const ShortInfo: FC<MetricSectionEditableProps> = ({
 	editedMetric,
 	changeEditedMetric,
 }) => {
 	const { data: statuses } = useGetStatuses();
-	const { data: types } = useGetTypes();
 
 	const { usedMetric } = useAppSelector((state) => state.fullMetric);
 
 	if (editedMetric) {
 		return (
-			<ShortInfoWrapper>
-				<div className="flex flex-column gap-1">
-					<Typography component="span">
-						Краткое обозначение
-					</Typography>
-					<InputText
-						type="text"
-						value={editedMetric.label}
-						onChange={(e) => {
-							changeEditedMetric("label", e.currentTarget.value);
-						}}
-					/>
-				</div>
-				<div className="flex flex-column gap-1">
-					<Typography component="span">Тип метрики</Typography>
-					<Dropdown
-						value={editedMetric.typeId}
-						options={types}
-						onChange={(e) => {
-							changeEditedMetric("typeId", e.value);
-						}}
-						optionValue="id"
-						optionLabel="name"
-					/>
-				</div>
-				<div className="flex flex-column gap-1">
-					<Typography component="span">Статус метрики</Typography>
-					<Dropdown
-						value={editedMetric.statusId}
-						options={statuses}
-						onChange={(e) => {
-							changeEditedMetric("statusId", e.value);
-						}}
-						optionValue="id"
-						optionLabel="name"
-					/>
-				</div>
-			</ShortInfoWrapper>
+			<Descriptions
+				value={[
+					{
+						label: "Статус",
+						value: (
+							<Dropdown
+								value={editedMetric.statusId}
+								options={statuses}
+								onChange={(e) => {
+									changeEditedMetric("statusId", e.value);
+								}}
+								optionValue="id"
+								optionLabel="name"
+								placeholder="Не выбран"
+							/>
+						),
+					},
+				]}
+			/>
 		);
 	}
 
-	if (usedMetric)
-		return (
-			<ShortInfoWrapper>
-				{usedMetric.label && (
-					<TextTooltip tooltip="Краткое обозначение метрики">
-						{usedMetric.label}
-					</TextTooltip>
-				)}
-				<LargeBadge backgroundColor="#30C6B6">
-					{usedMetric.type?.name}
-				</LargeBadge>
-				<LargeBadge backgroundColor="#4FE537">
-					{usedMetric.status?.name}
-				</LargeBadge>
-			</ShortInfoWrapper>
-		);
+	if (!usedMetric?.status?.name) return null;
 
-	return null;
+	const statusTone = getStatusTone(usedMetric.status.name);
+	return (
+		<div className="flex">
+			<Pill color={statusTone.color} background={statusTone.background}>
+				{usedMetric.status.name}
+			</Pill>
+		</div>
+	);
 };

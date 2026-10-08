@@ -2,18 +2,9 @@ import cx from "classnames";
 import Link from "next/link";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { Typography } from "../../../../../components/Typography/Typography";
 import styles from "../AnalyticSection.module.scss";
 
-const prepareValue = (initialValue: string | undefined) => {
-	const NO_VALUE = "—";
-
-	if (!initialValue) return NO_VALUE;
-
-	const preparedValue = initialValue.trim();
-	if (preparedValue.length === 0) return NO_VALUE;
-	return preparedValue;
-};
+const NO_VALUE = "—";
 
 export const getMetricInfoValue = (
 	initialValue: string | undefined,
@@ -21,30 +12,26 @@ export const getMetricInfoValue = (
 	isLink: boolean = false,
 ) => {
 	const trimmedValue = initialValue?.trim();
-	const preparedValue = prepareValue(trimmedValue);
-	const metricInfoValueClassName = cx(styles.value, "text-right max-w-18rem");
+	if (!trimmedValue) return NO_VALUE;
+
 	return (
-		<div className="flex gap-3 align-items-center max-w-20rem">
-			{!isLink ? (
-				<Typography
-					component="span"
-					className={metricInfoValueClassName}
+		<span className={styles.infoValue}>
+			{isLink ? (
+				<Link
+					href={trimmedValue}
+					target="_blank"
+					className={cx(styles.text, styles.link)}
 				>
-					{preparedValue}
-				</Typography>
+					{trimmedValue}
+				</Link>
 			) : (
-				<Typography
-					component="span"
-					className={metricInfoValueClassName}
-				>
-					{<Link href={preparedValue}>{preparedValue}</Link>}
-				</Typography>
+				<span className={styles.text}>{trimmedValue}</span>
 			)}
-			{copyable && trimmedValue && trimmedValue.length > 0 && (
-				<CopyToClipboard text={preparedValue}>
-					<i className="pi pi-copy cursor-pointer" />
+			{copyable && (
+				<CopyToClipboard text={trimmedValue}>
+					<i className={cx("pi pi-copy", styles.copy)} />
 				</CopyToClipboard>
 			)}
-		</div>
+		</span>
 	);
 };

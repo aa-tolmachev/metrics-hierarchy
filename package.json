@@ -8,8 +8,10 @@
   "main": "./dist/index.js",
   "scripts": {
     "start": "next start",
-    "dev": "next dev",
+		"dev": "next dev",
+		"mock-backend": "node mock-backend/server.js",
     "build": "next build",
+    "build:demo": "cross-env STATIC_EXPORT=true NEXT_PUBLIC_DEMO=true next build",
     "check-types": "tsc --noemit",
     "lint": "next lint",
     "lint:fix": "next lint --fix",

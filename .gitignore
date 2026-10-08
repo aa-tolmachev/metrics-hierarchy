@@ -17,6 +17,7 @@ coverage
 # production
 build
 dist
+out
 
 # misc
 .DS_Store
@@ -35,6 +36,8 @@ yalc.lock
 src/graphin
 
 *.log
+
+mock-backend/db.json
 
 *.tsbuildinfo
 *.eslintcache

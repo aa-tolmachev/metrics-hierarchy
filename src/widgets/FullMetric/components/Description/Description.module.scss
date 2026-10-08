@@ -1,0 +1,9 @@
+.text {
+	font-size: 0.9375rem;
+	line-height: 1.6;
+	color: #374151;
+
+	p + p {
+		margin-top: 0.5rem;
+	}
+}
