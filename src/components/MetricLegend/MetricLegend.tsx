@@ -1,8 +1,8 @@
+import cx from "classnames";
 import { FC, useState } from "react";
 
 import { useGetDomains } from "../../core/backend/hooks/metrics/dictionaries/useGetDomains";
-import { Typography } from "../Typography/Typography";
-import { getMetricLegendRows } from "./utils/getMetricLegendRows";
+import styles from "./MetricLegend.module.scss";
 import { mapDomain } from "./utils/mapDomain";
 
 interface MetricLegendProps {
@@ -12,22 +12,20 @@ interface MetricLegendProps {
 export const MetricLegend: FC<MetricLegendProps> = ({ className }) => {
 	const { data: domains } = useGetDomains();
 	const legendElements = domains?.map(mapDomain) ?? [];
-	const metricLegendRows = getMetricLegendRows(legendElements);
 
 	const [open, setOpen] = useState(true);
 
 	if (!open) return <></>;
 	return (
-		<article className={`border-round-lg bg-white ${className}`}>
-			<div className="relative h-full flex flex-column align-items-center gap-4 p-4">
+		<article className={cx(styles.legend, className)}>
+			<header className={styles.header}>
+				<span className={styles.title}>Домены</span>
 				<i
-					className="pi pi-times-circle absolute text-xl cursor-pointer"
-					style={{ top: 10, right: 10 }}
+					className={cx("pi pi-times", styles.close)}
 					onClick={() => setOpen(false)}
 				/>
-				<Typography component="h1">Цветовая легенда</Typography>
-				<div className="flex flex-column gap-3">{metricLegendRows}</div>
-			</div>
+			</header>
+			<ul className={styles.list}>{legendElements}</ul>
 		</article>
 	);
 };

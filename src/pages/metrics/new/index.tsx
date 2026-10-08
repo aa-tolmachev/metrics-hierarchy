@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import { PageCard } from "../../../components/PageCard/PageCard";
 import { useAppDispatch } from "../../../store/hooks/useAppDispatch";
 import { useAppSelector } from "../../../store/hooks/useAppSelector";
 import {
@@ -26,10 +27,8 @@ export default function MetricPage() {
 	if (fullMetricState !== "create") return null;
 
 	return (
-		<div className="w-full h-full flex justify-content-center align-items-center p-5">
-			<div className="w-6">
-				<FullMetric />
-			</div>
-		</div>
+		<PageCard>
+			<FullMetric />
+		</PageCard>
 	);
 }

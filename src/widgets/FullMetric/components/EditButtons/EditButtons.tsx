@@ -25,13 +25,13 @@ export const EditButtons: FC<EditButtonsProps> = ({
 	}, [endEditing, fullMetricState]);
 
 	return (
-		<footer className="flex justify-content-end">
-			<div className="flex gap-3">
-				<Button severity="secondary" outlined onClick={onCancel}>
-					Отмена
-				</Button>
-				<Button onClick={finishEditing}>Отправить</Button>
-			</div>
+		<footer className="flex justify-content-end gap-2">
+			<Button severity="secondary" text onClick={onCancel}>
+				Отмена
+			</Button>
+			<Button icon="pi pi-check" onClick={finishEditing}>
+				Сохранить
+			</Button>
 		</footer>
 	);
 };

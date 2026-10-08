@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 import { ScrollPanel } from "primereact/scrollpanel";
 
+import styles from "./FullMetric.module.scss";
 import {
-	AdditionalInfo,
 	AnalyticSection,
-	DeleteMetricControls,
 	Description,
+	Dynamics,
 	EditButtons,
 	OwnerCards,
 	ShortInfo,
@@ -32,21 +32,18 @@ export const FullMetric = () => {
 			className="h-full overflow-visible"
 			pt={{ barY: { className: "bg-primary" } }}
 		>
-			<div className="flex flex-column gap-4 overflow-x-visible p-2">
-				<Header
-					editedMetric={editedMetric}
-					startEditing={startEditing}
-					changeEditedMetric={changeEditedMetric}
-				/>
-				{fullMetricState === "default" && <DeleteMetricControls />}
-				<ShortInfo
-					editedMetric={editedMetric}
-					changeEditedMetric={changeEditedMetric}
-				/>
-				<MetricTrivia
-					editedMetric={editedMetric}
-					changeEditedMetric={changeEditedMetric}
-				/>
+			<div className={styles.content}>
+				<div className={styles.top}>
+					<Header
+						editedMetric={editedMetric}
+						startEditing={startEditing}
+						changeEditedMetric={changeEditedMetric}
+					/>
+					<ShortInfo
+						editedMetric={editedMetric}
+						changeEditedMetric={changeEditedMetric}
+					/>
+				</div>
 				<Description
 					editedMetric={editedMetric}
 					changeEditedMetric={changeEditedMetric}
@@ -55,7 +52,8 @@ export const FullMetric = () => {
 					editedMetric={editedMetric}
 					changeEditedMetric={changeEditedMetric}
 				/>
-				<AdditionalInfo
+				<Dynamics editedMetric={editedMetric} />
+				<MetricTrivia
 					editedMetric={editedMetric}
 					changeEditedMetric={changeEditedMetric}
 				/>

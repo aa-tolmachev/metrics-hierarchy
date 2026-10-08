@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { MenuItem } from "primereact/menuitem";
 import { useEffect } from "react";
 
+import { isDemo } from "../../../../core/frontend/configuration";
+import { resetDemoData } from "../../../../core/frontend/demoBackend";
 import { getCloseItemRenderer } from "./closeItemRenderer";
 import { fullItemRenderer } from "./fullItemRenderer";
 
@@ -29,6 +31,15 @@ export const useGetMenuItems = (onClose: VoidFunction) => {
 			icon: "pi pi-list",
 			command: () => push("/graphs"),
 		},
+		...(isDemo
+			? [
+					{
+						label: "Сбросить демо-данные",
+						icon: "pi pi-refresh",
+						command: resetDemoData,
+					},
+				]
+			: []),
 		{
 			template: fullItemRenderer,
 		},

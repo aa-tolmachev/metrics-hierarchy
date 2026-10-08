@@ -10,13 +10,14 @@ export const CreateMetricButton = () => {
 	);
 	return (
 		<Button
+			text
+			icon="pi pi-plus"
+			label="Новая метрика"
 			disabled={!!createdRelationType}
 			onClick={() => {
 				if (router.query.graph)
 					router.push(`/graphs/${router.query.graph}/new-metric`);
 			}}
-		>
-			Создать метрику
-		</Button>
+		/>
 	);
 };

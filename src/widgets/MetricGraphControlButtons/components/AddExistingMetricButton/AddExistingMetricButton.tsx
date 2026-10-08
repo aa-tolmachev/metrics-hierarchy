@@ -13,11 +13,14 @@ export const AddExistingMetricsButton = () => {
 	return (
 		<>
 			<Button
+				text
+				icon="pi pi-list"
+				label="Добавить метрику"
+				tooltip="Добавить существующую метрику на граф"
+				tooltipOptions={{ position: "bottom" }}
 				disabled={!!createdRelationType}
 				onClick={() => setOpenModal(true)}
-			>
-				Добавить существующую метрику на граф
-			</Button>
+			/>
 			<Dialog
 				className="w-30rem"
 				visible={openModal}

@@ -1,3 +1,51 @@
+.list {
+	margin: 0;
+	border-top: 1px solid var(--surface-border);
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+	min-height: 2.75rem;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid var(--surface-border);
+}
+
+.label {
+	flex-shrink: 0;
+	font-size: 0.875rem;
+	color: var(--text-color-secondary);
+}
+
 .value {
+	margin: 0;
+	min-width: 0;
+	font-size: 0.9375rem;
+	text-align: right;
 	word-wrap: break-word;
+
+	:global(.p-inputtext),
+	:global(.p-dropdown),
+	:global(.p-multiselect),
+	:global(.p-inputnumber) {
+		width: 15rem;
+		text-align: left;
+	}
+
+	:global(.p-inputtextarea) {
+		width: 20rem;
+	}
+
+	:global(.p-inputtext) {
+		padding: 0.4rem 0.625rem;
+		font-size: 0.875rem;
+	}
+
+	:global(.p-dropdown .p-dropdown-label),
+	:global(.p-multiselect .p-multiselect-label) {
+		padding: 0.4rem 0.625rem;
+		font-size: 0.875rem;
+	}
 }

@@ -1,6 +1,7 @@
 import { FC } from "react";
 
 import { GraphUpdate } from "../../hierarchy-metric-client";
+import styles from "./MetricGraphControlButtons.module.scss";
 import { AddExistingMetricsButton } from "./components/AddExistingMetricButton/AddExistingMetricButton";
 import { CloneMetricGraphButton } from "./components/CloneMetricGraphButton/CloneMetricGraphButton";
 import { CreateMetricButton } from "./components/CreateMetricButton/CreateMetricButton";
@@ -15,12 +16,13 @@ export const MetricGraphControlButtons: FC<MetricGraphControlButtonsProps> = ({
 	onSaveMetricGraph,
 }) => {
 	return (
-		<div className="fixed flex gap-2" style={{ top: 10, right: 10 }}>
+		<div className={styles.toolbar}>
 			<CreateMetricButton />
 			<AddExistingMetricsButton />
 			<CreateRelationButton />
-			<SaveMetricGraphButton onSaveMetricGraph={onSaveMetricGraph} />
 			<CloneMetricGraphButton />
+			<span className={styles.divider} />
+			<SaveMetricGraphButton onSaveMetricGraph={onSaveMetricGraph} />
 		</div>
 	);
 };

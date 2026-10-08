@@ -1,10 +1,11 @@
 import { Editor } from "primereact/editor";
 import { FC } from "react";
 
-import { Typography } from "../../../../components/Typography/Typography";
+import { Section } from "../../../../components/Section/Section";
 import { useAppSelector } from "../../../../store/hooks/useAppSelector";
 import { parseHTML } from "../../../../utils/parseHTML";
 import { MetricSectionEditableProps } from "../../types";
+import styles from "./Description.module.scss";
 
 export const Description: FC<MetricSectionEditableProps> = ({
 	editedMetric,
@@ -14,20 +15,24 @@ export const Description: FC<MetricSectionEditableProps> = ({
 
 	if (editedMetric)
 		return (
-			<div className="flex flex-column gap-2">
-				<Typography component="h3">Описание</Typography>
+			<Section title="Описание">
 				<Editor
 					value={editedMetric.description}
 					onTextChange={(e) => {
 						changeEditedMetric("description", e.htmlValue ?? "");
 					}}
-					style={{ height: "200px" }}
+					style={{ height: "160px" }}
 				/>
-			</div>
+			</Section>
 		);
 
-	if (!usedMetric) return null;
+	if (!usedMetric || !usedMetric.description?.trim()) return null;
 
-	const description = parseHTML(usedMetric.description);
-	return <Typography component="p">{description}</Typography>;
+	return (
+		<Section title="Описание">
+			<div className={styles.text}>
+				{parseHTML(usedMetric.description)}
+			</div>
+		</Section>
+	);
 };

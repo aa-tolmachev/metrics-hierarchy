@@ -34,5 +34,5 @@ export const SaveMetricGraphButton: FC<SaveMetricGraphButtonProps> = ({
 		}
 	};
 
-	return <Button onClick={onClick}>Сохранить изменения</Button>;
+	return <Button icon="pi pi-check" label="Сохранить" onClick={onClick} />;
 };

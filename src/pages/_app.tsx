@@ -1,5 +1,5 @@
-import { SessionProvider } from "next-auth/react";
 import type { AppLayoutProps } from "next/app";
+import { Inter } from "next/font/google";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import nProgress from "nprogress";
@@ -23,10 +23,13 @@ import { Sentry } from "utils";
 
 import { GraphsProvider } from "../core/frontend/GraphsContext";
 import { MetricsProvider } from "../core/frontend/MetricsContext";
+import { isDemo } from "../core/frontend/configuration";
 import { MenuLayout } from "../layouts/MenuLayout/MenuLayout";
 import { store } from "../store";
 
 Sentry.init();
+
+const inter = Inter({ subsets: ["latin", "cyrillic"], display: "swap" });
 
 export default function App({ Component, pageProps }: AppLayoutProps) {
 	const router = useRouter();
@@ -57,20 +60,19 @@ export default function App({ Component, pageProps }: AppLayoutProps) {
 			<Head>
 				<title>Metrics Hierarchy</title>
 				<meta name="description" content="Metrics Hierarchy" />
-				<script src="/env.js" />
+				{!isDemo && <script src="/env.js" />}
+				<style>{`:root { --font-inter: ${inter.style.fontFamily}; }`}</style>
 			</Head>
-			<SessionProvider>
-				<GraphsProvider>
-					<MetricsProvider>
-						<ReduxProvider store={store}>
-							<MenuLayout>
-								<Component {...pageProps} />
-								<ConfirmDialog />
-							</MenuLayout>
-						</ReduxProvider>
-					</MetricsProvider>
-				</GraphsProvider>
-			</SessionProvider>
+			<GraphsProvider>
+				<MetricsProvider>
+					<ReduxProvider store={store}>
+						<MenuLayout>
+							<Component {...pageProps} />
+							<ConfirmDialog />
+						</MenuLayout>
+					</ReduxProvider>
+				</MetricsProvider>
+			</GraphsProvider>
 		</>,
 	);
 }

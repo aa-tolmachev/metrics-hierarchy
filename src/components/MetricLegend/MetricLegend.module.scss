@@ -1,0 +1,58 @@
+.legend {
+	min-width: 13rem;
+	max-width: 18rem;
+	padding: 0.875rem 1rem;
+	background: #ffffff;
+	border: 1px solid var(--surface-border);
+	border-radius: 12px;
+	box-shadow: 0 4px 16px rgba(17, 24, 39, 0.06);
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 0.625rem;
+}
+
+.title {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--text-color-secondary);
+}
+
+.close {
+	font-size: 0.75rem;
+	color: #9ca3af;
+	cursor: pointer;
+
+	&:hover {
+		color: var(--text-color);
+	}
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	gap: 0.625rem;
+	font-size: 0.875rem;
+	line-height: 1.3;
+}
+
+.dot {
+	flex-shrink: 0;
+	width: 0.625rem;
+	height: 0.625rem;
+	border-radius: 3px;
+}

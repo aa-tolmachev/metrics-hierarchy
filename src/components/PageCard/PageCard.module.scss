@@ -1,0 +1,17 @@
+.page {
+	display: flex;
+	justify-content: center;
+	min-height: 100%;
+	padding: 2.5rem 1.5rem;
+}
+
+.card {
+	width: 100%;
+	max-width: 760px;
+	align-self: flex-start;
+	padding: 2rem 2.25rem;
+	background: #ffffff;
+	border: 1px solid var(--surface-border);
+	border-radius: 16px;
+	box-shadow: 0 4px 24px rgba(17, 24, 39, 0.04);
+}

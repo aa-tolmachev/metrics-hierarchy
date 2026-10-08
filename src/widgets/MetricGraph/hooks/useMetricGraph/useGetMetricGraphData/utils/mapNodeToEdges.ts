@@ -6,6 +6,8 @@ import {
 	RelationsTypeConnectionEnum,
 } from "../../../../../../hierarchy-metric-client";
 
+export const SOFT_RELATION_DASHES = [4, 4];
+
 interface ExtendedEdge extends Edge {
 	typeConnection?: RelationsTypeConnectionEnum;
 }
@@ -15,7 +17,10 @@ const mapRelation = (relation: Relations): ExtendedEdge => ({
 	from: relation.fromNode,
 	to: relation.toNode,
 	typeConnection: relation.typeConnection,
-	dashes: relation.typeConnection === RelationsTypeConnectionEnum.Soft,
+	dashes:
+		relation.typeConnection === RelationsTypeConnectionEnum.Soft
+			? SOFT_RELATION_DASHES
+			: false,
 });
 
 export const mapNodeToEdges = (node: GraphNode): Edge[] => {

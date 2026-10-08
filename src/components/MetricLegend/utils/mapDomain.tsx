@@ -1,15 +1,15 @@
 import { Domain } from "../../../hierarchy-metric-client";
-import { LargeBadge } from "../../LargeBadge/LargeBadge";
+import styles from "../MetricLegend.module.scss";
 
 export const mapDomain = (domain: Domain) => {
 	if (!domain.id || !domain.color || !domain.name) return null;
 	return (
-		<LargeBadge
-			key={domain.id}
-			backgroundColor={`#${domain.color}`}
-			className="w-7rem px-1 py-2"
-		>
+		<li key={domain.id} className={styles.item}>
+			<span
+				className={styles.dot}
+				style={{ backgroundColor: `#${domain.color}` }}
+			/>
 			{domain.name}
-		</LargeBadge>
+		</li>
 	);
 };

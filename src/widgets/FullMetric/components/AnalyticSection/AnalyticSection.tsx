@@ -2,50 +2,64 @@ import { InputText } from "primereact/inputtext";
 import { FC } from "react";
 
 import { Descriptions } from "../../../../components/Descriptions/Descriptions";
-import { Typography } from "../../../../components/Typography/Typography";
 import { useAppSelector } from "../../../../store/hooks/useAppSelector";
 import { MetricSectionEditableProps } from "../../types";
+import {
+	DataSourceParts,
+	composeDataSource,
+	parseDataSource,
+} from "../../utils/dataSource";
 import { QueryExample } from "./QueryExample/QueryExample";
 import { getMetricInfoValue } from "./utils/getMetricInfoValue";
 
-// import { Chart } from "primereact/chart";
-// import { GRAPH_DATA_MOCK } from "../mocks";
+const DATA_SOURCE_FIELDS: { key: keyof DataSourceParts; label: string }[] = [
+	{ key: "database", label: "База данных" },
+	{ key: "schema", label: "Схема" },
+	{ key: "table", label: "Таблица" },
+];
 
 export const AnalyticSection: FC<MetricSectionEditableProps> = ({
 	editedMetric,
 	changeEditedMetric,
 }) => {
 	const { usedMetric } = useAppSelector((state) => state.fullMetric);
+
+	const dataSource = parseDataSource(
+		editedMetric ? editedMetric.dataSource : usedMetric?.dataSource,
+	);
+
+	const dataSourceRows = DATA_SOURCE_FIELDS.map(({ key, label }) => ({
+		label,
+		value: editedMetric ? (
+			<InputText
+				type="text"
+				value={dataSource[key]}
+				onChange={(e) => {
+					changeEditedMetric(
+						"dataSource",
+						composeDataSource({
+							...dataSource,
+							[key]: e.currentTarget.value.replace(/\./g, ""),
+						}),
+					);
+				}}
+			/>
+		) : (
+			getMetricInfoValue(dataSource[key], false)
+		),
+	}));
+
 	return (
-		<div className="flex flex-column gap-5">
-			<Typography component="h2">Аналитика</Typography>
+		<>
 			<Descriptions
-				title="Информация о метрике"
+				title="Данные"
 				value={[
+					...dataSourceRows,
 					{
-						label: "Источник данных",
+						label: "Дашборд",
 						value: editedMetric ? (
 							<InputText
 								type="text"
-								value={editedMetric.dataSource}
-								className="p-inputtext-sm"
-								onChange={(e) => {
-									changeEditedMetric(
-										"dataSource",
-										e.currentTarget.value,
-									);
-								}}
-							/>
-						) : usedMetric ? (
-							getMetricInfoValue(usedMetric.dataSource, true)
-						) : null,
-					},
-					{
-						label: "Ссылка на борд метрики",
-						value: editedMetric ? (
-							<InputText
-								type="text"
-								className="p-inputtext-sm"
 								value={editedMetric.refToBoard}
 								onChange={(e) => {
 									changeEditedMetric(
@@ -69,10 +83,6 @@ export const AnalyticSection: FC<MetricSectionEditableProps> = ({
 				editedMetric={editedMetric}
 				changeEditedMetric={changeEditedMetric}
 			/>
-			{/* <div className="flex flex-column gap-5">
-				<Typography component="h3">Значения метрики</Typography>
-				<Chart type="line" data={GRAPH_DATA_MOCK} />
-			</div> */}
-		</div>
+		</>
 	);
 };
