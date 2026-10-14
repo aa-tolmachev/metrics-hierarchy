@@ -47,6 +47,7 @@ const createMockApi = (db, saveDb) => {
 		dimensions: (m.dimensionsIds ?? []).map((id) => byId(d.dimensions, id)).filter(Boolean),
 		dataSource: m.dataSource,
 		refToBoard: m.refToBoard,
+		refToDocs: m.refToDocs,
 		queryExample: m.queryExample,
 		owner: toMetricUser(byId(d.users, m.ownerId)),
 		analyst: toMetricUser(byId(d.users, m.analystId)),
@@ -73,7 +74,7 @@ const createMockApi = (db, saveDb) => {
 	const METRIC_FIELDS = [
 		"name", "state", "typeId", "rankId", "levelId", "platformId", "productId", "attractionChannelId",
 		"valuePostfix", "description", "statusId", "nameCalculation", "label", "granularitiesIds",
-		"dimensionsIds", "dataSource", "refToBoard", "queryExample", "ownerId", "analystId", "domainId",
+		"dimensionsIds", "dataSource", "refToBoard", "refToDocs", "queryExample", "ownerId", "analystId", "domainId",
 	];
 	const applyMetricFields = (target, body) => {
 		METRIC_FIELDS.forEach((field) => {

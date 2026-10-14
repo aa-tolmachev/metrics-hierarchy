@@ -6,7 +6,7 @@ const DB_STORAGE_KEY = "metrics-hierarchy:demo-db";
 const STORAGE_PREFIX = "metrics-hierarchy:";
 const SEED_VERSION_KEY = "metrics-hierarchy:demo-seed-version";
 // Увеличьте при изменении mock-backend/seed.js, чтобы сбросить сохранённые у посетителей данные
-const SEED_VERSION = "2";
+const SEED_VERSION = "3";
 
 const clearDemoStorage = () =>
 	Object.keys(localStorage)

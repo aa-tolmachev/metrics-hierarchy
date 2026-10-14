@@ -14,6 +14,7 @@ export const EMPTY_METRIC: EditedMetric = {
 	dimensionsIds: [],
 	dataSource: "",
 	refToBoard: "",
+	refToDocs: "",
 	queryExample: "",
 	ownerId: undefined,
 	analystId: undefined,

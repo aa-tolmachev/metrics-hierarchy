@@ -52,31 +52,32 @@ const dictionaries = {
 };
 
 // Воронка пользователя: привлечение → вовлечение → заказы → выручка → маржа.
-// [domainId, typeId, levelId, name, label, value, dynamics, postfix, methodology, table]
+// Название — классическое короткое обозначение, расшифровка на русском — в описании.
+// [domainId, typeId, levelId, name, title, value, dynamics, postfix, methodology, table]
 const rawMetrics = [
-	[3, 1, 1, "Маржа", "Margin", 18.6, 4.2, "млн ₽", "GMV × комиссия − себестоимость заказов − маркетинговые расходы", "finance.orders"],
-	[3, 1, 1, "Оборот (GMV)", "GMV", 124.5, 6.1, "млн ₽", "Сумма стоимости всех оплаченных заказов за период", "finance.orders"],
-	[3, 2, 2, "Пожизненная ценность клиента", "LTV", 7850, 3.4, "₽", "Средняя маржа с клиента за всё время его жизни", "finance.customers"],
-	[1, 3, 2, "Стоимость привлечения клиента", "CAC", 1240, -2.8, "₽", "Маркетинговые расходы / кол-во новых клиентов", "marketing.spend"],
-	[3, 2, 2, "Кол-во заказов", "Orders", 38900, 5.3, "шт", "Кол-во оплаченных заказов за период", "sales.orders"],
-	[3, 2, 3, "Средний чек", "AOV", 3200, 0.8, "₽", "GMV / кол-во заказов", "sales.orders"],
-	[2, 2, 2, "Ежедневная аудитория", "DAU", 52300, 2.9, "чел", "Кол-во уникальных пользователей, заходивших в продукт за день", "events.sessions"],
-	[2, 2, 3, "Конверсия в заказ", "CR", 2.5, 0.3, "%", "Пользователи с заказом / все активные пользователи", "events.sessions"],
-	[2, 3, 3, "Удержание на 30-й день", "Retention D30", 21.4, -1.2, "%", "Доля клиентов, вернувшихся в продукт через 30 дней после первого визита", "events.sessions"],
-	[1, 2, 3, "Новые клиенты", "New clients", 8400, 7.5, "чел", "Кол-во пользователей, совершивших первый заказ за период", "sales.customers"],
-	[1, 2, 3, "Кликабельность рекламы", "CTR", 3.1, 0.4, "%", "Клики по рекламе / показы рекламы", "marketing.ads"],
+	[3, 1, 1, "Margin", "Маржа", 18.6, 4.2, "млн ₽", "GMV × комиссия − себестоимость заказов − маркетинговые расходы", "finance.orders"],
+	[3, 1, 1, "GMV", "Оборот", 124.5, 6.1, "млн ₽", "Сумма стоимости всех оплаченных заказов за период", "finance.orders"],
+	[3, 2, 2, "LTV", "Пожизненная ценность клиента", 7850, 3.4, "₽", "Средняя маржа с клиента за всё время его жизни", "finance.customers"],
+	[1, 3, 2, "CAC", "Стоимость привлечения клиента", 1240, -2.8, "₽", "Маркетинговые расходы / кол-во новых клиентов", "marketing.spend"],
+	[3, 2, 2, "Orders", "Кол-во заказов", 38900, 5.3, "шт", "Кол-во оплаченных заказов за период", "sales.orders"],
+	[3, 2, 3, "AOV", "Средний чек", 3200, 0.8, "₽", "GMV / кол-во заказов", "sales.orders"],
+	[2, 2, 2, "DAU", "Ежедневная аудитория", 52300, 2.9, "чел", "Кол-во уникальных пользователей, заходивших в продукт за день", "events.sessions"],
+	[2, 2, 3, "CR", "Конверсия в заказ", 2.5, 0.3, "%", "Пользователи с заказом / все активные пользователи", "events.sessions"],
+	[1, 2, 3, "New clients", "Новые клиенты", 8400, 7.5, "чел", "Кол-во пользователей, совершивших первый заказ за период", "sales.customers"],
+	[1, 2, 3, "CTR", "Кликабельность рекламы", 3.1, 0.4, "%", "Клики по рекламе / показы рекламы", "marketing.ads"],
 ];
 
 const pick = (list, i) => list[i % list.length];
 
-const metrics = rawMetrics.map(([domainId, typeId, levelId, name, label, value, dynamics, valuePostfix, methodology, table], i) => {
+const metrics = rawMetrics.map(([domainId, typeId, levelId, name, title, value, dynamics, valuePostfix, methodology, table], i) => {
 	const id = i + 1;
 	const [schema, tableName] = table.split(".");
+	const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 	return {
 		id,
 		name,
 		state: "создана",
-		label,
+		label: name,
 		levelId,
 		platformId: 4,
 		productId: 1,
@@ -86,13 +87,14 @@ const metrics = rawMetrics.map(([domainId, typeId, levelId, name, label, value, 
 		value,
 		dynamics,
 		valuePostfix,
-		description: `<p>${methodology}</p>`,
+		description: `<p><b>${title}.</b> ${methodology}</p>`,
 		statusId: 1,
 		nameCalculation: methodology,
 		granularitiesIds: [1, 2, 3],
 		dimensionsIds: domainId === 1 ? [1, 2] : [1, 3],
 		dataSource: `dwh.${table}`,
-		refToBoard: `https://datalens.example.com/dashboards/${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+		refToBoard: `https://datalens.example.com/dashboards/${slug}`,
+		refToDocs: `https://confluence.example.com/display/METRICS/${slug}`,
 		queryExample: `SELECT\n    toDate(created_at) AS day,\n    count(*) AS value\nFROM ${schema}.${tableName}\nWHERE created_at >= today() - 30\nGROUP BY day\nORDER BY day`,
 		ownerId: pick([1, 2], i),
 		analystId: 3,
@@ -128,9 +130,8 @@ const graphs = [
 			node(5, 400, -100, [[2, "hard"]]),
 			node(8, 0, 300, [[5, "hard"]]),
 			node(7, 600, 300, [[5, "hard"]]),
-			node(9, -600, 700, [[7, "hard"], [3, "soft"]]),
-			node(10, 1000, 700, [[7, "hard"], [4, "hard"]]),
-			node(11, 1000, 1100, [[10, "soft"]]),
+			node(9, 1000, 700, [[7, "hard"], [4, "hard"]]),
+			node(10, 1000, 1100, [[9, "soft"]]),
 		],
 	},
 ];

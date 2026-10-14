@@ -16,7 +16,7 @@ export const getMetricFilterProduct =
 				value={value ? value : undefined}
 				options={products ?? []}
 				onChange={(e) =>
-					setFilters((prev: any) => ({ ...prev, domain: e.value }))
+					setFilters((prev: any) => ({ ...prev, product: e.value }))
 				}
 				placeholder="Выберите продукт"
 				className="p-column-filter"

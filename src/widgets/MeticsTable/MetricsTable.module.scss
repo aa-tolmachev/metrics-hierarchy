@@ -4,12 +4,47 @@
 	}
 }
 
+.table {
+	:global(.p-datatable-tbody > tr > td) {
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+	}
+}
+
 .filterHeader {
-	min-width: 200px;
+	min-width: 140px;
 	@include hideFilterButton();
+
+	:global(.p-dropdown),
+	:global(.p-multiselect),
+	:global(.p-inputtext) {
+		width: 100%;
+		max-width: 170px;
+	}
 }
 
 .descriptionHeader {
-	min-width: 300px;
+	min-width: 260px;
 	@include hideFilterButton();
+}
+
+.queryHeader {
+	min-width: 260px;
+}
+
+// Длинные тексты обрезаются до трёх строк, полный текст — во всплывающей подсказке
+.clamp {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+
+	p {
+		margin: 0;
+	}
+}
+
+.query {
+	font-family: monospace;
+	font-size: 0.85em;
 }

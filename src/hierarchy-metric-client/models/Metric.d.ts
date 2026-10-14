@@ -31,6 +31,7 @@ export declare class Metric {
     'dimensions': Array<DimensionInner>;
     'dataSource': string;
     'refToBoard': string;
+    'refToDocs'?: string;
     'queryExample': string;
     'owner': MetricUser | null;
     'analyst': MetricUser | null;

@@ -30,6 +30,7 @@ export const mapMetricToEditedMetric = (metric: Metric): EditedMetric => {
 		dimensionsIds: metric.dimensions.map(mapDimension) ?? [],
 		dataSource: metric.dataSource,
 		refToBoard: metric.refToBoard,
+		refToDocs: metric.refToDocs ?? "",
 		queryExample: htmlToText(metric.queryExample ?? ""),
 		ownerId: metric.owner?.id ?? EMPTY_METRIC.ownerId,
 		analystId: metric.analyst?.id ?? EMPTY_METRIC.analystId,

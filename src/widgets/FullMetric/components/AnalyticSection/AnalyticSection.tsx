@@ -76,6 +76,23 @@ export const AnalyticSection: FC<MetricSectionEditableProps> = ({
 							)
 						) : null,
 					},
+					{
+						label: "Документация",
+						value: editedMetric ? (
+							<InputText
+								type="text"
+								value={editedMetric.refToDocs}
+								onChange={(e) => {
+									changeEditedMetric(
+										"refToDocs",
+										e.currentTarget.value,
+									);
+								}}
+							/>
+						) : usedMetric ? (
+							getMetricInfoValue(usedMetric.refToDocs, true, true)
+						) : null,
+					},
 				]}
 			/>
 			<QueryExample

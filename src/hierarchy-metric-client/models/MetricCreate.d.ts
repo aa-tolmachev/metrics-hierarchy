@@ -16,6 +16,7 @@ export declare class MetricCreate {
     'dimensionsIds'?: Array<number>;
     'dataSource'?: string;
     'refToBoard'?: string;
+    'refToDocs'?: string;
     'queryExample'?: string;
     'ownerId'?: number | null;
     'analystId'?: number | null;

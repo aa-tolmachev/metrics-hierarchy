@@ -5,10 +5,7 @@ import { Paginator } from "primereact/paginator";
 import { FC, useMemo, useState } from "react";
 
 import { useGetMetricGraphs } from "../../core/backend/hooks/metricGraphs/useGetMetricGraphs";
-import { useGetAttractionChannels } from "../../core/backend/hooks/metrics/dictionaries/useGetAttractionChannels";
-import { useGetDomains } from "../../core/backend/hooks/metrics/dictionaries/useGetDomains";
 import { useGetLevels } from "../../core/backend/hooks/metrics/dictionaries/useGetLevels";
-import { useGetPlatforms } from "../../core/backend/hooks/metrics/dictionaries/useGetPlatforms";
 import { useGetProducts } from "../../core/backend/hooks/metrics/dictionaries/useGetProducts";
 import { useGetTypes } from "../../core/backend/hooks/metrics/dictionaries/useGetTypes";
 import { useGetUsers } from "../../core/backend/hooks/metrics/dictionaries/useGetUsers";
@@ -20,13 +17,10 @@ import { MetricDashboardTemplate } from "./components/MetricDashboardTemplate";
 import { MetricDeleteTemplate } from "./components/MetricDeleteTemplate";
 import { MetricDescriptionTemplate } from "./components/MetricDescriptionTemplate";
 import { MetricEditTemplate } from "./components/MetricEditTemplate";
-import { getMetricFilterAttractionChannel } from "./components/MetricFilterAttractionChannel";
-import { getMetricFilterDomain } from "./components/MetricFilterDomain";
 import { getMetricFilterGraphs } from "./components/MetricFilterGraphs";
 import { getMetricFilterInput } from "./components/MetricFilterInput";
 import { getMetricFilterLevel } from "./components/MetricFilterLevel";
 import { getMetricFilterOwner } from "./components/MetricFilterOwner";
-import { getMetricFilterPlatform } from "./components/MetricFilterPlatform";
 import { getMetricFilterProduct } from "./components/MetricFilterProduct";
 import { getMetricFilterType } from "./components/MetricFilterType";
 import { QueryExampleTemplate } from "./components/QueryExampleTemplate";
@@ -63,17 +57,15 @@ export const MetricsTable: FC<MetricsTableProps> = ({
 
 	const { data: owners } = useGetUsers("Owner");
 	const { data: types } = useGetTypes();
-	const { data: domains } = useGetDomains();
 	const { data: graphs } = useGetMetricGraphs();
 	const { data: products } = useGetProducts();
-	const { data: platforms } = useGetPlatforms();
-	const { data: attractionChannels } = useGetAttractionChannels();
 	const { data: levels } = useGetLevels();
 
 	return (
 		<>
 			<DataTable
 				value={metricData}
+				className={styles.table}
 				filterDisplay="row"
 				onFilter={() => undefined}
 			>
@@ -88,17 +80,6 @@ export const MetricsTable: FC<MetricsTableProps> = ({
 					body={MetricEditTemplate}
 				/>
 				<Column field="status" header="Статус метрики" />
-				<Column
-					field="domain"
-					header="Домен"
-					filter
-					className={styles.filterHeader}
-					filterElement={getMetricFilterDomain(
-						filters.domain,
-						domains,
-						setFilters,
-					)}
-				/>
 				<Column
 					field="product"
 					header="Продукт/Вертикаль"
@@ -151,8 +132,6 @@ export const MetricsTable: FC<MetricsTableProps> = ({
 					header="Описание"
 					body={MetricDescriptionTemplate}
 				/>
-				<Column field="dimensions" header="Измерения" />
-				<Column field="granularities" header="Гранулярность" />
 				<Column
 					field="owner"
 					header="Владелец метрики"
@@ -184,6 +163,7 @@ export const MetricsTable: FC<MetricsTableProps> = ({
 				<Column
 					field="queryExample"
 					header="Пример запроса для расчета метрики"
+					className={styles.queryHeader}
 					body={QueryExampleTemplate}
 				/>
 				<Column
@@ -219,28 +199,6 @@ export const MetricsTable: FC<MetricsTableProps> = ({
 							rank: value,
 						}));
 					})}
-				/>
-				<Column
-					field="platform"
-					header="Платформа"
-					filter
-					className={styles.filterHeader}
-					filterElement={getMetricFilterPlatform(
-						filters.platform,
-						platforms,
-						setFilters,
-					)}
-				/>
-				<Column
-					field="attractionChannel"
-					header="Канал привлечения"
-					filter
-					className={styles.filterHeader}
-					filterElement={getMetricFilterAttractionChannel(
-						filters.attractionChannel,
-						attractionChannels,
-						setFilters,
-					)}
 				/>
 			</DataTable>
 			<Paginator

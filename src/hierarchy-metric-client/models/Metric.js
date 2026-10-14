@@ -130,6 +130,12 @@ var Metric = (function () {
             "format": "url"
         },
         {
+            "name": "refToDocs",
+            "baseName": "refToDocs",
+            "type": "string",
+            "format": "url"
+        },
+        {
             "name": "queryExample",
             "baseName": "queryExample",
             "type": "string",
