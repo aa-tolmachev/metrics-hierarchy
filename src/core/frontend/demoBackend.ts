@@ -4,9 +4,21 @@ export const DEMO_BACKEND_ORIGIN = "https://demo-backend.metrics-hierarchy";
 
 const DB_STORAGE_KEY = "metrics-hierarchy:demo-db";
 const STORAGE_PREFIX = "metrics-hierarchy:";
+const SEED_VERSION_KEY = "metrics-hierarchy:demo-seed-version";
+// Увеличьте при изменении mock-backend/seed.js, чтобы сбросить сохранённые у посетителей данные
+const SEED_VERSION = "2";
+
+const clearDemoStorage = () =>
+	Object.keys(localStorage)
+		.filter((key) => key.startsWith(STORAGE_PREFIX))
+		.forEach((key) => localStorage.removeItem(key));
 
 const loadDb = (): MockDb => {
 	try {
+		if (localStorage.getItem(SEED_VERSION_KEY) !== SEED_VERSION) {
+			clearDemoStorage();
+			localStorage.setItem(SEED_VERSION_KEY, SEED_VERSION);
+		}
 		const saved = localStorage.getItem(DB_STORAGE_KEY);
 		if (saved) return JSON.parse(saved);
 	} catch {
@@ -55,8 +67,6 @@ export const installDemoBackend = () => {
 };
 
 export const resetDemoData = () => {
-	Object.keys(localStorage)
-		.filter((key) => key.startsWith(STORAGE_PREFIX))
-		.forEach((key) => localStorage.removeItem(key));
+	clearDemoStorage();
 	window.location.reload();
 };
