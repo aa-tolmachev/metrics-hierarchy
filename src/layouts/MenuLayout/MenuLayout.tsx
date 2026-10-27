@@ -1,7 +1,7 @@
 import cx from "classnames";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
 import { useAppDispatch } from "../../store/hooks/useAppDispatch";
 import { useAppSelector } from "../../store/hooks/useAppSelector";
@@ -9,6 +9,9 @@ import {
 	closeGlobalMenu,
 	openGlobalMenu,
 } from "../../store/reducer/globalMenuReducer";
+import { setSettings } from "../../store/reducer/settingsReducer";
+import { loadSettings } from "../../utils/settingsStorage";
+import { SettingsDialog } from "../../widgets/SettingsDialog/SettingsDialog";
 import { LayoutProps } from "../types";
 import { useGetMenuItems } from "./hooks/useGetMenuItems";
 
@@ -22,7 +25,14 @@ export const MenuLayout: FC<MenuLayoutProps> = ({ children }) => {
 		dispatch(closeGlobalMenu());
 	}, [dispatch]);
 
-	const menuItems = useGetMenuItems(onClose);
+	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+	const onOpenSettings = useCallback(() => setIsSettingsOpen(true), []);
+
+	useEffect(() => {
+		dispatch(setSettings(loadSettings()));
+	}, [dispatch]);
+
+	const menuItems = useGetMenuItems(onClose, onOpenSettings);
 
 	return (
 		<>
@@ -48,6 +58,10 @@ export const MenuLayout: FC<MenuLayoutProps> = ({ children }) => {
 				)}
 			</aside>
 			<main>{children}</main>
+			<SettingsDialog
+				visible={isSettingsOpen}
+				onHide={() => setIsSettingsOpen(false)}
+			/>
 		</>
 	);
 };

@@ -4,6 +4,7 @@ import { Data, Edge, Node as VisNode } from "vis";
 
 import { useGetMetricGraph } from "../../../../../core/backend/hooks/metricGraphs/useGetMetricGraph";
 import { Graph } from "../../../../../hierarchy-metric-client";
+import { useAppSelector } from "../../../../../store/hooks/useAppSelector";
 import { loadGraphPositions } from "../../../../../utils/graphPositionsStorage";
 import { mapNode } from "./utils/mapNode";
 import { mapNodeToEdges } from "./utils/mapNodeToEdges";
@@ -19,6 +20,7 @@ export const useGetMetricGraphData = (
 	id: string | undefined,
 ): MetricGraphData => {
 	const { data: rawData, loading, reload, error } = useGetMetricGraph(id);
+	const settings = useAppSelector((state) => state.settings);
 
 	const router = useRouter();
 	useUpdateEffect(() => {
@@ -39,7 +41,7 @@ export const useGetMetricGraphData = (
 		graphEdges = [];
 	} else {
 		const savedPositions = rawData.id ? loadGraphPositions(rawData.id) : {};
-		graphNodes = nodes.map(mapNode(savedPositions));
+		graphNodes = nodes.map(mapNode(savedPositions, settings));
 		graphEdges = nodes.flatMap(mapNodeToEdges);
 	}
 

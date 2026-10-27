@@ -1,20 +1,26 @@
 import { MetricShort } from "../../../../../../../../hierarchy-metric-client";
+import { SettingsState } from "../../../../../../../../store/types";
+import { getDynamicsHighlight } from "../../../../../../../../utils/settingsStorage";
 import { getDomainFlag } from "./getDomainFlag";
 import { getMetricInfo } from "./getMetricInfo";
 import { getOwner } from "./getOwner";
 import { getStatus } from "./getStatus";
-import { CONTAINER, EXPAND_ICON } from "./images";
+import { EXPAND_ICON, getContainer } from "./images";
 import { STYLES } from "./styles";
 
-export const getNodeImage = (metric: MetricShort | undefined) => {
+export const getNodeImage = (
+	metric: MetricShort | undefined,
+	settings: SettingsState,
+) => {
 	if (!metric) return undefined;
+	const highlight = getDynamicsHighlight(metric.dynamics, settings);
 
 	return (
 		"data:image/svg+xml;charset=utf-8, " +
 		encodeURIComponent(
 			`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200">
 				${STYLES}
-				${CONTAINER}
+				${getContainer(highlight)}
 				${getDomainFlag(metric)}
 				<foreignObject x="8" y="0" width="392" height="200">
 					<div class="card" xmlns="http://www.w3.org/1999/xhtml">

@@ -1,0 +1,38 @@
+.dialog {
+	width: min(32rem, calc(100vw - 2rem));
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+	padding: 1rem 0;
+
+	& + & {
+		border-top: 1px solid #e5e7eb;
+	}
+}
+
+.label {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	font-weight: 600;
+}
+
+.hint {
+	font-size: 0.85rem;
+	font-weight: 400;
+	color: #6b7280;
+}
+
+.thresholdInput {
+	width: 6rem;
+}
+
+.footnote {
+	margin: 0.5rem 0 0;
+	font-size: 0.85rem;
+	color: #6b7280;
+}

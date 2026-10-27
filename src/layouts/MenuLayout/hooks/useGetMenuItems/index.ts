@@ -7,7 +7,10 @@ import { resetDemoData } from "../../../../core/frontend/demoBackend";
 import { getCloseItemRenderer } from "./closeItemRenderer";
 import { fullItemRenderer } from "./fullItemRenderer";
 
-export const useGetMenuItems = (onClose: VoidFunction) => {
+export const useGetMenuItems = (
+	onClose: VoidFunction,
+	onOpenSettings: VoidFunction,
+) => {
 	const { push, prefetch } = useRouter();
 
 	useEffect(() => {
@@ -30,6 +33,11 @@ export const useGetMenuItems = (onClose: VoidFunction) => {
 			label: "Список графов",
 			icon: "pi pi-list",
 			command: () => push("/graphs"),
+		},
+		{
+			label: "Настройки",
+			icon: "pi pi-cog",
+			command: onOpenSettings,
 		},
 		...(isDemo
 			? [

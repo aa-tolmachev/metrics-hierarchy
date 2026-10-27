@@ -5,6 +5,7 @@ import { createRelationReducer } from "./reducer/createRelationReducer";
 import { fullMetricReducer } from "./reducer/fullMetricReducer";
 import { globalMenuReducer } from "./reducer/globalMenuReducer";
 import { metricGraphReducer } from "./reducer/metricGraphReducer";
+import { settingsReducer } from "./reducer/settingsReducer";
 
 export const store = configureStore({
 	reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
 		addMetricNodes: addMetricNodesReducer,
 		createRelation: createRelationReducer,
 		fullMetric: fullMetricReducer,
+		settings: settingsReducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({

@@ -27,3 +27,10 @@ export interface FullMetricState {
 	usedMetric?: Metric;
 	state?: PerformMetricAction;
 }
+
+export interface SettingsState {
+	/** Подсвечивать карточки метрик со значимой динамикой */
+	highlightDynamics: boolean;
+	/** Порог значимости изменения метрики, % */
+	dynamicsThreshold: number;
+}

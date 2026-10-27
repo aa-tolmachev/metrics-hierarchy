@@ -37,6 +37,7 @@ export const useMetricGraph = (onClick: (e: any) => void) => {
 		(state) => state.createRelation.typeConnection,
 	);
 	const graph = useAppSelector((state) => state.metricGraph.data);
+	const settings = useAppSelector((state) => state.settings);
 
 	useUpdateEffect(() => {
 		if (!graph || createdMetricNodes.length === 0) return;
@@ -83,7 +84,7 @@ export const useMetricGraph = (onClick: (e: any) => void) => {
 			addNode: (nodeData: any, callback: any) => {
 				if (typeConnection) return;
 				nodeData.shape = "image";
-				nodeData.image = getNodeImage(createdMetricNodes[0]);
+				nodeData.image = getNodeImage(createdMetricNodes[0], settings);
 				nodeData.label = "";
 				nodeData.metricId = createdMetricNodes[0].id;
 				callback(nodeData);
